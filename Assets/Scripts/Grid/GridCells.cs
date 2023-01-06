@@ -1,6 +1,5 @@
 
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -11,11 +10,11 @@ public class GridCells<T>  where T : Object
     private int _countRows;
     private Cell[,] _cells;
     private Vector3 _tab;
-    private int _countMines = 30;
+    private int _countMines = 10;
     private const float Scale = 0.5f;
     public ViewCell[] ViewCells { get; private set;  }  
-    
-    public GridCells(  int countColumns, int countRows, T prefabView, Transform parent )
+    public Cell[,] Cells => _cells;
+    public GridCells(  int countRows, int countColumns, T prefabView, Transform parent )
     {
         
         _countColumns = countColumns;
@@ -36,7 +35,7 @@ public class GridCells<T>  where T : Object
         int countMaxIteration = 10000;
         int countIteration = 0;
 
-        startPosition = Camera.main.ScreenToWorldPoint( new Vector3(0f,0f, 0f) );
+        startPosition = Camera.main.ScreenToWorldPoint( new Vector3(20f,50f, 0f) );
        
         for ( var i = 0; i < _countMines; i++)
         {
@@ -53,13 +52,11 @@ public class GridCells<T>  where T : Object
         }
 
         var indexMine = 0;
-
         CanvasScaler canvasScaler = parent.gameObject.GetComponent<CanvasScaler>();
         var referencePixelsPerUnit = canvasScaler.referencePixelsPerUnit;
-
         var scaleBrick = new Vector3(1 / referencePixelsPerUnit, 1 / referencePixelsPerUnit) * Scale;
-
         int indexCell = 0;
+
         for( var i = 0 ; i < _countRows ; i++ )
         for( var j = 0; j < _countColumns; j++ )
         {
@@ -74,9 +71,10 @@ public class GridCells<T>  where T : Object
             var _tabX = deltaX / 3f;  
             var _tabY = deltaY / 3f;
             
-            ViewCells[indexCell].transform.position = new Vector3( position.x + deltaX/2f + deltaX * (i + i*_tabX), position.y + deltaY * (j + j*_tabY), 0f);
+            ViewCells[indexCell].transform.position = new Vector3( position.x + deltaX/2f + deltaX * (i + i*_tabX), 
+                                                                   position.y + deltaY * (j + j*_tabY), 0f);
             _cells[i, j] = new Cell(ViewCells[indexCell], parent);
-            _cells[i,j].Init(arrayMines[indexMine++]);
+            _cells[i,j].Init(arrayMines[indexMine++], i, j);
             ViewCells[indexCell].CellInput(_cells[i,j]);
             indexCell++;
         }
@@ -86,15 +84,18 @@ public class GridCells<T>  where T : Object
 
     private void InitGrid()
     {
-        for( var i = 0 ; i < _countRows ; i++ )
+        for( var i = 0 ; i < _countRows; i++ )
         for( var j = 0; j < _countColumns; j++)
         {
-             if( _cells[i, j].Value != -1 && i > 0 && j > 0 && i < _cells.GetLength(0)-1 && j < _cells.GetLength(1)-1)
+             if( _cells[i, j].Value != -1 )
              {
                 for( int n = -1; n < 2 ; n++ )
                 for( int m = -1; m < 2; m++ )
                 {
-                   if ( _cells[i + n, j + m].Value == -1 )
+                   if ( i + n >= 0 && j + m >= 0 &&
+                        i + n <= _cells.GetLength(0)-1 &&
+                        j + m <= _cells.GetLength(1)-1 &&
+                        _cells[i + n, j + m].Value == -1 )
                    {
                      _cells[i,j].IncrementValue();
                    }

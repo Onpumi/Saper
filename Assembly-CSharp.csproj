@@ -56,7 +56,7 @@
      <Compile Include="Assets\Scripts\Grid\GridCells.cs" />
      <Compile Include="Assets\Scripts\View\ViewMine.cs" />
      <Compile Include="Assets\Scripts\View\ViewCell.cs" />
-     <Compile Include="Assets\Game.cs" />
+     <Compile Include="Assets\MainField.cs" />
      <Compile Include="Assets\Scripts\Cell\Cell.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Cell\ICell.cs" />
