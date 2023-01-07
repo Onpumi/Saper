@@ -9,6 +9,7 @@ public class Cell : ICell
     public int Value { get; private set; }
     public bool IsOpen { get; private set; }
     public bool IsInitMine { get; private set; }
+    public ViewCell ViewCell => _viewCell;
     
     public Cell( ViewCell viewCell, Transform parent )
     {
@@ -19,16 +20,22 @@ public class Cell : ICell
        IsInitMine = false;
     }
 
-    public void Init( int value, int indexI, int indexJ )
+    public void InitBrick(  int indexI, int indexJ )
+    {
+        Indexes[0] = indexI;
+        Indexes[1] = indexJ;
+        _viewCell.InstatiateBricks();
+    }
+
+    public void InitMine(int value, int indexI, int indexJ)
     {
         Value = value;
         Indexes[0] = indexI;
         Indexes[1] = indexJ;
         if (Value == -1)
         {
-           _viewCell.InstantiateMine( );
+            _viewCell.InstantiateMine();
         }
-        _viewCell.InstatiateBricks();
     }
 
     public void Open()
@@ -96,34 +103,12 @@ public class Cell : ICell
         }
     }
     
-    
-    
-
-    public void SetColor( Color color )
-    {
-        _viewCell.SetColor( color );
-    }
-
     public void IncrementValue()
     {
         Value++;
         _viewCell.SetTextNumbers( Value  );
     }
 
-
-    public void FindEmptyCellsAndOpen( Cell cell)
-    {
-        var i = cell.Indexes[0];
-        var j = cell.Indexes[1];
-        
-    }
-
-    private void OpenEmptyNearCells()
-    {
-        
-    }
-     
-    
     
     
 }

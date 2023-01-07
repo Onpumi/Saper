@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private float _startClickTime;
     private bool _isClick = false;
     private RaycastResult _raycastResult;
+    private bool _isFirstClick = true;
     
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -27,6 +28,15 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         {
             var gameObject = _raycastResult.gameObject;
             var viewCell = gameObject.transform.parent.GetComponent<ViewCell>();
+            if (viewCell == null) return;
+                
+            var grid = viewCell.transform.parent.GetComponent<MainField>().Grid;
+            if (grid.IsFirstClick)
+            {
+                grid.Init( gameObject );
+                grid.ConfirmFirstClick();
+            }
+
             if (viewCell == null) return;
             viewCell.Cell.Open();
         }
