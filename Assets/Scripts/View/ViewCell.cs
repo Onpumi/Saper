@@ -6,7 +6,10 @@ public class ViewCell : MonoBehaviour, IViewItem
     [SerializeField] private ViewMine _prefabViewMine;
     [SerializeField] private Sprite[] _spriteNumbers;
     [SerializeField] private ViewBrick _prefabViewBrick;
+    [SerializeField] private ViewFlag _prefabViewFlag;
+    [SerializeField] private ViewBoom _prefabViewBoom;
     private Vector3 _scale;
+    private ViewBrick _viewBrick;
     public Cell Cell { get; private set; }
     private void Awake()
     {
@@ -32,8 +35,21 @@ public class ViewCell : MonoBehaviour, IViewItem
 
       public void InstatiateBricks()
       {
-          var mine = Instantiate(_prefabViewBrick, transform);
-          mine.transform.localScale = Vector3.one;
+          _viewBrick = Instantiate(_prefabViewBrick, transform);
+          _viewBrick.transform.localScale = Vector3.one;
+      }
+
+      public void InstatiateFlags()
+      {
+          var flag = Instantiate(_prefabViewFlag, transform);
+          flag.transform.localScale = Vector3.one / 3f;
+          flag.transform.position = Camera.main.ScreenToWorldPoint( new Vector3(20f,50f, 0f) );
+      }
+
+      public void InstatiateBoom()
+      {
+          var boom = Instantiate(_prefabViewBoom, transform.parent);
+          boom.transform.localScale = Vector3.one * 5f;
       }
 
       public void CellInput( Cell cell )
@@ -45,7 +61,4 @@ public class ViewCell : MonoBehaviour, IViewItem
       {
           
       }
-
-      
-      
 }

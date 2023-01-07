@@ -68,8 +68,8 @@ public class GridCells<T>  where T : Object
             var position = startPosition;
             var deltaX = scaleBrick.x * widthSprite;
             var deltaY = scaleBrick.y * heightSprite;
-            var _tabX = deltaX / 3f;  
-            var _tabY = deltaY / 3f;
+            var _tabX = deltaX / 15f;  
+            var _tabY = deltaY / 15f;
             
             ViewCells[indexCell].transform.position = new Vector3( position.x + deltaX/2f + deltaX * (i + i*_tabX), 
                                                                    position.y + deltaY * (j + j*_tabY), 0f);

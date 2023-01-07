@@ -39,14 +39,29 @@ public class Cell : ICell
         viewBrick.transform.gameObject.SetActive(false);
         var parentCanvas = _viewCell.transform.parent;
         var cells = parentCanvas.GetComponent<MainField>().Grid.Cells;
+        var flag = _viewCell.transform.GetComponent<ViewFlag>();
+        if( flag != null  )
+            flag.transform.gameObject.SetActive(false);
 
-        if (_viewCell.Cell.Value == 0)
+        if ( _viewCell.Cell.Value == 0 )
         {
             var index1 = _viewCell.Cell.Indexes[0];
             var index2 = _viewCell.Cell.Indexes[1];
             FindNeighbourEmptyCellsAndOpen(cells, index1, index2);
         }
         
+        else if (_viewCell.Cell.Value == -1)
+        {
+            _viewCell.InstatiateBoom();
+            var input = _viewCell.transform.gameObject.GetComponent<InputHandler>();
+        }
+        
+    }
+
+    public void SetFlag()
+    {
+        if (IsOpen == true) return;
+        _viewCell.InstatiateFlags();   
     }
 
     

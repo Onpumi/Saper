@@ -62,6 +62,8 @@
      <Compile Include="Assets\Scripts\Cell\ICell.cs" />
      <Compile Include="Assets\Scripts\Square.cs" />
      <Compile Include="Assets\Scripts\View\ViewBrick.cs" />
+     <Compile Include="Assets\Scripts\View\ViewBoom.cs" />
+     <Compile Include="Assets\Scripts\View\ViewFlag.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
