@@ -10,6 +10,7 @@ public class ViewCell : MonoBehaviour, IViewItem
     [SerializeField] private ViewBoom _prefabViewBoom;
     private Vector3 _scale;
     private ViewBrick _viewBrick;
+    private ViewFlag _viewFlag;
     public Cell Cell { get; private set; }
     
     private void Awake()
@@ -37,10 +38,17 @@ public class ViewCell : MonoBehaviour, IViewItem
           _viewBrick.transform.localScale = Vector3.one;
       }
 
-      public void InstatiateFlags()
+      public void InitFlag()
       {
-          var flag = Instantiate(_prefabViewFlag, transform);
-          flag.transform.localScale = Vector3.one / 3f;
+          if (_viewFlag is null)
+          {
+              _viewFlag = Instantiate(_prefabViewFlag, transform);
+          }
+          else
+          {
+              _viewFlag.transform.gameObject.SetActive(!_viewFlag.Value);
+          }
+          _viewFlag.transform.localScale = Vector3.one / 3f;
       }
 
       public void InstatiateBoom()

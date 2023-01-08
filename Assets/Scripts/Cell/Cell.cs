@@ -38,18 +38,21 @@ public class Cell : ICell
         }
     }
 
-    public void Open()
+    public bool TryOpen()
     {
-        if (IsOpen == true) return;
+        var flag = _viewCell.transform.GetComponentInChildren<ViewFlag>();
+        if ( flag != null && flag.transform.gameObject.activeSelf )
+        {
+            flag.transform.gameObject.SetActive(false);
+        }
+
+        if (IsOpen == true) return true;
         IsOpen = true;
         var viewBrick = _viewCell.transform.GetComponentInChildren<ViewBrick>();
         viewBrick.transform.gameObject.SetActive(false);
         var parentCanvas = _viewCell.transform.parent;
         var cells = parentCanvas.GetComponent<MainField>().Grid.Cells;
-        var flag = _viewCell.transform.GetComponent<ViewFlag>();
-        if( flag != null  )
-            flag.transform.gameObject.SetActive(false);
-
+        
         if ( _viewCell.Cell.Value == 0 )
         {
             var index1 = _viewCell.Cell.Indexes[0];
@@ -60,15 +63,31 @@ public class Cell : ICell
         else if (_viewCell.Cell.Value == -1)
         {
             _viewCell.InstatiateBoom();
-            var input = _viewCell.transform.gameObject.GetComponent<InputHandler>();
+            _viewCell.transform.parent.GetComponent<MainField>().enabled = false;
+            return false;
         }
-        
+
+      
+
+        return true;
+    }
+
+    public void Open()
+    {
+        var viewFlag = _viewCell.transform.GetComponentInChildren<ViewFlag>();
+        if( viewFlag != null )
+            viewFlag.transform.gameObject.SetActive(false);
+
+        if (IsOpen == true) return;
+        IsOpen = true;
+        var viewBrick = _viewCell.transform.GetComponentInChildren<ViewBrick>();
+        viewBrick.transform.gameObject.SetActive(false);
     }
 
     public void SetFlag()
     {
         if (IsOpen == true) return;
-        _viewCell.InstatiateFlags();   
+        _viewCell.InitFlag();   
     }
 
     
@@ -82,7 +101,7 @@ public class Cell : ICell
                          index2 + m <= cells.GetLength(1)-1 &&
                          cells[index1 + n, index2 + m].Value == 0 )
                     {
-                        cells[index1 + n, index2 + m].Open();
+                        cells[index1 + n, index2 + m].TryOpen();
                         FindNeighbourWithoutMineCellsAndOpen(cells, index1 + n, index2 + m);
                     }
                 }
@@ -98,7 +117,7 @@ public class Cell : ICell
                  index2 + m <= cells.GetLength(1)-1 &&
                  cells[index1 + n, index2 + m].Value != -1 )
             {
-                cells[index1 + n, index2 + m].Open();
+                cells[index1 + n, index2 + m].TryOpen();
             }
         }
     }

@@ -8,31 +8,44 @@ public class GridCells<T>  where T : Object
 {
     private readonly T _prefabView;
     private Transform _parent;
-    private readonly int _countColumns;
-    private readonly int _countRows;
+    private int _countColumns;
+    private int _countRows;
     private readonly Cell[,] _cells;
-    private readonly int _countMines = 3;
+    private readonly int _countMines = 40;
     private int[] _arrayMines;
     private int[] _firstIndexes;
     private const float Scale = 0.5f;
     private ViewBrick _childBrick;
+    private Vector3 _scaleBrick;
+    private float _widthSprite;
+    private float _heightSprite;
+    private Vector3 _startPosition;
     public bool IsFirstClick { get; private set; }
     public ViewCell[] ViewCells { get; private set;  }  
     public Cell[,] Cells => _cells;
-    public GridCells(  int countRows, int countColumns, T prefabView, Transform parent )
+
+    public GridCells(int countRows, int countColumns, T prefabView, Transform parent)
     {
         _countColumns = countColumns;
         _countRows = countRows;
         _prefabView = prefabView;
         _parent = parent;
         IsFirstClick = true;
-        
+        _startPosition = Camera.main.ScreenToWorldPoint(Vector3.zero);
+        _startPosition.x += Scale / 2f ;
+        _startPosition.y += Scale / 2f;
+        var delta = Scale / 15f;
+        var ortographicSize = Camera.main.orthographicSize;
+        _countColumns = (int)Mathf.Round(ortographicSize / (Scale / 2f + Scale / 8f + delta));
+        _countRows = (int)Mathf.Round((ortographicSize + ortographicSize * 0.9f * ( (Screen.height ) / Screen.width)) / (Scale / 2f + Scale / 8f + delta)) - 1;
+   
+
         if ( countColumns <= 0 || countRows <= 0 )
         {
             throw new ArgumentException("value count columns or count rows is not correct!");
         }
-
-        _cells = new Cell[_countRows, _countColumns];
+        
+        _cells = new Cell[_countColumns, _countRows];
         ViewCells = new ViewCell[_countRows * _countColumns];
         _firstIndexes = new int[2] { -1, -1 };
         InitBlocks();
@@ -54,8 +67,8 @@ public class GridCells<T>  where T : Object
     private void InitBricks()
     {
         int indexCell = 0;
-        for( var i = 0 ; i < _countRows ; i++ )
-        for( var j = 0; j < _countColumns; j++ )
+        for( var i = 0 ; i < _countColumns ; i++ )
+        for( var j = 0; j < _countRows; j++ )
         {
            _cells[i,j].InitBrick(i, j);
             ViewCells[indexCell].CellInput(_cells[i,j]);
@@ -69,24 +82,35 @@ public class GridCells<T>  where T : Object
         int indexMine = 0;
         int indexCell = 0;
         
-        for( var i = 0 ; i < _countRows ; i++ )
-        for( var j = 0; j < _countColumns; j++ )
+        for( var i = 0 ; i < _countColumns ; i++ )
+        for( var j = 0; j < _countRows; j++ )
         {
             int valueCell;
             valueCell =    _arrayMines[indexMine++];
-            if (i != _firstIndexes[0] && j != _firstIndexes[1])
-            {
-                _cells[i, j].InitMine(valueCell, i, j);
-            }
-            else if(i == _firstIndexes[0] && j == _firstIndexes[1])
-            {
-                //Debug.Log($"если нажали эту то мину не ставим {_firstIndexes[0]} {_firstIndexes[1]}");
-            }
+                    if ( 
+                            i != _firstIndexes[0] && j != _firstIndexes[1] &&
+                            i != _firstIndexes[0]-1 && j != _firstIndexes[1] &&
+                            i != _firstIndexes[0]+1 && j != _firstIndexes[1] &&
+                            i != _firstIndexes[0]+1 && j != _firstIndexes[1]-1 &&
+                            i != _firstIndexes[0]+1 && j != _firstIndexes[1]+1 &&
+                            i != _firstIndexes[0] && j != _firstIndexes[1]+1 &&
+                            i != _firstIndexes[0] && j != _firstIndexes[1]-1 &&
+                            i != _firstIndexes[0]-1 && j != _firstIndexes[1]+1
+                        )
+                    {
+                        _cells[i, j].InitMine(valueCell, i, j);
+                    }
+
             ViewCells[indexCell].CellInput(_cells[i,j]);
             indexCell++;
         }
     }
 
+
+    
+    
+    
+    
 
     private void FindFirstIndexesOnClick( GameObject firstGameObject )
     {
@@ -118,38 +142,30 @@ public class GridCells<T>  where T : Object
 
     private void InitBlocks()
     {
-        var startPosition = Camera.main.ScreenToWorldPoint( new Vector3(20f,50f, 0f) );
-        CanvasScaler canvasScaler = _parent.gameObject.GetComponent<CanvasScaler>();
-        var referencePixelsPerUnit = canvasScaler.referencePixelsPerUnit;
-        var scaleBrick = new Vector3(1 / referencePixelsPerUnit, 1 / referencePixelsPerUnit) * Scale;
-        int indexCell = 0;
         
-        for( var i = 0 ; i < _countRows ; i++ )
-        for (var j = 0; j < _countColumns; j++)
+
+        int indexCell = 0;
+        var delta = Scale / 15f;
+        float sizeWidth = 0;
+        for( var i = 0 ; i < _countColumns ; i++ )
+        for (var j = 0; j < _countRows; j++)
         {
-              ViewCells[indexCell] = Object.Instantiate(_prefabView, startPosition, Quaternion.identity) as ViewCell;
-              ViewCells[indexCell].transform.localScale = scaleBrick;
-              ViewCells[indexCell].transform.SetParent( _parent );
-              var widthSprite = ViewCells[indexCell].GetComponent<Image>().sprite.rect.width;
-              var heightSprite = ViewCells[indexCell].GetComponent<Image>().sprite.rect.height;
-              var position = startPosition;
-              var deltaX = scaleBrick.x * widthSprite;
-              var deltaY = scaleBrick.y * heightSprite;
-              var _tabX = deltaX / 15f;  
-              var _tabY = deltaY / 15f;
-            
-            ViewCells[indexCell].transform.position = new Vector3( position.x + deltaX/2f + deltaX * (i + i*_tabX), 
-                                                                 position.y + deltaY * (j + j*_tabY), 0f);
+              ViewCells[indexCell] = Object.Instantiate(_prefabView, _parent ) as ViewCell;
+              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale);
+              
+              var positionX = _startPosition.x + (Scale/2f + Scale/8f + delta) * (float)i   ;
+              var positionY = _startPosition.y + (Scale/2f + Scale/8f + delta) * (float)j   ;
+
+            ViewCells[indexCell].transform.position = new Vector3(positionX, positionY, 0);
             _cells[i, j] = new Cell(ViewCells[indexCell], _parent);
             indexCell++;
         }
-        
     }
     
     private void InitGrid()
     {
-        for( var i = 0 ; i < _countRows; i++ )
-        for( var j = 0; j < _countColumns; j++)
+        for( var i = 0 ; i < _countColumns; i++ )
+        for( var j = 0; j < _countRows; j++)
         {
              if( _cells[i, j].Value != -1 )
              {

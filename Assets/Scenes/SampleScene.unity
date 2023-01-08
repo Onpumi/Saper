@@ -385,4 +385,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefabView: {fileID: 8810420558800810911, guid: 34608a66a27607d43b837fb09ae3fa85, type: 3}
-  _prefabViewMine: {fileID: 9005108687923012427, guid: f085fd33314a7eb419849b8cc0d558fc, type: 3}

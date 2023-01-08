@@ -9,9 +9,17 @@ public class MainField : MonoBehaviour
     
     private void Awake()
     {
-      // _grid = new GridCells<ViewCell>( 8,13, _prefabView, transform );
-      _grid = new GridCells<ViewCell>( 5,5, _prefabView, transform );
+       _grid = new GridCells<ViewCell>( 8,13, _prefabView, transform );
        _cells = _grid.GetCells();
+       InitScreen(); 
     }
 
+    private void InitScreen()
+    {
+        Screen.orientation = ScreenOrientation.Portrait;
+        Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+        Screen.autorotateToLandscapeLeft = false;
+        Screen.autorotateToLandscapeRight = false;
+        Screen.autorotateToPortraitUpsideDown = false;
+    }
 }

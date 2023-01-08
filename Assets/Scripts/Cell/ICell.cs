@@ -2,5 +2,5 @@
 public interface ICell
 {
     public int Value { get; }
-    public void Open();
+    public bool TryOpen();
 }

@@ -38,21 +38,32 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             }
 
             if (viewCell == null) return;
-            viewCell.Cell.Open();
+                 if (viewCell.Cell.TryOpen() == false)
+                 {
+                     foreach (var cell in grid.Cells)
+                     {
+                         cell.Open();       
+                     }
+                 }
+                 
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime )
+        if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime )
         {
-
                 var gameObj = _raycastResult.gameObject;
                 if( gameObj == null ) return;
                 var viewCell = gameObj.transform.parent.GetComponent<ViewCell>();
                 if (viewCell == null) return;
                 viewCell.Cell.SetFlag();
                 _isClick = false;
+        }
+
+        if (Input.GetAxis("Cancel") > 0)
+        {
+            Application.Quit();
         }
     }
 }
