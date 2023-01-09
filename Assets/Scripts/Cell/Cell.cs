@@ -8,6 +8,7 @@ public class Cell : ICell
     public int[] Indexes { get; private set; } 
     public int Value { get; private set; }
     public bool IsOpen { get; private set; }
+    public bool IsFlaged { get; private set;  }
     public bool IsInitMine { get; private set; }
     public ViewCell ViewCell => _viewCell;
     
@@ -18,6 +19,7 @@ public class Cell : ICell
         IsOpen = false;
        Indexes = new int[2];
        IsInitMine = false;
+       IsFlaged = false;
     }
 
     public void InitBrick(  int indexI, int indexJ )
@@ -40,13 +42,16 @@ public class Cell : ICell
 
     public bool TryOpen()
     {
-        var flag = _viewCell.transform.GetComponentInChildren<ViewFlag>();
-        if ( flag != null && flag.transform.gameObject.activeSelf )
-        {
-            flag.transform.gameObject.SetActive(false);
-        }
+        if (IsOpen == true || IsFlaged ) return true;
+        
+        //var flag = _viewCell.transform.GetComponentInChildren<ViewFlag>();
+        //if ( flag != null && flag.transform.gameObject.activeSelf )
+        //{
+//            flag.transform.gameObject.SetActive(false);
+  //      }
 
-        if (IsOpen == true) return true;
+        
+        
         IsOpen = true;
         var viewBrick = _viewCell.transform.GetComponentInChildren<ViewBrick>();
         viewBrick.transform.gameObject.SetActive(false);
@@ -87,7 +92,7 @@ public class Cell : ICell
     public void SetFlag()
     {
         if (IsOpen == true) return;
-        _viewCell.InitFlag();   
+        IsFlaged = _viewCell.InitFlag();   
     }
 
     

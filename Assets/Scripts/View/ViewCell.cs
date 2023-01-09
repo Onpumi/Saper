@@ -42,7 +42,7 @@ public class ViewCell : MonoBehaviour, IViewItem
           _viewBrick.transform.localScale = Vector3.one;
       }
 
-      public void InitFlag()
+      public bool InitFlag()
       {
           if (_viewFlag is null)
           {
@@ -53,6 +53,7 @@ public class ViewCell : MonoBehaviour, IViewItem
               _viewFlag.transform.gameObject.SetActive(!_viewFlag.Value);
           }
           _viewFlag.transform.localScale = Vector3.one / 3f;
+          return _viewFlag.Value;
       }
 
       public void InstatiateBoom()

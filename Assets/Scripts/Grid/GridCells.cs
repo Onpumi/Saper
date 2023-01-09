@@ -8,19 +8,17 @@ using Object = UnityEngine.Object;
 public class GridCells<T>  where T : Object
 {
     private readonly T _prefabView;
-    private Transform _parent;
-    private int _countColumns;
-    private int _countRows;
+    private readonly Transform _parent;
+    private readonly int _countColumns;
+    private readonly int _countRows;
     private readonly Cell[,] _cells;
-    private readonly int _countMines = 40;
+    private readonly int _countMines;
     private int[] _arrayMines;
-    private int[] _firstIndexes;
-    private const float Scale = 1f;
-    private ViewBrick _childBrick;
-    private Vector3 _scaleBrick;
-    private float _widthSprite;
-    private float _heightSprite;
-    private Vector3 _startPosition;
+    private readonly int[] _firstIndexes;
+    private const float Scale = 0.5f;
+    private readonly float _widthSprite;
+    private readonly float _heightSprite;
+    private readonly Vector2 _resolutionCanvas;
     public bool IsFirstClick { get; private set; }
     public ViewCell[] ViewCells { get; private set;  }  
     public Cell[,] Cells => _cells;
@@ -32,44 +30,28 @@ public class GridCells<T>  where T : Object
         _prefabView = prefabView;
         _parent = parent;
         IsFirstClick = true;
-
         CanvasScaler canvasScaler = parent.GetComponent<CanvasScaler>();
-
+        _resolutionCanvas = canvasScaler.referenceResolution;
         var vieCell = _prefabView as ViewCell;
         var sprite = vieCell.GetComponent<Image>().sprite;
-        _widthSprite = sprite.rect.width;
-        _heightSprite = sprite.rect.height;
-     
-        var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
-        
-        var delta = Scale / 15f;
+        _widthSprite = sprite.rect.width * Scale;
+        _heightSprite = sprite.rect.height * Scale;
+         var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
+         var scaleHeightGrid = 0.8f;
+         var widthPerUnitX = _resolutionCanvas.x / (refPixelsPerUnit * Scale);
+         var widthPerUnitY = _resolutionCanvas.y / (refPixelsPerUnit * Scale) * scaleHeightGrid;
+        _countColumns = Mathf.RoundToInt( widthPerUnitX );
+        if (_countColumns > widthPerUnitX) _countColumns--;
+        _countRows = Mathf.RoundToInt(widthPerUnitY);
 
-        
-        
-       var ratio = (float)Screen.height / (float)Screen.width;
-
-       
-       
-
-        _countColumns = Mathf.RoundToInt(canvasScaler.referenceResolution.x / (refPixelsPerUnit * Scale));
-        
-
-        _countRows = Mathf.RoundToInt( ( canvasScaler.referenceResolution.y * 0.8f ) / (refPixelsPerUnit * Scale));
-
-
+        var percentMine = 10;
+        _countMines = _countColumns * _countRows * percentMine / 100;
         
         if ( countColumns <= 0 || countRows <= 0 )
         {
             throw new ArgumentException("value count columns or count rows is not correct!");
         }
 
-       // var widthCanvas = canvasScaler.referenceResolution.x / _widthSprite;
-        
-        
-
-        //var tabLeft = Screen.width * 0.01f;
-
-        
         _cells = new Cell[_countColumns, _countRows];
         ViewCells = new ViewCell[_countRows * _countColumns];
         _firstIndexes = new int[2] { -1, -1 };
@@ -131,12 +113,6 @@ public class GridCells<T>  where T : Object
         }
     }
 
-
-    
-    
-    
-    
-
     private void FindFirstIndexesOnClick( GameObject firstGameObject )
     {
         _firstIndexes[0] = firstGameObject.transform.parent.GetComponent<ViewCell>().Cell.Indexes[0];
@@ -170,9 +146,7 @@ public class GridCells<T>  where T : Object
         
 
         int indexCell = 0;
-        var delta = Scale / 15f;
-        //delta = (float)Screen.width * 0.00001f;
-        delta = 0;
+        var delta = 0;
 
         var camera = Camera.main;
 
@@ -180,30 +154,30 @@ public class GridCells<T>  where T : Object
         {
             throw new NullReferenceException("Camera is null");
         }
-        
 
+        var _tabLeftForSprite = (_resolutionCanvas.x - (float)_countColumns * _widthSprite) / 2f;
+        var _tabTopForSprite = _resolutionCanvas.y * 0.01f;
 
-        var positionStart = camera.ScreenToWorldPoint(new Vector3(_widthSprite/2f, _heightSprite/2f) );
+        var positionStart = camera.ScreenToWorldPoint(new Vector3(_tabLeftForSprite + _widthSprite/2f, 
+                                                                              _tabTopForSprite + _heightSprite/2f) );
+
         
         for( var i = 0 ; i < _countColumns ; i++ )
         for (var j = 0; j < _countRows; j++)
         {
               ViewCells[indexCell] = Object.Instantiate(_prefabView, _parent ) as ViewCell;
 
-              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale);
-              var currentPosition = positionStart * Scale;
+              var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
               var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
               currentPositionScreen.x += _widthSprite * (float)i ;
               currentPositionScreen.y += _heightSprite * (float)j;
               var deltaPosition = camera.ScreenToWorldPoint(currentPositionScreen);
-              var positionX = deltaPosition.x * Scale;
-              var positionY = deltaPosition.y * Scale;
-              
-              ViewCells[indexCell].transform.position = new Vector3(positionX, positionY, 50);
-              
+              ViewCells[indexCell].transform.position = deltaPosition;
+              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale, 0);        
              _cells[i, j] = new Cell(ViewCells[indexCell], _parent);
              indexCell++;
         }
+        
     }
     
     private void InitGrid()
