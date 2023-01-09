@@ -12,13 +12,14 @@ public class ViewCell : MonoBehaviour, IViewItem
     private ViewBrick _viewBrick;
     private ViewFlag _viewFlag;
     public Cell Cell { get; private set; }
-    
+
     private void Awake()
     {
         _scale = Vector3.one / 1.5f;
+
     }
 
-      public void InstantiateMine()
+    public void InstantiateMine()
       {
           var mine = Instantiate(_prefabViewMine, transform);
           mine.transform.localScale = _scale;
@@ -29,7 +30,10 @@ public class ViewCell : MonoBehaviour, IViewItem
       public void SetTextNumbers( int value )
       {
           if (value >= 1 && value <= 8)
-              GetComponent<Image>().sprite = _spriteNumbers[value - 1];
+          {
+              var image = GetComponent<Image>();
+              image.sprite = _spriteNumbers[value - 1];
+          }
       }
 
       public void InstatiateBricks()

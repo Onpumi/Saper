@@ -1,5 +1,6 @@
 
 using System;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -14,7 +15,7 @@ public class GridCells<T>  where T : Object
     private readonly int _countMines = 40;
     private int[] _arrayMines;
     private int[] _firstIndexes;
-    private const float Scale = 0.5f;
+    private const float Scale = 1f;
     private ViewBrick _childBrick;
     private Vector3 _scaleBrick;
     private float _widthSprite;
@@ -31,19 +32,43 @@ public class GridCells<T>  where T : Object
         _prefabView = prefabView;
         _parent = parent;
         IsFirstClick = true;
-        _startPosition = Camera.main.ScreenToWorldPoint(Vector3.zero);
-        _startPosition.x += Scale / 2f ;
-        _startPosition.y += Scale / 2f;
-        var delta = Scale / 15f;
-        var ortographicSize = Camera.main.orthographicSize;
-        _countColumns = (int)Mathf.Round(ortographicSize / (Scale / 2f + Scale / 8f + delta));
-        _countRows = (int)Mathf.Round((ortographicSize + ortographicSize * 0.9f * ( (Screen.height ) / Screen.width)) / (Scale / 2f + Scale / 8f + delta)) - 1;
-   
 
+        CanvasScaler canvasScaler = parent.GetComponent<CanvasScaler>();
+
+        var vieCell = _prefabView as ViewCell;
+        var sprite = vieCell.GetComponent<Image>().sprite;
+        _widthSprite = sprite.rect.width;
+        _heightSprite = sprite.rect.height;
+     
+        var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
+        
+        var delta = Scale / 15f;
+
+        
+        
+       var ratio = (float)Screen.height / (float)Screen.width;
+
+       
+       
+
+        _countColumns = Mathf.RoundToInt(canvasScaler.referenceResolution.x / (refPixelsPerUnit * Scale));
+        
+
+        _countRows = Mathf.RoundToInt( ( canvasScaler.referenceResolution.y * 0.8f ) / (refPixelsPerUnit * Scale));
+
+
+        
         if ( countColumns <= 0 || countRows <= 0 )
         {
             throw new ArgumentException("value count columns or count rows is not correct!");
         }
+
+       // var widthCanvas = canvasScaler.referenceResolution.x / _widthSprite;
+        
+        
+
+        //var tabLeft = Screen.width * 0.01f;
+
         
         _cells = new Cell[_countColumns, _countRows];
         ViewCells = new ViewCell[_countRows * _countColumns];
@@ -146,19 +171,38 @@ public class GridCells<T>  where T : Object
 
         int indexCell = 0;
         var delta = Scale / 15f;
-        float sizeWidth = 0;
+        //delta = (float)Screen.width * 0.00001f;
+        delta = 0;
+
+        var camera = Camera.main;
+
+        if (camera is null)
+        {
+            throw new NullReferenceException("Camera is null");
+        }
+        
+
+
+        var positionStart = camera.ScreenToWorldPoint(new Vector3(_widthSprite/2f, _heightSprite/2f) );
+        
         for( var i = 0 ; i < _countColumns ; i++ )
         for (var j = 0; j < _countRows; j++)
         {
               ViewCells[indexCell] = Object.Instantiate(_prefabView, _parent ) as ViewCell;
-              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale);
-              
-              var positionX = _startPosition.x + (Scale/2f + Scale/8f + delta) * (float)i   ;
-              var positionY = _startPosition.y + (Scale/2f + Scale/8f + delta) * (float)j   ;
 
-            ViewCells[indexCell].transform.position = new Vector3(positionX, positionY, 0);
-            _cells[i, j] = new Cell(ViewCells[indexCell], _parent);
-            indexCell++;
+              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale);
+              var currentPosition = positionStart * Scale;
+              var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
+              currentPositionScreen.x += _widthSprite * (float)i ;
+              currentPositionScreen.y += _heightSprite * (float)j;
+              var deltaPosition = camera.ScreenToWorldPoint(currentPositionScreen);
+              var positionX = deltaPosition.x * Scale;
+              var positionY = deltaPosition.y * Scale;
+              
+              ViewCells[indexCell].transform.position = new Vector3(positionX, positionY, 50);
+              
+             _cells[i, j] = new Cell(ViewCells[indexCell], _parent);
+             indexCell++;
         }
     }
     
