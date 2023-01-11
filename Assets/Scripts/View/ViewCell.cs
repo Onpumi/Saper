@@ -60,7 +60,6 @@ public class ViewCell : MonoBehaviour, IViewItem
       {
           var boom = Instantiate(_prefabViewBoom, transform.parent);
           boom.transform.localScale = Vector3.one * 5f;
-          //boom.transform.position = Camera.main.ScreenToWorldPoint( new Vector3(0f,0f, 0f) );
       }
 
       public void CellInput( Cell cell )

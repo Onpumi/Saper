@@ -57,10 +57,12 @@
      <Compile Include="Assets\Scripts\View\ViewMine.cs" />
      <Compile Include="Assets\Scripts\View\ViewFlag.cs" />
      <Compile Include="Assets\Scripts\View\ViewCell.cs" />
-     <Compile Include="Assets\MainField.cs" />
+     <Compile Include="Assets\Scripts\View\GridView\GridCellsView.cs" />
      <Compile Include="Assets\Scripts\Cell\Cell.cs" />
+     <Compile Include="Assets\Scripts\View\GridView\IGridCellsView.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Cell\ICell.cs" />
+     <Compile Include="Assets\Scripts\Screen\ScreenProperties.cs" />
      <Compile Include="Assets\Scripts\Square.cs" />
      <Compile Include="Assets\Scripts\View\ViewBoom.cs" />
      <Compile Include="Assets\Scripts\View\ViewBrick.cs" />

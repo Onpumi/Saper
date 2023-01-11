@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
@@ -26,14 +27,15 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if ((Time.time - _startClickTime) <= _delayClickTime)
         {
-            var gameObject = _raycastResult.gameObject;
-            var viewCell = gameObject.transform.parent.GetComponent<ViewCell>();
-            if (viewCell == null) return;
-                
-            var grid = viewCell.transform.parent.GetComponent<MainField>().Grid;
+            var resultGameObject = _raycastResult.gameObject;
+            if( resultGameObject.transform.parent.TryGetComponent(out ViewCell viewCell) == false ) return;
+           
+            if (viewCell.transform.parent.TryGetComponent(out GridCellsView gridView) == false) return;
+            var grid = gridView.Grid; 
+            
             if (grid.IsFirstClick)
             {
-                grid.Init( gameObject );
+                grid.Init(viewCell);
                 grid.ConfirmFirstClick();
             }
 
@@ -53,10 +55,8 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime )
         {
-                var gameObj = _raycastResult.gameObject;
-                if( gameObj == null ) return;
-                var viewCell = gameObj.transform.parent.GetComponent<ViewCell>();
-                if (viewCell == null) return;
+                var objectCell = _raycastResult.gameObject;
+                if( objectCell.transform.parent.TryGetComponent( out ViewCell viewCell ) == false ) return;
                 viewCell.Cell.SetFlag();
                 _isClick = false;
         }

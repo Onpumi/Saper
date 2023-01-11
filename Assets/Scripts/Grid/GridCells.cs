@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-public class GridCells<T>  where T : Object
+public class GridCells<T>  where T : MonoBehaviour
 {
     private readonly T _prefabView;
     private readonly Transform _parent;
@@ -19,27 +19,26 @@ public class GridCells<T>  where T : Object
     private readonly float _widthSprite;
     private readonly float _heightSprite;
     private readonly Vector2 _resolutionCanvas;
+    
     public bool IsFirstClick { get; private set; }
-    public ViewCell[] ViewCells { get; private set;  }  
+    private ViewCell[] _viewCells;  
     public Cell[,] Cells => _cells;
 
-    public GridCells(int countRows, int countColumns, T prefabView, Transform parent)
+    public GridCells( GridCellsView gridCellsView, T prefabView, Transform parent)
     {
-        _countColumns = countColumns;
-        _countRows = countRows;
         _prefabView = prefabView;
         _parent = parent;
         IsFirstClick = true;
         CanvasScaler canvasScaler = parent.GetComponent<CanvasScaler>();
         _resolutionCanvas = canvasScaler.referenceResolution;
-        var vieCell = _prefabView as ViewCell;
+        var vieCell = _prefabView;
         var sprite = vieCell.GetComponent<Image>().sprite;
         _widthSprite = sprite.rect.width * Scale;
         _heightSprite = sprite.rect.height * Scale;
-         var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
-         var scaleHeightGrid = 0.8f;
-         var widthPerUnitX = _resolutionCanvas.x / (refPixelsPerUnit * Scale);
-         var widthPerUnitY = _resolutionCanvas.y / (refPixelsPerUnit * Scale) * scaleHeightGrid;
+        var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
+        var scaleHeightGrid = 0.8f;
+        var widthPerUnitX = _resolutionCanvas.x / (refPixelsPerUnit * Scale);
+        var widthPerUnitY = _resolutionCanvas.y / (refPixelsPerUnit * Scale) * scaleHeightGrid;
         _countColumns = Mathf.RoundToInt( widthPerUnitX );
         if (_countColumns > widthPerUnitX) _countColumns--;
         _countRows = Mathf.RoundToInt(widthPerUnitY);
@@ -47,22 +46,17 @@ public class GridCells<T>  where T : Object
         var percentMine = 10;
         _countMines = _countColumns * _countRows * percentMine / 100;
         
-        if ( countColumns <= 0 || countRows <= 0 )
-        {
-            throw new ArgumentException("value count columns or count rows is not correct!");
-        }
-
         _cells = new Cell[_countColumns, _countRows];
-        ViewCells = new ViewCell[_countRows * _countColumns];
+        _viewCells = new ViewCell[_countRows * _countColumns];
         _firstIndexes = new int[2] { -1, -1 };
         InitBlocks();
         InitBricks();
     }
 
-    public void Init( GameObject firstGameObject)
+    public void Init( ViewCell viewCell)
     {
-        FindFirstIndexesOnClick( firstGameObject );
-        InitMines( firstGameObject );
+        FindFirstIndexesOnClick( viewCell );
+        InitMines();
         InitGrid();
     }
 
@@ -78,12 +72,12 @@ public class GridCells<T>  where T : Object
         for( var j = 0; j < _countRows; j++ )
         {
            _cells[i,j].InitBrick(i, j);
-            ViewCells[indexCell].CellInput(_cells[i,j]);
+            _viewCells[indexCell].CellInput(_cells[i,j]);
             indexCell++;
         }
     }
 
-    private void InitMines( GameObject firstGameObject )
+   private void InitMines()
     {
         GenerateArrayMines();
         int indexMine = 0;
@@ -108,15 +102,15 @@ public class GridCells<T>  where T : Object
                         _cells[i, j].InitMine(valueCell, i, j);
                     }
 
-            ViewCells[indexCell].CellInput(_cells[i,j]);
+            _viewCells[indexCell].CellInput(_cells[i,j]);
             indexCell++;
         }
     }
 
-    private void FindFirstIndexesOnClick( GameObject firstGameObject )
+    private void FindFirstIndexesOnClick( ViewCell viewCell )
     {
-        _firstIndexes[0] = firstGameObject.transform.parent.GetComponent<ViewCell>().Cell.Indexes[0];
-        _firstIndexes[1] = firstGameObject.transform.parent.GetComponent<ViewCell>().Cell.Indexes[1];
+        _firstIndexes[0] = viewCell.Cell.Indexes[0];
+        _firstIndexes[1] = viewCell.Cell.Indexes[1];
         IsFirstClick = false;
     }
 
@@ -165,16 +159,16 @@ public class GridCells<T>  where T : Object
         for( var i = 0 ; i < _countColumns ; i++ )
         for (var j = 0; j < _countRows; j++)
         {
-              ViewCells[indexCell] = Object.Instantiate(_prefabView, _parent ) as ViewCell;
+              _viewCells[indexCell] = Object.Instantiate(_prefabView, _parent ) as ViewCell;
 
               var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
               var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
               currentPositionScreen.x += _widthSprite * (float)i ;
               currentPositionScreen.y += _heightSprite * (float)j;
               var deltaPosition = camera.ScreenToWorldPoint(currentPositionScreen);
-              ViewCells[indexCell].transform.position = deltaPosition;
-              ViewCells[indexCell].transform.localScale = new Vector3(Scale, Scale, 0);        
-             _cells[i, j] = new Cell(ViewCells[indexCell], _parent);
+              _viewCells[indexCell].transform.position = deltaPosition;
+              _viewCells[indexCell].transform.localScale = new Vector3(Scale, Scale, 0);        
+             _cells[i, j] = new Cell(_viewCells[indexCell], _parent);
              indexCell++;
         }
         

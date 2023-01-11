@@ -8,7 +8,7 @@ public class Cell : ICell
     public int[] Indexes { get; private set; } 
     public int Value { get; private set; }
     public bool IsOpen { get; private set; }
-    public bool IsFlaged { get; private set;  }
+    public bool IsFlagged { get; private set;  }
     public bool IsInitMine { get; private set; }
     public ViewCell ViewCell => _viewCell;
     
@@ -19,7 +19,7 @@ public class Cell : ICell
         IsOpen = false;
        Indexes = new int[2];
        IsInitMine = false;
-       IsFlaged = false;
+       IsFlagged = false;
     }
 
     public void InitBrick(  int indexI, int indexJ )
@@ -42,21 +42,13 @@ public class Cell : ICell
 
     public bool TryOpen()
     {
-        if (IsOpen == true || IsFlaged ) return true;
-        
-        //var flag = _viewCell.transform.GetComponentInChildren<ViewFlag>();
-        //if ( flag != null && flag.transform.gameObject.activeSelf )
-        //{
-//            flag.transform.gameObject.SetActive(false);
-  //      }
-
-        
-        
+        if (IsOpen == true || IsFlagged ) return true;
+     
         IsOpen = true;
         var viewBrick = _viewCell.transform.GetComponentInChildren<ViewBrick>();
         viewBrick.transform.gameObject.SetActive(false);
         var parentCanvas = _viewCell.transform.parent;
-        var cells = parentCanvas.GetComponent<MainField>().Grid.Cells;
+        var cells = parentCanvas.GetComponent<GridCellsView>().Grid.Cells;
         
         if ( _viewCell.Cell.Value == 0 )
         {
@@ -68,11 +60,9 @@ public class Cell : ICell
         else if (_viewCell.Cell.Value == -1)
         {
             _viewCell.InstatiateBoom();
-            _viewCell.transform.parent.GetComponent<MainField>().enabled = false;
+            _viewCell.transform.parent.GetComponent<GridCellsView>().enabled = false;
             return false;
         }
-
-      
 
         return true;
     }
@@ -92,7 +82,7 @@ public class Cell : ICell
     public void SetFlag()
     {
         if (IsOpen == true) return;
-        IsFlaged = _viewCell.InitFlag();   
+        IsFlagged = _viewCell.InitFlag();   
     }
 
     
