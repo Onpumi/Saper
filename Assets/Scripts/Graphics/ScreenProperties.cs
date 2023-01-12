@@ -10,9 +10,6 @@ public class ScreenAdjusment
     public readonly Vector2 ResolutionCanvas;
     public float RefPixelsPerUnit { get; private set; }
     
-    
-    
-
     public ScreenAdjusment( Transform canvasParent)
     {
         _canvasParent = canvasParent;

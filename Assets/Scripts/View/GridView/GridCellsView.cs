@@ -1,17 +1,17 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GridCellsView : MonoBehaviour, IGridCellsView
 {
     [SerializeField] private ViewCell _prefabView;
-    [SerializeField] private Transform _canvasParent;
     private GridCells _grid;
     private ViewCell[] _viewCells;
-    private Cell[,] _cells;
     private ScreenAdjusment _screenAdjusment;
     private SpriteData SpriteData;
-    
+    private FactoryViews<ViewCell> _factoryViews;
+
     public Vector2 SizePerUnit { get; private set; }
     public GridCells Grid => _grid;
     
@@ -20,6 +20,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         _screenAdjusment = new ScreenAdjusment( transform );
         SpriteData.Width = _prefabView.GetComponent<Image>().sprite.rect.width;
         SpriteData.Height = _prefabView.GetComponent<Image>().sprite.rect.height;
+        _factoryViews = new FactoryViews<ViewCell>(_prefabView, transform);
     }
 
     private void Start()
@@ -36,7 +37,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
                                            resolutionCanvas.y / (refPixelsPerUnit * scaleY));
     }
     
-    public void DisplayCells( ICell[,] cells, int countColumns, int countRows, float scale )
+    public void DisplayCells( Cell[,] cells, int countColumns, int countRows, float scale )
     {
         int indexCell = 0;
         var delta = 0;
@@ -52,17 +53,14 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         var positionStart = camera.ScreenToWorldPoint(new Vector3(_tabLeftForSprite + widthSprite/2f, 
             _tabTopForSprite + heightSprite/2f) );
         
-        if( _viewCells is null )
-          _viewCells = new ViewCell[countRows * countColumns];
+       _viewCells = _factoryViews.CreateAll(countRows * countColumns);
         
         for( var i = 0 ; i < countColumns ; i++ )
         for (var j = 0; j < countRows; j++)
         {
-            _viewCells[indexCell] = Instantiate(_prefabView, transform ) as ViewCell;
             _viewCells[indexCell].InitCellData( new CellData(i,j) );
             cells[i, j] = new Cell(_viewCells[indexCell],i,j);
             cells[i,j].Display( positionStart, scale);
-             
             indexCell++;
         }
     }

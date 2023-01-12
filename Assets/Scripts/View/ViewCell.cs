@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,29 +15,39 @@ public class ViewCell : MonoBehaviour, IViewCell
     private Sprite _sprite;
     private ViewBrick _viewBrick;
     private ViewFlag _viewFlag;
+    
+    
 
     private IDownAction _downAction;
-    public Cell Cell { get; private set; }
     public CellData CellData { get; private set; }
 
     private void Awake()
     {
         _sprite = GetComponent<Image>().sprite ?? throw new ArgumentNullException("Sprite cell need is not null!");
         WidthSpriteCell = _sprite.rect.width * 0.5f;
-        HeightSpriteCell = _sprite.rect.height * 0.5f; // передать верно скейл
+        HeightSpriteCell = _sprite.rect.height * 0.5f; 
     }
 
-    public void Init( GridCells grid, IDownAction downAction )
+    public void InitAction( GridCells grid, IDownAction downAction )
     {
         _downAction = downAction ?? throw new ArgumentNullException("Selection need is not be null");
-
         _downAction.Select(grid.Cells[CellData.Index1,CellData.Index2]);
     }
+    
+    
+
+    public void InstantiateObject(  )
+    {
+            ISpawner<ViewBrick> _ispawner = new SpawnerObject<ViewBrick>(transform);
+            _viewBrick = _ispawner.InstantiateObject(_prefabViewBrick, Vector3.one); 
+    
+        //var s = spawner.InstantiateObject(_prefabViewBrick, Vector3.one);
+    }
+
 
     public void InstantiateMine()
       {
           var mine = Instantiate(_prefabViewMine, transform);
-        //  mine.transform.localScale = _scale;
           var index = mine.transform.GetSiblingIndex();
           mine.transform.SetSiblingIndex(--index);
       }
@@ -83,11 +94,6 @@ public class ViewCell : MonoBehaviour, IViewCell
           boom.transform.localScale = Vector3.one * 5f;
       }
 
-      //public void CellInput( Cell cell )
-      public void InitIndexes( int i, int j )
-      {
-          // CellData = new CellData(i,j);
-      }
 
       public void Display( ICell cell, Vector3 positionStart, float scale)
       {
@@ -98,8 +104,8 @@ public class ViewCell : MonoBehaviour, IViewCell
           
           var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
           var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
-          currentPositionScreen.x += (float)widthSprite * (float)cell.Indexes[0] ;
-          currentPositionScreen.y += (float)heightSprite * (float)cell.Indexes[1];
+          currentPositionScreen.x += (float)widthSprite * (float)cell.CellData.Index1 ;
+          currentPositionScreen.y += (float)heightSprite * (float)cell.CellData.Index2;
           var resultPosition = camera.ScreenToWorldPoint(currentPositionScreen);
 
           transform.position = resultPosition;
