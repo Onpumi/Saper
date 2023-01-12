@@ -12,8 +12,6 @@ public class DigDownAction : IDownAction
 
     public void Select( ICell cell )
     {
-     //   Debug.Log("Dig Action" + cell.Indexes[0] + cell.Indexes[1]);
-        
         var grid = _gridCellsView.Grid;
         if (cell.TryOpen() == false)
         {

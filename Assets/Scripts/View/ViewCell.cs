@@ -26,7 +26,7 @@ public class ViewCell : MonoBehaviour, IViewCell
         HeightSpriteCell = _sprite.rect.height * 0.5f; // передать верно скейл
     }
 
-    public void Init( GridCells<ViewCell> grid, IDownAction downAction )
+    public void Init( GridCells grid, IDownAction downAction )
     {
         _downAction = downAction ?? throw new ArgumentNullException("Selection need is not be null");
 

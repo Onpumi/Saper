@@ -6,14 +6,14 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
 {
     [SerializeField] private ViewCell _prefabView;
     [SerializeField] private Transform _canvasParent;
-    private GridCells<ViewCell> _grid;
+    private GridCells _grid;
     private ViewCell[] _viewCells;
     private Cell[,] _cells;
     private ScreenAdjusment _screenAdjusment;
     private SpriteData SpriteData;
     
     public Vector2 SizePerUnit { get; private set; }
-    public GridCells<ViewCell> Grid => _grid;
+    public GridCells Grid => _grid;
     
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
 
     private void Start()
     {
-        _grid = new GridCells<ViewCell>(this, _prefabView, transform);
+        _grid = new GridCells(this);
     }
     
     
@@ -54,8 +54,6 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         
         if( _viewCells is null )
           _viewCells = new ViewCell[countRows * countColumns];
-//        if (_cells is null)
-  //          _cells = new Cell[countColumns, countRows];
         
         for( var i = 0 ; i < countColumns ; i++ )
         for (var j = 0; j < countRows; j++)
@@ -69,11 +67,6 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         }
     }
 
-
-    public void CreateMine( )
-    {
-        //Grid.InitMines(c);
-    }
 
 
 }

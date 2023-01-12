@@ -1,5 +1,3 @@
-using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
