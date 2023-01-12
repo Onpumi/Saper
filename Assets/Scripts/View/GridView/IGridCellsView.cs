@@ -1,5 +1,6 @@
 
 public interface IGridCellsView
 {
-    void DisplayCells();
+    public GridCells<ViewCell>  Grid { get;}
+    void DisplayCells( ICell[,] cells, int countColumns, int countRows, float scale);
 }

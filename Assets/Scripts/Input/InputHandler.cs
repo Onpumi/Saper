@@ -35,18 +35,9 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             
             if (grid.IsFirstClick)
             {
-                grid.Init(viewCell);
-                grid.ConfirmFirstClick();
+              viewCell.Init(grid, new FirstDigDownAction(gridView));
             }
-
-            if (viewCell == null) return;
-                 if (viewCell.Cell.TryOpen() == false)
-                 {
-                     foreach (var cell in grid.Cells)
-                     {
-                         cell.Open();       
-                     }
-                 }
+            viewCell.Init(grid,new DigDownAction(gridView));
                  
         }
     }

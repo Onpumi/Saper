@@ -7,6 +7,7 @@ using Object = UnityEngine.Object;
 
 public class GridCells<T>  where T : MonoBehaviour
 {
+    private readonly GridCellsView _gridCellsView;
     private readonly T _prefabView;
     private readonly Transform _parent;
     private readonly int _countColumns;
@@ -22,10 +23,11 @@ public class GridCells<T>  where T : MonoBehaviour
     
     public bool IsFirstClick { get; private set; }
     private ViewCell[] _viewCells;  
-    public Cell[,] Cells => _cells;
+    public ICell[,] Cells => _cells;
 
     public GridCells( GridCellsView gridCellsView, T prefabView, Transform parent)
     {
+        _gridCellsView = gridCellsView;
         _prefabView = prefabView;
         _parent = parent;
         IsFirstClick = true;
@@ -35,29 +37,31 @@ public class GridCells<T>  where T : MonoBehaviour
         var sprite = vieCell.GetComponent<Image>().sprite;
         _widthSprite = sprite.rect.width * Scale;
         _heightSprite = sprite.rect.height * Scale;
-        var refPixelsPerUnit = canvasScaler.referencePixelsPerUnit;
         var scaleHeightGrid = 0.8f;
-        var widthPerUnitX = _resolutionCanvas.x / (refPixelsPerUnit * Scale);
-        var widthPerUnitY = _resolutionCanvas.y / (refPixelsPerUnit * Scale) * scaleHeightGrid;
-        _countColumns = Mathf.RoundToInt( widthPerUnitX );
-        if (_countColumns > widthPerUnitX) _countColumns--;
-        _countRows = Mathf.RoundToInt(widthPerUnitY);
+        
+        var widthPerUnit = gridCellsView.GetSizePerUnit(Scale, Scale / scaleHeightGrid);
+        
+        _countColumns = Mathf.RoundToInt( widthPerUnit.x );
+        if (_countColumns > widthPerUnit.x) _countColumns--;
+        _countRows = Mathf.RoundToInt(widthPerUnit.y);
 
         var percentMine = 10;
         _countMines = _countColumns * _countRows * percentMine / 100;
         
         _cells = new Cell[_countColumns, _countRows];
         _viewCells = new ViewCell[_countRows * _countColumns];
+        
+        //Debug.Log(_viewCells[0]);
         _firstIndexes = new int[2] { -1, -1 };
-        InitBlocks();
+        CreateBlocks();
         InitBricks();
     }
 
     public void Init( ViewCell viewCell)
     {
-        FindFirstIndexesOnClick( viewCell );
-        InitMines();
-        InitGrid();
+        FindFirstIndexesOnClick( _cells[viewCell.CellData.Index1,viewCell.CellData.Index2] );
+       // InitMines();
+        //InitGrid();
     }
 
     public void ConfirmFirstClick()
@@ -65,19 +69,22 @@ public class GridCells<T>  where T : MonoBehaviour
         IsFirstClick = false;
     }
     
+    
     private void InitBricks()
     {
         int indexCell = 0;
         for( var i = 0 ; i < _countColumns ; i++ )
         for( var j = 0; j < _countRows; j++ )
         {
-           _cells[i,j].InitBrick(i, j);
-            _viewCells[indexCell].CellInput(_cells[i,j]);
+           _cells[i,j].Init(i, j);
+          //  _viewCells[indexCell].InitIndexes(i,j);
             indexCell++;
         }
     }
+    
+    
 
-   private void InitMines()
+   public void InitMines(  )
     {
         GenerateArrayMines();
         int indexMine = 0;
@@ -99,18 +106,19 @@ public class GridCells<T>  where T : MonoBehaviour
                             i != _firstIndexes[0]-1 && j != _firstIndexes[1]+1
                         )
                     {
-                        _cells[i, j].InitMine(valueCell, i, j);
+                  //      _cells[i, j].InitMine(valueCell, i, j);
+                        _cells[i, j].CreateMine(valueCell, i, j);
                     }
-
-            _viewCells[indexCell].CellInput(_cells[i,j]);
             indexCell++;
         }
     }
 
-    private void FindFirstIndexesOnClick( ViewCell viewCell )
+    //public void FindFirstIndexesOnClick( ViewCell viewCell )
+    public void FindFirstIndexesOnClick( ICell cell )
     {
-        _firstIndexes[0] = viewCell.Cell.Indexes[0];
-        _firstIndexes[1] = viewCell.Cell.Indexes[1];
+        //_firstIndexes[0] = viewCell.CellData.Index1;
+        //_firstIndexes[1] = viewCell.CellData.Index2;
+        //viewCell.Init( this, new DownActionSelection() );
         IsFirstClick = false;
     }
 
@@ -135,19 +143,15 @@ public class GridCells<T>  where T : MonoBehaviour
         }
     }
 
-    private void InitBlocks()
+    private void CreateBlocks()
     {
         
-
+/*
         int indexCell = 0;
         var delta = 0;
 
-        var camera = Camera.main;
+        var camera = Camera.main ?? throw new NullReferenceException("Camera is null");;
 
-        if (camera is null)
-        {
-            throw new NullReferenceException("Camera is null");
-        }
 
         var _tabLeftForSprite = (_resolutionCanvas.x - (float)_countColumns * _widthSprite) / 2f;
         var _tabTopForSprite = _resolutionCanvas.y * 0.01f;
@@ -168,13 +172,15 @@ public class GridCells<T>  where T : MonoBehaviour
               var deltaPosition = camera.ScreenToWorldPoint(currentPositionScreen);
               _viewCells[indexCell].transform.position = deltaPosition;
               _viewCells[indexCell].transform.localScale = new Vector3(Scale, Scale, 0);        
-             _cells[i, j] = new Cell(_viewCells[indexCell], _parent);
+             _cells[i, j] = new Cell(_viewCells[indexCell], i, j);
              indexCell++;
         }
-        
+  */
+            _gridCellsView.DisplayCells( _cells, _countColumns,_countRows,Scale);        
+
     }
     
-    private void InitGrid()
+    public void InitGrid()
     {
         for( var i = 0 ; i < _countColumns; i++ )
         for( var j = 0; j < _countRows; j++)
@@ -196,7 +202,7 @@ public class GridCells<T>  where T : MonoBehaviour
         }
     }
 
-    public Cell[,] GetCells() => _cells;
+    public ICell[,] GetCells() => _cells;
 
 
 }

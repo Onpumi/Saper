@@ -11,8 +11,9 @@ public class Cell : ICell
     public bool IsFlagged { get; private set;  }
     public bool IsInitMine { get; private set; }
     public ViewCell ViewCell => _viewCell;
+    public CellData CellData { get; private set; }
     
-    public Cell( ViewCell viewCell, Transform parent )
+    public Cell( ViewCell viewCell, int indexI, int indexJ )
     {
         Value = 0;
         _viewCell = viewCell;
@@ -20,16 +21,25 @@ public class Cell : ICell
        Indexes = new int[2];
        IsInitMine = false;
        IsFlagged = false;
+       Indexes[0] = indexI;
+       Indexes[1] = indexJ;
+       CellData = viewCell.CellData;
+
     }
 
-    public void InitBrick(  int indexI, int indexJ )
+    public void Display( Vector3 position, float scale)
+    {
+        _viewCell.Display(this, position, scale);
+    }
+
+    public void Init(  int indexI, int indexJ )
     {
         Indexes[0] = indexI;
         Indexes[1] = indexJ;
         _viewCell.InstatiateBricks();
     }
 
-    public void InitMine(int value, int indexI, int indexJ)
+    public void CreateMine(int value, int indexI, int indexJ)
     {
         Value = value;
         Indexes[0] = indexI;
@@ -50,14 +60,14 @@ public class Cell : ICell
         var parentCanvas = _viewCell.transform.parent;
         var cells = parentCanvas.GetComponent<GridCellsView>().Grid.Cells;
         
-        if ( _viewCell.Cell.Value == 0 )
+        if( Value == 0 )
         {
-            var index1 = _viewCell.Cell.Indexes[0];
-            var index2 = _viewCell.Cell.Indexes[1];
+            var index1 = Indexes[0];
+            var index2 = Indexes[1];
             FindNeighbourEmptyCellsAndOpen(cells, index1, index2);
         }
         
-        else if (_viewCell.Cell.Value == -1)
+        else if ( Value == -1 )
         {
             _viewCell.InstatiateBoom();
             _viewCell.transform.parent.GetComponent<GridCellsView>().enabled = false;
@@ -86,7 +96,7 @@ public class Cell : ICell
     }
 
     
-    private void FindNeighbourEmptyCellsAndOpen( Cell [,] cells, int index1, int index2 )
+    private void FindNeighbourEmptyCellsAndOpen( ICell [,] cells, int index1, int index2 )
     {
                 for( int n = -1; n < 2 ; n++ )
                 for( int m = -1; m < 2; m++ )
@@ -102,7 +112,7 @@ public class Cell : ICell
                 }
     }
     
-    private void FindNeighbourWithoutMineCellsAndOpen( Cell [,] cells, int index1, int index2 )
+    private void FindNeighbourWithoutMineCellsAndOpen( ICell [,] cells, int index1, int index2 )
     {
         for( int n = -1; n < 2 ; n++ )
         for( int m = -1; m < 2; m++ )

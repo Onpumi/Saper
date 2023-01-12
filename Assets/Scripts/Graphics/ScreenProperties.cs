@@ -6,7 +6,12 @@ public class ScreenAdjusment
 {
     private Screen _screen;
     private CanvasScaler _canvasScaler;
-    private Transform _canvasParent;
+    private readonly Transform _canvasParent;
+    public readonly Vector2 ResolutionCanvas;
+    public float RefPixelsPerUnit { get; private set; }
+    
+    
+    
 
     public ScreenAdjusment( Transform canvasParent)
     {
@@ -18,5 +23,12 @@ public class ScreenAdjusment
         Screen.autorotateToPortraitUpsideDown = false;
         _canvasScaler = _canvasParent.GetComponent<CanvasScaler>();
         _canvasScaler.referenceResolution = new Vector2(Screen.width,Screen.height);
+        ResolutionCanvas = _canvasScaler.referenceResolution;
+        RefPixelsPerUnit = _canvasScaler.referencePixelsPerUnit;
     }
+
+   
+    
+    
+    
 }

@@ -1,28 +1,42 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ViewCell : MonoBehaviour, IViewItem
+public class ViewCell : MonoBehaviour, IViewCell
 {
     [SerializeField] private ViewMine _prefabViewMine;
     [SerializeField] private Sprite[] _spriteNumbers;
     [SerializeField] private ViewBrick _prefabViewBrick;
     [SerializeField] private ViewFlag _prefabViewFlag;
     [SerializeField] private ViewBoom _prefabViewBoom;
-    private Vector3 _scale;
+    public  float WidthSpriteCell { get; private set; }
+    public  float HeightSpriteCell { get; private set; }
+    private Sprite _sprite;
     private ViewBrick _viewBrick;
     private ViewFlag _viewFlag;
+
+    private IDownAction _downAction;
     public Cell Cell { get; private set; }
+    public CellData CellData { get; private set; }
 
     private void Awake()
     {
-        _scale = Vector3.one / 1.5f;
+        _sprite = GetComponent<Image>().sprite ?? throw new ArgumentNullException("Sprite cell need is not null!");
+        WidthSpriteCell = _sprite.rect.width * 0.5f;
+        HeightSpriteCell = _sprite.rect.height * 0.5f; // передать верно скейл
+    }
 
+    public void Init( GridCells<ViewCell> grid, IDownAction downAction )
+    {
+        _downAction = downAction ?? throw new ArgumentNullException("Selection need is not be null");
+
+        _downAction.Select(grid.Cells[CellData.Index1,CellData.Index2]);
     }
 
     public void InstantiateMine()
       {
           var mine = Instantiate(_prefabViewMine, transform);
-          mine.transform.localScale = _scale;
+        //  mine.transform.localScale = _scale;
           var index = mine.transform.GetSiblingIndex();
           mine.transform.SetSiblingIndex(--index);
       }
@@ -36,9 +50,16 @@ public class ViewCell : MonoBehaviour, IViewItem
           }
       }
 
+      public void InitCellData(CellData cellData)
+      {
+          cellData.Index1.TryThrowIfLessThanZero();
+          cellData.Index2.TryThrowIfLessThanZero();
+          CellData = cellData;
+      }
+
       public void InstatiateBricks()
       {
-          _viewBrick = Instantiate(_prefabViewBrick, transform);
+         _viewBrick = Instantiate(_prefabViewBrick, transform);
           _viewBrick.transform.localScale = Vector3.one;
       }
 
@@ -62,13 +83,27 @@ public class ViewCell : MonoBehaviour, IViewItem
           boom.transform.localScale = Vector3.one * 5f;
       }
 
-      public void CellInput( Cell cell )
+      //public void CellInput( Cell cell )
+      public void InitIndexes( int i, int j )
       {
-          Cell = cell;
+          // CellData = new CellData(i,j);
       }
 
-      public void Display()
+      public void Display( ICell cell, Vector3 positionStart, float scale)
       {
+          var widthSprite = WidthSpriteCell;
+          var heightSprite = HeightSpriteCell;
+
+          var camera = Camera.main;
           
+          var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
+          var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
+          currentPositionScreen.x += (float)widthSprite * (float)cell.Indexes[0] ;
+          currentPositionScreen.y += (float)heightSprite * (float)cell.Indexes[1];
+          var resultPosition = camera.ScreenToWorldPoint(currentPositionScreen);
+
+          transform.position = resultPosition;
+          transform.localScale = new Vector3(scale, scale, 0);
+
       }
 }
