@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class GridCellsView : MonoBehaviour, IGridCellsView
 {
     [SerializeField] private ViewCell _prefabView;
+    [SerializeField] private float _needCountBricks = 150f;
+    [SerializeField] private float _scaleHeightGrid = 0.9f;
+    private float _scaleBrick = 1f;
     private GridCells _grid;
     private ViewCell[] _viewCells;
     private ScreenAdjusment _screenAdjusment;
@@ -25,9 +28,23 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
 
     private void Start()
     {
-        _grid = new GridCells(this);
+        CalculateScale();
+        _grid = new GridCells(this, _scaleBrick, _scaleHeightGrid);
     }
-    
+
+
+
+    private void CalculateScale()
+    {
+        var perUnit = _screenAdjusment.RefPixelsPerUnit;
+        var _needCountBricks = 150f;
+        var screenArea = _screenAdjusment.ResolutionCanvas.x * _screenAdjusment.ResolutionCanvas.y;
+        var spriteArea = SpriteData.Width * SpriteData.Height;
+        var countMaxSpritesInArea = screenArea / spriteArea;
+        var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));
+        _scaleBrick *= deltaScale;
+        
+    }
     
     public Vector2 GetSizePerUnit( float scaleX, float scaleY )
     {
@@ -58,7 +75,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         for( var i = 0 ; i < countColumns ; i++ )
         for (var j = 0; j < countRows; j++)
         {
-            _viewCells[indexCell].InitCellData( new CellData(i,j) );
+            _viewCells[indexCell].InitCellData( new CellData(i,j,scale) );
             cells[i, j] = new Cell(_viewCells[indexCell],i,j);
             cells[i,j].Display( positionStart, scale);
             indexCell++;

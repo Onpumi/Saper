@@ -10,18 +10,16 @@ public class GridCells
     private readonly int _countMines;
     private int[] _arrayMines;
     private readonly int[] _firstIndexes;
-    private const float Scale = 0.5f;
-    
+    private readonly float _scaleBrick;
     public bool IsFirstClick { get; private set; }
-  //  private ViewCell[] _viewCells;  
     public ICell[,] Cells => _cells;
 
-    public GridCells( GridCellsView gridCellsView )
+    public GridCells( GridCellsView gridCellsView, float scaleBrick, float scaleHeightGrid )
     {
         _gridCellsView = gridCellsView;
+        _scaleBrick = scaleBrick;
         IsFirstClick = true;
-        var scaleHeightGrid = 0.8f;
-        var widthPerUnit = gridCellsView.GetSizePerUnit(Scale, Scale / scaleHeightGrid);
+        var widthPerUnit = gridCellsView.GetSizePerUnit(_scaleBrick, _scaleBrick / scaleHeightGrid);
         _countColumns = Mathf.RoundToInt( widthPerUnit.x );
         if (_countColumns > widthPerUnit.x) _countColumns--;
         _countRows = Mathf.RoundToInt(widthPerUnit.y);
@@ -107,7 +105,7 @@ public class GridCells
 
     private void CreateBlocks()
     {
-            _gridCellsView.DisplayCells( _cells, _countColumns,_countRows,Scale);        
+            _gridCellsView.DisplayCells( _cells, _countColumns,_countRows,_scaleBrick);        
     }
     
     public void InitGrid()

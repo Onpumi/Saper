@@ -24,8 +24,8 @@ public class ViewCell : MonoBehaviour, IViewCell
     private void Awake()
     {
         _sprite = GetComponent<Image>().sprite ?? throw new ArgumentNullException("Sprite cell need is not null!");
-        WidthSpriteCell = _sprite.rect.width * 0.5f;
-        HeightSpriteCell = _sprite.rect.height * 0.5f; 
+        WidthSpriteCell = _sprite.rect.width;
+        HeightSpriteCell = _sprite.rect.height; 
     }
 
     public void InitAction( GridCells grid, IDownAction downAction )
@@ -97,9 +97,8 @@ public class ViewCell : MonoBehaviour, IViewCell
 
       public void Display( ICell cell, Vector3 positionStart, float scale)
       {
-          var widthSprite = WidthSpriteCell;
-          var heightSprite = HeightSpriteCell;
-
+          var widthSprite = WidthSpriteCell * scale;
+          var heightSprite = HeightSpriteCell * scale;
           var camera = Camera.main;
           
           var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
