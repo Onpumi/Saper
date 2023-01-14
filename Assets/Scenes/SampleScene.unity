@@ -456,6 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabViewCell: {fileID: 8810420558800810911, guid: 34608a66a27607d43b837fb09ae3fa85, type: 3}
   _prefabViewBrick: {fileID: 6303002758217621924, guid: 70dc0ee44e98dcc4abf0c624cf930a31, type: 3}
+  _prefaViewMine: {fileID: 9005108687923012427, guid: f085fd33314a7eb419849b8cc0d558fc, type: 3}
   _needCountBricks: 150
   _scaleHeightGrid: 0.9
 --- !u!114 &2053542851

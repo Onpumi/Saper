@@ -1,0 +1,5 @@
+
+ interface IFactoryMine : IFactory<ICell>
+{
+
+}

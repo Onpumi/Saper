@@ -15,6 +15,7 @@ public class FactoryViewMine  : IFactoryView<ViewMine>
     {
         ViewMine mine = Object.Instantiate(_prefabViewMine, _parent);
         mine.transform.localScale = Vector3.one;
+        mine.transform.position = _parent.position;
         return mine;
     }
 

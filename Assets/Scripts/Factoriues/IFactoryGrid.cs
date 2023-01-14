@@ -1,6 +1,6 @@
 using UnityEngine;
 
-  public interface IFactoryGrid<T> where T: MonoBehaviour
+  public interface IFactoryGrid<out T> where T: MonoBehaviour
   {
       public T[] Creates();
   }

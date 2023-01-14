@@ -35,7 +35,7 @@ public class ViewCell : MonoBehaviour, IViewCell
     }
     
     
-
+/*
     public void InstantiateObject(  )
     {
             ISpawner<ViewBrick> _ispawner = new SpawnerObject<ViewBrick>(transform);
@@ -43,7 +43,7 @@ public class ViewCell : MonoBehaviour, IViewCell
     
         //var s = spawner.InstantiateObject(_prefabViewBrick, Vector3.one);
     }
-
+*/
 
     public void InstantiateMine()
       {
@@ -68,11 +68,14 @@ public class ViewCell : MonoBehaviour, IViewCell
           CellData = cellData;
       }
 
+      /*
       public void InstatiateBricks()
       {
          _viewBrick = Instantiate(_prefabViewBrick, transform);
           _viewBrick.transform.localScale = Vector3.one;
       }
+
+*/
 
       public bool InitFlag()
       {

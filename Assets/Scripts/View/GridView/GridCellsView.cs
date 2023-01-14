@@ -7,6 +7,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
 {
     [SerializeField] private ViewCell _prefabViewCell;
     [SerializeField] private ViewBrick _prefabViewBrick;
+    [SerializeField] private ViewMine _prefaViewMine; 
     [SerializeField] private float _needCountBricks = 150f;
     [SerializeField] private float _scaleHeightGrid = 0.9f;
     private float _scaleBrick = 1f;
@@ -26,7 +27,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         SpriteData.Width = _prefabViewCell.GetComponent<Image>().sprite.rect.width;
         SpriteData.Height = _prefabViewCell.GetComponent<Image>().sprite.rect.height;
         CalculateScale();
-        _grid = new GridCells(this, _scaleBrick, _scaleHeightGrid);
+        _grid = new GridCells(this, _prefaViewMine, _scaleBrick, _scaleHeightGrid);
         
     }
 

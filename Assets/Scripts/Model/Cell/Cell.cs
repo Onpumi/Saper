@@ -6,18 +6,16 @@ public class Cell : ICell
 {
     private readonly ViewCell _viewCell;
     public int[] Indexes { get; private set; } 
-    public int CountMinesNear { get; private set; }
+    public int Value { get; private set; }
     public bool IsOpen { get; private set; }
     public bool IsFlagged { get; private set;  }
     public bool IsInitMine { get; private set; }
     public ViewCell ViewCell => _viewCell;
     public CellData CellData { get; private set; }
 
-    //private FactoryViewCell<ViewMine> _factoryViewCellMine;
-
     public Cell( ViewCell viewCell, int indexI, int indexJ )
     {
-        CountMinesNear = 0;
+        Value = 0;
         _viewCell = viewCell;
         IsOpen = false;
        Indexes = new int[2];
@@ -28,6 +26,11 @@ public class Cell : ICell
        CellData = viewCell.CellData;
     }
 
+    public Transform GetViewTransform()
+    {
+        return _viewCell.transform;
+    }
+    
     public void Display( Vector3 position, float scale)
     {
         _viewCell.Display(this, position, scale);
@@ -36,16 +39,18 @@ public class Cell : ICell
 
     public void CreateMine(int value, int indexI, int indexJ)
     {
-        CountMinesNear = value;
+        Value = value;
         Indexes[0] = indexI;
         Indexes[1] = indexJ;
-        if (CountMinesNear == -1)
+        if (Value == -1)
         {
             IsInitMine = true;
             _viewCell.InstantiateMine();
         }
         else IsInitMine = false;
     }
+    
+ 
 
     public bool TryOpen()
     {
@@ -55,17 +60,18 @@ public class Cell : ICell
         var viewBrick = _viewCell.transform.GetComponentInChildren<ViewBrick>();
         viewBrick.transform.gameObject.SetActive(false);
         var parentCanvas = _viewCell.transform.parent;
-        var cells = parentCanvas.GetComponent<GridCellsView>().Grid.Cells;
+        ICell[,] cells = parentCanvas.GetComponent<GridCellsView>().Grid.Cells;
         
-        if( CountMinesNear == 0 )
+        if( Value == 0 )
         {
             var index1 = Indexes[0];
             var index2 = Indexes[1];
             FindNeighbourEmptyCellsAndOpen(cells, index1, index2);
         }
         
-        else if ( CountMinesNear == -1 )
+        else if ( Value == -1 )
         {
+            
             _viewCell.InstatiateBoom();
             _viewCell.transform.parent.GetComponent<GridCellsView>().enabled = false;
             return false;
@@ -101,7 +107,7 @@ public class Cell : ICell
                     if ( index1 + n >= 0 && index2 + m >= 0 &&
                          index1 + n <= cells.GetLength(0)-1 &&
                          index2 + m <= cells.GetLength(1)-1 &&
-                         cells[index1 + n, index2 + m].CountMinesNear == 0 )
+                         cells[index1 + n, index2 + m].Value != -1 )
                     {
                         cells[index1 + n, index2 + m].TryOpen();
                         FindNeighbourWithoutMineCellsAndOpen(cells, index1 + n, index2 + m);
@@ -117,17 +123,23 @@ public class Cell : ICell
             if ( index1 + n >= 0 && index2 + m >= 0 &&
                  index1 + n <= cells.GetLength(0)-1 &&
                  index2 + m <= cells.GetLength(1)-1 &&
-                 cells[index1 + n, index2 + m].CountMinesNear != -1 )
+                 cells[index1 + n, index2 + m].Value != -1 )
             {
+               if( cells[index1 + n, index2 + m].Value == 0 )
                 cells[index1 + n, index2 + m].TryOpen();
             }
         }
     }
+
+    public void SetValue( int value )
+    {
+        Value = value;
+    }
     
     public void IncrementValue()
     {
-        CountMinesNear++;
-        _viewCell.SetTextNumbers( CountMinesNear  );
+        Value++;
+        _viewCell.SetTextNumbers( Value  );
     }
 
     

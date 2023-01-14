@@ -14,7 +14,8 @@ public class FirstDigDownAction : IDownAction
     {
         _gridCellsView.Grid.FindFirstIndexesOnClick( cell );
         _gridCellsView.Grid.ConfirmFirstClick();
-        _gridCellsView.Grid.InitMines();
+      //  _gridCellsView.Grid.InitMines();
+        _gridCellsView.Grid.GenerateMines();
         _gridCellsView.Grid.InitGrid();
     }
 }
