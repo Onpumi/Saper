@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class GridCellsView : MonoBehaviour, IGridCellsView
 {
-    [SerializeField] private ViewCell _prefabView;
+    [SerializeField] private ViewCell _prefabViewCell;
+    [SerializeField] private ViewBrick _prefabViewBrick;
     [SerializeField] private float _needCountBricks = 150f;
     [SerializeField] private float _scaleHeightGrid = 0.9f;
     private float _scaleBrick = 1f;
@@ -13,34 +14,27 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
     private ViewCell[] _viewCells;
     private ScreenAdjusment _screenAdjusment;
     private SpriteData SpriteData;
-    private FactoryViews<ViewCell> _factoryViews;
+    private FactoryCell _factoryCell;
 
     public Vector2 SizePerUnit { get; private set; }
     public GridCells Grid => _grid;
     
-    private void Awake()
+
+    public void Compose()
     {
         _screenAdjusment = new ScreenAdjusment( transform );
-        SpriteData.Width = _prefabView.GetComponent<Image>().sprite.rect.width;
-        SpriteData.Height = _prefabView.GetComponent<Image>().sprite.rect.height;
-        _factoryViews = new FactoryViews<ViewCell>(_prefabView, transform);
-    }
-
-    private void Start()
-    {
+        SpriteData.Width = _prefabViewCell.GetComponent<Image>().sprite.rect.width;
+        SpriteData.Height = _prefabViewCell.GetComponent<Image>().sprite.rect.height;
         CalculateScale();
         _grid = new GridCells(this, _scaleBrick, _scaleHeightGrid);
+        
     }
-
-
 
     private void CalculateScale()
     {
-        var perUnit = _screenAdjusment.RefPixelsPerUnit;
         var _needCountBricks = 150f;
         var screenArea = _screenAdjusment.ResolutionCanvas.x * _screenAdjusment.ResolutionCanvas.y;
         var spriteArea = SpriteData.Width * SpriteData.Height;
-        var countMaxSpritesInArea = screenArea / spriteArea;
         var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));
         _scaleBrick *= deltaScale;
         
@@ -54,7 +48,7 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
                                            resolutionCanvas.y / (refPixelsPerUnit * scaleY));
     }
     
-    public void DisplayCells( Cell[,] cells, int countColumns, int countRows, float scale )
+    public void DisplayCells( ICell[,] cells, int countColumns, int countRows, float scale )
     {
         int indexCell = 0;
         var delta = 0;
@@ -69,14 +63,20 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
 
         var positionStart = camera.ScreenToWorldPoint(new Vector3(_tabLeftForSprite + widthSprite/2f, 
             _tabTopForSprite + heightSprite/2f) );
-        
-       _viewCells = _factoryViews.CreateAll(countRows * countColumns);
+
+        if (_viewCells == null)
+        {
+            _viewCells = new ViewCell[countRows * countColumns];
+        }
+
         
         for( var i = 0 ; i < countColumns ; i++ )
         for (var j = 0; j < countRows; j++)
         {
-            _viewCells[indexCell].InitCellData( new CellData(i,j,scale) );
-            cells[i, j] = new Cell(_viewCells[indexCell],i,j);
+            var cellData = new CellData(i, j, scale);
+            var factoryViewCell = new FactoryViewCell( _prefabViewCell, _prefabViewBrick, cellData, transform );
+            var factoryCell = new FactoryCell(factoryViewCell, cellData );
+            cells[i, j] = factoryCell.Create();
             cells[i,j].Display( positionStart, scale);
             indexCell++;
         }

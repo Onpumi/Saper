@@ -13,7 +13,7 @@ public class Cell : ICell
     public ViewCell ViewCell => _viewCell;
     public CellData CellData { get; private set; }
 
-    private FactoryViews<ViewMine> _factoryViewMine;
+    //private FactoryViewCell<ViewMine> _factoryViewCellMine;
 
     public Cell( ViewCell viewCell, int indexI, int indexJ )
     {
@@ -26,9 +26,6 @@ public class Cell : ICell
        Indexes[0] = indexI;
        Indexes[1] = indexJ;
        CellData = viewCell.CellData;
-
-       //_factoryViewMine = new FactoryViews<ViewMine>(viewCell. ,_viewCell);
-
     }
 
     public void Display( Vector3 position, float scale)
@@ -36,20 +33,6 @@ public class Cell : ICell
         _viewCell.Display(this, position, scale);
     }
 
-    public void Init(  int indexI, int indexJ )
-    {
-        Indexes[0] = indexI;
-        Indexes[1] = indexJ;
-        _viewCell.InstatiateBricks();
-        //_viewCell.InstantiateObject();
-        
-//        ISpawner<ViewBrick> _ispawner = new SpawnerObject<ViewBrick>(transform);
-  //      _viewBrick = _ispawner.InstantiateObject(_prefabViewBrick, Vector3.one); 
-    
-        //var s = spawner.InstantiateObject(_prefabViewBrick, Vector3.one);
-
-        
-    }
 
     public void CreateMine(int value, int indexI, int indexJ)
     {

@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class GridCells
+public class GridCells 
 {
     private readonly GridCellsView _gridCellsView;
     private readonly int _countColumns;
@@ -28,25 +28,15 @@ public class GridCells
         _cells = new Cell[_countColumns, _countRows];
         _firstIndexes = new int[2] { -1, -1 };
         CreateBlocks();
-        InitBricks();
     }
+
 
     public void ConfirmFirstClick()
     {
         IsFirstClick = false;
     }
     
-    private void InitBricks()
-    {
-        int indexCell = 0;
-        for( var i = 0 ; i < _countColumns ; i++ )
-        for( var j = 0; j < _countRows; j++ )
-        {
-           _cells[i,j].Init(i, j);
-            indexCell++;
-        }
-    }
-    
+   
    public void InitMines(  )
     {
         GenerateArrayMines();

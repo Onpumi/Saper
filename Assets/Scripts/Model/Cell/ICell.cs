@@ -8,4 +8,5 @@ public interface ICell
     public bool TryOpen();
     public void Open();
     public void SetFlag();
+    public void Display( Vector3 positionStart, float scale);
 }
