@@ -34,25 +34,7 @@ public class ViewCell : MonoBehaviour, IViewCell
         _downAction.Select(grid.Cells[CellData.Index1,CellData.Index2]);
     }
     
-    
-/*
-    public void InstantiateObject(  )
-    {
-            ISpawner<ViewBrick> _ispawner = new SpawnerObject<ViewBrick>(transform);
-            _viewBrick = _ispawner.InstantiateObject(_prefabViewBrick, Vector3.one); 
-    
-        //var s = spawner.InstantiateObject(_prefabViewBrick, Vector3.one);
-    }
-*/
-
-    public void InstantiateMine()
-      {
-          var mine = Instantiate(_prefabViewMine, transform);
-          var index = mine.transform.GetSiblingIndex();
-          mine.transform.SetSiblingIndex(--index);
-      }
-
-      public void SetTextNumbers( int value )
+     public void SetTextNumbers( int value )
       {
           if (value >= 1 && value <= 8)
           {
@@ -68,14 +50,6 @@ public class ViewCell : MonoBehaviour, IViewCell
           CellData = cellData;
       }
 
-      /*
-      public void InstatiateBricks()
-      {
-         _viewBrick = Instantiate(_prefabViewBrick, transform);
-          _viewBrick.transform.localScale = Vector3.one;
-      }
-
-*/
 
       public bool InitFlag()
       {
@@ -91,14 +65,7 @@ public class ViewCell : MonoBehaviour, IViewCell
           return _viewFlag.Value;
       }
 
-      public void InstatiateBoom()
-      {
-          var boom = Instantiate(_prefabViewBoom, transform.parent);
-          boom.transform.localScale = Vector3.one * 5f;
-      }
-
-
-      public void Display( ICell cell, Vector3 positionStart, float scale)
+        public void Display( ICell cell, Vector3 positionStart, float scale)
       {
           var widthSprite = WidthSpriteCell * scale;
           var heightSprite = HeightSpriteCell * scale;
@@ -112,6 +79,7 @@ public class ViewCell : MonoBehaviour, IViewCell
 
           transform.position = resultPosition;
           transform.localScale = new Vector3(scale, scale, 0);
-
       }
+
+      
 }

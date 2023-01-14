@@ -45,7 +45,7 @@ public class Cell : ICell
         if (Value == -1)
         {
             IsInitMine = true;
-            _viewCell.InstantiateMine();
+//            _viewCell.InstantiateMine();
         }
         else IsInitMine = false;
     }
@@ -68,15 +68,7 @@ public class Cell : ICell
             var index2 = Indexes[1];
             FindNeighbourEmptyCellsAndOpen(cells, index1, index2);
         }
-        
-        else if ( Value == -1 )
-        {
-            
-            _viewCell.InstatiateBoom();
-            _viewCell.transform.parent.GetComponent<GridCellsView>().enabled = false;
-            return false;
-        }
-
+   
         return true;
     }
 
@@ -95,7 +87,8 @@ public class Cell : ICell
     public void SetFlag()
     {
         if (IsOpen == true) return;
-        IsFlagged = _viewCell.InitFlag();   
+        IsFlagged = _viewCell.InitFlag();
+        AndroidAPI.Vibration(50);
     }
 
     
@@ -142,6 +135,10 @@ public class Cell : ICell
         _viewCell.SetTextNumbers( Value  );
     }
 
+    public void DisableCell()
+    {
+        _viewCell.transform.gameObject.SetActive(false);
+    }
     
     
 }

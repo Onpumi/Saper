@@ -89,6 +89,8 @@
      <Compile Include="Assets\Scripts\View\ViewBoom.cs" />
      <Compile Include="Assets\Scripts\View\ViewBrick.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
+     <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
+     <Compile Include="Assets\AndroidAPI\C# For example\main.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

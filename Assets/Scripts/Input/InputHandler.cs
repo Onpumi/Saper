@@ -42,9 +42,15 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime )
         {
                 var objectCell = _raycastResult.gameObject;
-                
+                //Debug.Log(ViewCell.name);
                 if( objectCell.transform.parent.TryGetComponent( out ViewCell viewCell ) == false ) return;
+                else
+                {
+                   // Debug.Log( viewCell );
+                }
                 if (viewCell.transform.parent.TryGetComponent(out GridCellsView gridView) == false) return;
+
+                
                 _gridCells = gridView.Grid;
                 
               viewCell.InitAction(_gridCells, new FlagDownAction());

@@ -28,7 +28,6 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         SpriteData.Height = _prefabViewCell.GetComponent<Image>().sprite.rect.height;
         CalculateScale();
         _grid = new GridCells(this, _prefaViewMine, _scaleBrick, _scaleHeightGrid);
-        
     }
 
     private void CalculateScale()
@@ -47,6 +46,13 @@ public class GridCellsView : MonoBehaviour, IGridCellsView
         var refPixelsPerUnit = _screenAdjusment.RefPixelsPerUnit;
         return  SizePerUnit = new Vector2( resolutionCanvas.x / (refPixelsPerUnit * scaleX), 
                                            resolutionCanvas.y / (refPixelsPerUnit * scaleY));
+    }
+
+
+
+    public void DisableCells()
+    {
+
     }
     
     public void DisplayCells( ICell[,] cells, int countColumns, int countRows, float scale )

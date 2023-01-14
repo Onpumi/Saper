@@ -12,7 +12,6 @@ public class GridCells
     private readonly int _countRows;
     private ICell[,] _cells;
     private readonly int _countMines;
-    private int[] _arrayMines;
     private readonly int[] _firstIndexes;
     private readonly float _scaleBrick;
     public bool IsFirstClick { get; private set; }
@@ -42,43 +41,7 @@ public class GridCells
         IsFirstClick = false;
     }
     
-   
-   public void InitMines(  )
-    {
-        GenerateArrayMines();
-        int indexMine = 0;
-        int indexCell = 0;
-        
-        for( var i = 0 ; i < _countColumns ; i++ )
-        for( var j = 0; j < _countRows; j++ )
-        {
-            int valueCell;
-            valueCell =    _arrayMines[indexMine++];
-                    if ( 
-                            i != _firstIndexes[0] && j != _firstIndexes[1] &&
-                            i != _firstIndexes[0]-1 && j != _firstIndexes[1] &&
-                            i != _firstIndexes[0]+1 && j != _firstIndexes[1] &&
-                            i != _firstIndexes[0]+1 && j != _firstIndexes[1]-1 &&
-                            i != _firstIndexes[0]+1 && j != _firstIndexes[1]+1 &&
-                            i != _firstIndexes[0] && j != _firstIndexes[1]+1 &&
-                            i != _firstIndexes[0] && j != _firstIndexes[1]-1 &&
-                            i != _firstIndexes[0]-1 && j != _firstIndexes[1]+1
-                        )
-                    {
-                        _cells[i, j].CreateMine(valueCell, i, j);
-/*
-                        if (_cells[i, j].Value == -1)
-                        {
-                            var factoryViewMine = new FactoryViewMine(_prefabViewMine, _cells[i, j].GetViewTransform());
-                            FactoryMine factoryMine = new FactoryMine(factoryViewMine, _cells[i, j].CellData);
-                            _cells[i, j] = factoryMine.Create();
-                        }
-                        //_cells[i, j].CreateMine(valueCell, i, j);
-                        */
-                    }
-            indexCell++;
-        }
-    }
+ 
     
     
 
@@ -96,10 +59,8 @@ public class GridCells
             var indexRandom = Random.Range(0, _cells.GetLength(0));
             var parent = _cells[indexRandom, j].GetViewTransform(); 
             var cell = _cells[indexRandom, j];
-
             var maxIteration = 10000;
             var iteration = 0;
-           // Debug.Log(_firstIndexes[0] + " " + _firstIndexes[1]);
   
             var factoryViewMine = new FactoryViewMine(_prefabViewMine, parent);
             FactoryMine factoryMine = new FactoryMine( factoryViewMine, cell.CellData);
@@ -130,27 +91,6 @@ public class GridCells
         return banIndexes;
     }
     
-    
-
-    private void GenerateArrayMines()
-    {
-        _arrayMines = new int[_countRows * _countColumns];
-        int countMaxIteration = 10000;
-        int countIteration = 0;
-       
-        for ( var i = 0; i < _countMines; i++)
-        {
-            if (countIteration > countMaxIteration) break;
-            var randomIndexMine = UnityEngine.Random.Range(0,_arrayMines.Length-1);
-            if( _arrayMines[randomIndexMine] == -1 )
-            {
-                i--;
-                countIteration++;
-                continue;
-            }
-            _arrayMines[randomIndexMine] = -1;
-        }
-    }
 
     private void CreateBlocks()
     {

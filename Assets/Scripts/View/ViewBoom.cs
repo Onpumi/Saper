@@ -9,5 +9,6 @@ public class ViewBoom : MonoBehaviour
         transform.SetAsLastSibling();
         transform.SetParent(transform.parent.parent);
         transform.position = transform.parent.position;
+        
     }
 }

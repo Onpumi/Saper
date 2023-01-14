@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class CellMine : ICell
 {
     
@@ -29,7 +30,6 @@ public class CellMine : ICell
     public bool TryOpen()
     {
         if (IsOpen == true || IsFlagged ) return true;
-        //Debug.Log("Мина!");
         _viewMine.InstantiateBoom();
         return true;
     }
@@ -37,7 +37,16 @@ public class CellMine : ICell
 
     public void SetFlag()
     {
+        if (IsOpen == true) return;
+
+        if (_viewMine.transform.parent.TryGetComponent(out ViewCell viewCell))
+        {
+            IsFlagged = viewCell.InitFlag();
+            AndroidAPI.Vibration(50);
+            
+        }
         
+
     }
 
     public void Display(Vector3 position, float scale)

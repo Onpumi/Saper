@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class DigDownAction : IDownAction
 {
@@ -18,6 +19,11 @@ public class DigDownAction : IDownAction
             {
                 cellOther.Open();       
             }
+        }
+        else if( cell is CellMine  )
+        {
+            //Debug.Log("Boom!");
+           //_gridCellsView.DisplayCells();
         }
 
     }
