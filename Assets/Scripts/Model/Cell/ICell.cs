@@ -11,6 +11,8 @@ public interface ICell
     public void IncrementValue();
     public void CreateMine( int valueCell, int i, int j);
     public Transform GetViewTransform();
-    public void SetValue( int value );
     public void Display( Vector3 positionStart, float scale);
+    public ICellView CellView { get; }
+    public Transform TransformView { get; }
+    
 }

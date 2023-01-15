@@ -3,34 +3,35 @@ using UnityEngine;
 public class CellMine : ICell
 {
     
-    private ViewMine _viewMine;
+    private MineView _mineView;
     public int Value { get; private set; }
     public CellData Data { get; }
     public bool IsOpen { get; private set;  }
     public bool IsFlagged { get; private set; }
     public CellData CellData { get; private set; }
-
+    public ICellView CellView { get; private set; }
+    public Transform TransformView => null;
 
     public void CreateMine(int value, int indexI, int indexJ)
     {
     }
 
-    public CellMine( ViewMine viewMine, CellData data)
+    public CellMine( MineView mineView, CellData data)
     {
-        _viewMine = viewMine;
+        _mineView = mineView;
         Data = data;
         Value = 0;
     }
 
     public Transform GetViewTransform()
     {
-        return _viewMine.transform;
+        return _mineView.transform;
     }
 
     public bool TryOpen()
     {
         if (IsOpen == true || IsFlagged ) return true;
-        _viewMine.InstantiateBoom();
+        //_mineView.InstantiateBoom();
         return true;
     }
 
@@ -39,7 +40,7 @@ public class CellMine : ICell
     {
         if (IsOpen == true) return;
 
-        if (_viewMine.transform.parent.TryGetComponent(out ViewCell viewCell))
+        if (_mineView.transform.parent.TryGetComponent(out CellView viewCell))
         {
             IsFlagged = viewCell.InitFlag();
             AndroidAPI.Vibration(50);
@@ -51,12 +52,12 @@ public class CellMine : ICell
 
     public void Display(Vector3 position, float scale)
     {
-            _viewMine.transform.gameObject.SetActive(IsOpen);
+            _mineView.transform.gameObject.SetActive(IsOpen);
     }
 
     public void Open()
     {
-        _viewMine.transform.gameObject.SetActive(true);
+        _mineView.transform.gameObject.SetActive(true);
     }
 
     public void IncrementValue()

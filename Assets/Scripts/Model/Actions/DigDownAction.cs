@@ -3,28 +3,27 @@ using UnityEngine;
 
 public class DigDownAction : IDownAction
 {
-    private readonly IGridCellsView _gridCellsView;
+    private readonly IGameField _gridCellsView;
+    public bool IsLosing { get; private set; }
 
-    public DigDownAction( IGridCellsView gridCellsView )
+    public DigDownAction( IGameField gridCellsView )
     {
         _gridCellsView = gridCellsView ?? throw new ArgumentNullException("Grid Cells can't be null");
     }
 
-    public void Select( ICell cell )
+    public bool Select( ICell cell )
     {
         var grid = _gridCellsView.Grid;
-        if (cell.TryOpen() == false)
-        {
-            foreach (var cellOther in grid.Cells)
-            {
-                cellOther.Open();       
-            }
-        }
-        else if( cell is CellMine  )
-        {
-            //Debug.Log("Boom!");
-           //_gridCellsView.DisplayCells();
-        }
+//        if (cell.TryOpen() == false)
+  //      {
+         //   foreach (var cellOther in grid.Cells)
+//            {
+  //              cellOther.Open();       
+    //        }
+//        }
+
+        return cell.TryOpen();
+
 
     }
 }

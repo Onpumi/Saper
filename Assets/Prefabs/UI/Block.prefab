@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09082266863eca44b59a02a72288c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabViewMine: {fileID: 9005108687923012427, guid: f085fd33314a7eb419849b8cc0d558fc, type: 3}
+  _prefabMineView: {fileID: 9005108687923012427, guid: f085fd33314a7eb419849b8cc0d558fc, type: 3}
   _spriteNumbers:
   - {fileID: 21300000, guid: 99b7e4f8ee946e748a68f63daf9f1dd9, type: 3}
   - {fileID: 21300000, guid: b9f565d97e0bf24408dd95b9120adba0, type: 3}
@@ -99,9 +99,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e3757812b70abe84ba13d77414584ac8, type: 3}
   - {fileID: 21300000, guid: 9a8e8d43989f4b3418ae75b9bd7e31d4, type: 3}
   - {fileID: 21300000, guid: 8bb99f560309c6a448ffc06930296c9b, type: 3}
-  _prefabViewBrick: {fileID: 6303002758217621924, guid: 70dc0ee44e98dcc4abf0c624cf930a31, type: 3}
-  _prefabViewFlag: {fileID: 1989260111861421937, guid: f870637b3cec30c41887d4d91679cd00, type: 3}
-  _prefabViewBoom: {fileID: 1045116040469999158, guid: a5d689fd408b70048939b9de9d7f97ae, type: 3}
+  _prefabBrickView: {fileID: 6303002758217621924, guid: 70dc0ee44e98dcc4abf0c624cf930a31, type: 3}
+  _prefabFlagView: {fileID: 1989260111861421937, guid: f870637b3cec30c41887d4d91679cd00, type: 3}
+  _prefabBoomView: {fileID: 1045116040469999158, guid: a5d689fd408b70048939b9de9d7f97ae, type: 3}
 --- !u!114 &2937658377073500080
 MonoBehaviour:
   m_ObjectHideFlags: 0

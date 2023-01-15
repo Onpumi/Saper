@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 public class GridCells 
 {
-    private readonly GridCellsView _gridCellsView;
-    private readonly ViewMine _prefabViewMine;
+    private readonly GameField _gameField;
+    private readonly MineView _prefabMineView;
     private readonly int _countColumns;
     private readonly int _countRows;
     private ICell[,] _cells;
@@ -18,13 +18,13 @@ public class GridCells
     public ICell[,] Cells => _cells;
 
 
-    public GridCells( GridCellsView gridCellsView, ViewMine prefabViewMine, float scaleBrick, float scaleHeightGrid )
+    public GridCells( GameField gameField, MineView prefabMineView, float scaleBrick, float scaleHeightGrid )
     {
-        _gridCellsView = gridCellsView;
-        _prefabViewMine = prefabViewMine;
+        _gameField = gameField;
+        _prefabMineView = prefabMineView;
         _scaleBrick = scaleBrick;
         IsFirstClick = true;
-        var widthPerUnit = gridCellsView.GetSizePerUnit(_scaleBrick, _scaleBrick / scaleHeightGrid);
+        var widthPerUnit = gameField.GetSizePerUnit(_scaleBrick, _scaleBrick / scaleHeightGrid);
         _countColumns = Mathf.RoundToInt( widthPerUnit.x );
         if (_countColumns > widthPerUnit.x) _countColumns--;
         _countRows = Mathf.RoundToInt(widthPerUnit.y);
@@ -57,44 +57,42 @@ public class GridCells
         for (int j = 0; j < _cells.GetLength(1); j++)
         {
             var indexRandom = Random.Range(0, _cells.GetLength(0));
-            var parent = _cells[indexRandom, j].GetViewTransform(); 
+            var parent = _cells[indexRandom, j].TransformView;
             var cell = _cells[indexRandom, j];
-            var maxIteration = 10000;
+            var maxIteration = 100000;
             var iteration = 0;
-  
-            var factoryViewMine = new FactoryViewMine(_prefabViewMine, parent);
-            FactoryMine factoryMine = new FactoryMine( factoryViewMine, cell.CellData);
-            _cells[indexRandom , j] = factoryMine.Create();
-            _cells[indexRandom, j].SetValue(-1);
-            _cells[indexRandom, j].CreateMine(-1,indexRandom,j);
-                     
-            
+            while (DeniedSetMines(indexRandom, j) && iteration < maxIteration)
+            {
+                indexRandom = Random.Range(0, _cells.GetLength(0));
+                iteration++;
+            }
+       _cells[indexRandom, j].CreateMine( -1, indexRandom, j);
         }
     }
 
-    private List<int[]> FindBanNearIndexes(int firstIndex, int secondIndex)
+
+    private bool DeniedSetMines( int i, int j )
     {
-        //int[] result = { 0,0} ;
-        List<int[]> banIndexes = new List<int[]>();
-
-        foreach (var cell in Cells)
-        {
-            for( int k = -1 ; k < 1 ; k++ )
-            if (cell.CellData.Index1 == firstIndex && cell.CellData.Index2 == secondIndex + k)
+        bool result = true;
+            if ( 
+                 ( (i > _firstIndexes[0] + 2 || i < _firstIndexes[0] - 2 ) ||
+                   (j > _firstIndexes[1] + 2 || j < _firstIndexes[1] - 2)
+                 )
+              )
             {
-                int[] result = { cell.CellData.Index1,cell.CellData.Index2};
-                banIndexes.Add(  result );
+                result = result & false;
             }
-        }
-        
-
-        return banIndexes;
+            else
+            {
+                result = result & true;
+            }
+        return result;
     }
     
 
     private void CreateBlocks()
     {
-            _gridCellsView.DisplayCells( _cells, _countColumns,_countRows,_scaleBrick);        
+            _gameField.DisplayCells( _cells, _countColumns,_countRows,_scaleBrick);        
     }
     
     public void InitGrid()

@@ -3,17 +3,17 @@ using UnityEngine;
 public class FactoryMine : IFactoryMine
 {
     private ICell _cell;
-    private FactoryViewMine _factoryViewMine;
+    private FactoryMineView _factoryMineView;
     private CellData _cellData;
-    public FactoryMine( FactoryViewMine factoryViewMine, CellData cellData)
+    public FactoryMine( FactoryMineView factoryMineView, CellData cellData)
     {
-        _factoryViewMine = factoryViewMine;
+        _factoryMineView = factoryMineView;
         _cellData = cellData;
     }
     
     public ICell Create()
     {
-        var viewMine = _factoryViewMine.Create();
+        var viewMine = _factoryMineView.Create();
         _cell = new CellMine( viewMine,_cellData );
         return _cell;
     }

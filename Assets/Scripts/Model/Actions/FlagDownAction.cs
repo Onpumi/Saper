@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class FlagDownAction : IDownAction
 {
-    public void Select( ICell cell )
+    public bool Select( ICell cell )
     {
         cell.SetFlag();
+        return true;
     }
 
 }

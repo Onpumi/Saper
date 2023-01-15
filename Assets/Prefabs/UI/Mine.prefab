@@ -88,5 +88,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5ea889a97aec5479dd49889268270a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabViewBoom: {fileID: 1045116040469999158, guid: a5d689fd408b70048939b9de9d7f97ae, type: 3}
-  _prefabViewFlag: {fileID: 1989260111861421937, guid: f870637b3cec30c41887d4d91679cd00, type: 3}
+  _prefabBoomView: {fileID: 1045116040469999158, guid: a5d689fd408b70048939b9de9d7f97ae, type: 3}
+  _prefabFlagView: {fileID: 1989260111861421937, guid: f870637b3cec30c41887d4d91679cd00, type: 3}

@@ -1,5 +1,5 @@
 
 public interface ICompositeRoot 
 {
-    void Compose();
+    void Init();
 }
