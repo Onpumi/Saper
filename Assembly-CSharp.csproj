@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Model\Grid\GridCells.cs" />
      <Compile Include="Assets\Scripts\Data\IUI.cs" />
      <Compile Include="Assets\Scripts\Views\MineView.cs" />
+     <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
      <Compile Include="Assets\Scripts\Root\GameState.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryMine.cs" />
      <Compile Include="Assets\Scripts\Views\FlagView.cs" />
@@ -109,7 +110,9 @@
      <Compile Include="Assets\Scripts\Views\BrickView.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
-     <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
+     <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\UI\WindowSettings.cs" />
+     <Compile Include="Assets\Scripts\UI\ButtonSettings.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

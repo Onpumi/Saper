@@ -3,4 +3,5 @@
     {
         private bool _isRun = false;
         public bool IsRun => _isRun;
+        public GameField GameField { get; private set;  }
     }

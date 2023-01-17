@@ -11,7 +11,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     private CellView _prefabCellView;
     private BrickView _prefabBrickView;
     private MineView _prefabMineView;
-    [SerializeField] private GameState _root;
+    //[SerializeField] private GameState _root;
     [SerializeField] private float _needCountBricks = 150f;
     [SerializeField] private float _scaleHeightGrid = 0.5f;
     private float _scaleBrick = 1f;
@@ -22,9 +22,9 @@ public class GameField : SerializedMonoBehaviour, IGameField
     private FactoryCell _factoryCell;
     public Vector2 SizePerUnit { get; private set; }
     public GridCells Grid => _grid;
-    public IUI UI => _uis;
-    public Views Views => _views;
-    public GameState GameState => _gameState;
+    //public IUI UI => _uis;
+    //public Views Views => _views;
+    //public GameState GameState => _gameState;
     public IGame Game { get; private set;  }
 
     public float Scale => _scaleBrick;

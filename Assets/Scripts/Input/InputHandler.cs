@@ -14,17 +14,19 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private bool _isFroze = false;
     private Transform _rootTransform;
     private GameField _gridField;
+    private GameState _gameState;
 
 
     private void Awake()
     {
-        _rootTransform = transform.root.GetChild(0);
+        _rootTransform = transform.root ?? throw new ArgumentNullException(nameof(transform.root));
+        _gameState = _rootTransform.GetComponent<GameState>();
+        _gridField = _gameState.GameField;
     }
 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _gridField = _rootTransform.GetComponent<GameField>();
         _raycastResult = eventData.pointerCurrentRaycast;
         _startClickTime = Time.time;
         _isClick = true;
@@ -38,7 +40,7 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
    private void ReadInputClick( PointerEventData eventData )
    {
-       if (_gridField.GameState.Game.IsRun == false) return;
+       if (_gameState.Game.IsRun == false) return;
         if ((Time.time - _startClickTime) <= _delayClickTime )
         {
             var resultGameObject = _raycastResult.gameObject;
@@ -51,22 +53,15 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             if (viewCell.InitAction(_gridCells, new DigDownAction(gridView)) == false)
             {
                 //Debug.Log("boomm");
-                _gridField.GameState.StopGame();
-                _gridField.UI.UIButtonPlay.SetTransparent(1f);
-                
-                //_gridField.Grid.Cells[0,0].Mi
-                foreach (var cell in _gridField.Grid.Cells )
-                { 
-                     
-                }
-
+                _gameState.StopGame();
+                _gameState.UI.UIButtonPlay.SetTransparent(1f);
             }
         }
     }
 
     private void Update()
     {
-        if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime  && _gridField.GameState.Game.IsRun == true)
+        if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime  && _gameState.Game.IsRun == true)
         {
                 var objectCell = _raycastResult.gameObject;
                 if( objectCell.transform.parent.TryGetComponent( out CellView viewCell ) == false ) return;
