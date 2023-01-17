@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class Cell : ICell
     public bool MineSetAllow { get; private set; }
     public ICellView CellView => _cellView;
     public Transform TransformView => _cellView.transform;
-    public MineView MineView { get; private set;  }
+    public IMineView MineView { get; private set;  }
 
     public Cell( CellView cellView, int indexI, int indexJ )
     {
@@ -51,8 +52,7 @@ public class Cell : ICell
             IsInitMine = true;
             FactoryMineView _factoryMineView = new FactoryMineView(_cellView.MineView, _cellView.transform);
             MineView = _factoryMineView.Create();
-            MineView.transform.localScale = 0.5f * Vector3.one;
-            MineView.transform.gameObject.SetActive(false);
+           // MineView.transform.localScale = 0.8f * Vector3.one;
         }
         else IsInitMine = false;
     }
@@ -77,8 +77,9 @@ public class Cell : ICell
         }
         else if (Value == -1)
         {
-            MineView.gameObject.SetActive(true);
-            _cellView.GetComponent<Image>().color = Color.red;
+            //MineView.gameObject.SetActive(true);
+            //_cellView.GetComponent<Image>().color = Color.red;
+            MineView.ActivateMine(_cellView.transform);
             return false;
         }
             
@@ -88,13 +89,16 @@ public class Cell : ICell
 
     public void Open()
     {
-        var viewFlag = _cellView.transform.GetComponentInChildren<FlagView>();
+        var viewFlag = _cellView.transform.GetComponentInChildren<FlagView>() ??
+                       throw new ArgumentNullException(nameof(_cellView));
+        
         if( viewFlag != null )
             viewFlag.transform.gameObject.SetActive(false);
 
         if (IsOpen == true) return;
         IsOpen = true;
-        var viewBrick = _cellView.transform.GetComponentInChildren<BrickView>();
+        var viewBrick = _cellView.transform.GetComponentInChildren<BrickView>() ??
+                        throw new ArgumentNullException(nameof(_cellView));
         viewBrick.transform.gameObject.SetActive(false);
     }
 
@@ -114,7 +118,7 @@ public class Cell : ICell
                     if ( index1 + n >= 0 && index2 + m >= 0 &&
                          index1 + n <= cells.GetLength(0)-1 &&
                          index2 + m <= cells.GetLength(1)-1 &&
-                         cells[index1 + n, index2 + m].Value != -1 )
+                         cells[index1 + n, index2 + m].Value == 0 )
                     {
                         cells[index1 + n, index2 + m].TryOpen();
                         FindNeighbourWithoutMineCellsAndOpen(cells, index1 + n, index2 + m);
@@ -130,9 +134,9 @@ public class Cell : ICell
             if ( index1 + n >= 0 && index2 + m >= 0 &&
                  index1 + n <= cells.GetLength(0)-1 &&
                  index2 + m <= cells.GetLength(1)-1 &&
-                 cells[index1 + n, index2 + m].Value != -1 )
+                 cells[index1 + n, index2 + m].Value > 0)
             {
-               if( cells[index1 + n, index2 + m].Value == 0 )
+               if( cells[index1 + n, index2 + m].Value > 0 )
                 cells[index1 + n, index2 + m].TryOpen();
             }
         }

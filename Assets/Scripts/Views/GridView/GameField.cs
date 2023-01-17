@@ -1,17 +1,19 @@
 using System;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameField : MonoBehaviour, IGameField
+public class GameField : SerializedMonoBehaviour, IGameField
 {
     [SerializeField] private GameState _gameState;
+    [SerializeField] private Views _views;
+    [SerializeField] private IUI _uis;
     private CellView _prefabCellView;
     private BrickView _prefabBrickView;
     private MineView _prefabMineView;
     [SerializeField] private GameState _root;
     [SerializeField] private float _needCountBricks = 150f;
-    [SerializeField] private float _scaleHeightGrid = 0.9f;
+    [SerializeField] private float _scaleHeightGrid = 0.5f;
     private float _scaleBrick = 1f;
     private GridCells _grid;
     private CellView[] _viewCells;
@@ -20,6 +22,8 @@ public class GameField : MonoBehaviour, IGameField
     private FactoryCell _factoryCell;
     public Vector2 SizePerUnit { get; private set; }
     public GridCells Grid => _grid;
+    public IUI UI => _uis;
+    public Views Views => _views;
     public GameState GameState => _gameState;
     public IGame Game { get; private set;  }
 
@@ -38,26 +42,16 @@ public class GameField : MonoBehaviour, IGameField
         SpriteData.Width = _prefabCellView.GetComponent<Image>().sprite.rect.width;
         SpriteData.Height = _prefabCellView.GetComponent<Image>().sprite.rect.height;
         CalculateScale();
-        _grid = new GridCells(this, _prefabMineView, _scaleBrick, _scaleHeightGrid);
-
+        _grid = new GridCells(this, _views.MineView, _scaleBrick, _scaleHeightGrid);
     }
-
-
-    public void DestroyAll()
-    {
-        
-    }
-
-    private float I = 0f;
 
     private void CalculateScale()
-    {
-        var _needCountBricks = 150f;
+    { 
+        _needCountBricks = 150f;
         var screenArea = _screenAdjusment.ResolutionCanvas.x * _screenAdjusment.ResolutionCanvas.y;
         var spriteArea = SpriteData.Width * SpriteData.Height;
         var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));
         _scaleBrick *= deltaScale;
-        
     }
     
     public Vector2 GetSizePerUnit( float scaleX, float scaleY )
@@ -70,7 +64,7 @@ public class GameField : MonoBehaviour, IGameField
 
 
 
-    public void DestroyField(  )
+    public void ReloadField(  )
     {
         foreach (Transform cell in transform)
         {
@@ -83,7 +77,7 @@ public class GameField : MonoBehaviour, IGameField
             }
         }
         
-        _grid = new GridCells(this, _prefabMineView, _scaleBrick, _scaleHeightGrid);
+        _grid = new GridCells(this, _views.MineView, _scaleBrick, _scaleHeightGrid);
 
     }
     

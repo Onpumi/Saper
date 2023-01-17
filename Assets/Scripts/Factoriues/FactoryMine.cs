@@ -1,5 +1,5 @@
 using UnityEngine;
-
+/*
 public class FactoryMine : IFactoryMine
 {
     private ICell _cell;
@@ -18,3 +18,5 @@ public class FactoryMine : IFactoryMine
         return _cell;
     }
 }
+
+*/

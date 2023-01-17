@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\ICellView.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\IDownAction.cs" />
      <Compile Include="Assets\Scripts\Model\Grid\GridCells.cs" />
+     <Compile Include="Assets\Scripts\Data\IUI.cs" />
      <Compile Include="Assets\Scripts\Views\MineView.cs" />
      <Compile Include="Assets\Scripts\Root\GameState.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryMine.cs" />
@@ -62,24 +63,32 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IBrickView.cs" />
      <Compile Include="Assets\Scripts\Root\EntyPoint.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
+     <Compile Include="Assets\Scripts\UI\UIButtonPlay.cs" />
      <Compile Include="Assets\Scripts\Model\Spawns\SpawnerObject.cs" />
      <Compile Include="Assets\Scripts\Extensions\IntExtensions.cs" />
+     <Compile Include="Assets\Scripts\UI\UIPanelView.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IFlagView.cs" />
      <Compile Include="Assets\Scripts\Views\CellView.cs" />
+     <Compile Include="Assets\Scripts\Factoriues\Factory.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\DigDownAction.cs" />
      <Compile Include="Assets\Scripts\Views\GridView\GameField.cs" />
+     <Compile Include="Assets\Scripts\Root\Game\GameStoping.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryGrid.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBoomView.cs" />
+     <Compile Include="Assets\Scripts\Root\Game\GameRunning.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryMine.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\Cell.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryMineView.cs" />
+     <Compile Include="Assets\Scripts\Root\Game\IGame.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IGameField.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Graphics\SpriteData.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\ICell.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactory.cs" />
      <Compile Include="Assets\Scripts\Graphics\ScreenProperties.cs" />
+     <Compile Include="Assets\Scripts\UI\UIPlayModeButton.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\FirstDigDownAction.cs" />
+     <Compile Include="Assets\Scripts\UI\UITimer.cs" />
      <Compile Include="Assets\Scripts\Data\Views.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryView.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\FlagDownAction.cs" />
@@ -89,19 +98,18 @@
      <Compile Include="Assets\AndroidAPI\C# For example\main.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCellView.cs" />
      <Compile Include="Assets\Scripts\Model\Spawns\ISpawner.cs" />
+     <Compile Include="Assets\Scripts\UI\IButton.cs" />
      <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
+     <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
      <Compile Include="Assets\Scripts\Model\Mine\CellMine.cs" />
+     <Compile Include="Assets\Scripts\UI\UICountMines.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryCell.cs" />
      <Compile Include="Assets\Scripts\Views\BoomView.cs" />
+     <Compile Include="Assets\Scripts\Data\UIDatas.cs" />
      <Compile Include="Assets\Scripts\Views\BrickView.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
-     <Compile Include="Assets\Scripts\Factoriues\Factory.cs" />
-     <Compile Include="Assets\Scripts\Root\Game\IGame.cs" />
-     <Compile Include="Assets\Scripts\Root\Game\GameRunning.cs" />
-     <Compile Include="Assets\Scripts\Root\Game\GameStoping.cs" />
-     <Compile Include="Assets\Scripts\UI\ButtonPlay.cs" />
-     <Compile Include="Assets\Scripts\UI\IButton.cs" />
+     <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -762,6 +770,9 @@
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/ProjectsGames/Saper/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.UIBuilderModule">
+ <HintPath>C:/ProjectsGames/Saper/Library/ScriptAssemblies/UnityEditor.UIBuilderModule.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.Mathematics">
  <HintPath>C:/ProjectsGames/Saper/Library/ScriptAssemblies/Unity.Mathematics.dll</HintPath>
  </Reference>
@@ -801,22 +812,6 @@
       <Project>{cd744fe6-fbf3-6e0f-3937-59d8f1dd8cde}</Project>
       <Name>Sirenix.OdinInspector.CompatibilityLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
-      <Project>{34d72b06-76db-6b1e-dac6-d330592f5353}</Project>
-      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
-    </ProjectReference>
-    <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj">
-      <Project>{a796b377-cdf4-11fc-821c-1a4b6247acef}</Project>
-      <Name>Sirenix.OdinInspector.CompatibilityLayer.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="UniTask.TextMeshPro.csproj">
-      <Project>{c6a34ad7-8ba0-0cca-ab43-d1b11e46d5a6}</Project>
-      <Name>UniTask.TextMeshPro</Name>
-    </ProjectReference>
-    <ProjectReference Include="UniTask.Addressables.csproj">
-      <Project>{87a9df56-2027-5e76-921d-c3b684b2e1ce}</Project>
-      <Name>UniTask.Addressables</Name>
-    </ProjectReference>
     <ProjectReference Include="UniTask.DOTween.csproj">
       <Project>{9733e7c9-8442-6b09-00d9-78291e7080be}</Project>
       <Name>UniTask.DOTween</Name>
@@ -825,9 +820,25 @@
       <Project>{075ed485-46ed-266f-0572-9df72a7fe015}</Project>
       <Name>UniTask.Linq</Name>
     </ProjectReference>
+    <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj">
+      <Project>{a796b377-cdf4-11fc-821c-1a4b6247acef}</Project>
+      <Name>Sirenix.OdinInspector.CompatibilityLayer.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Sirenix.OdinInspector.Modules.UnityMathematics.csproj">
+      <Project>{34d72b06-76db-6b1e-dac6-d330592f5353}</Project>
+      <Name>Sirenix.OdinInspector.Modules.UnityMathematics</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.TextMeshPro.csproj">
+      <Project>{c6a34ad7-8ba0-0cca-ab43-d1b11e46d5a6}</Project>
+      <Name>UniTask.TextMeshPro</Name>
+    </ProjectReference>
     <ProjectReference Include="UniTask.csproj">
       <Project>{f4ee67c2-c17a-7384-cbf4-9d6213c4608e}</Project>
       <Name>UniTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Addressables.csproj">
+      <Project>{87a9df56-2027-5e76-921d-c3b684b2e1ce}</Project>
+      <Name>UniTask.Addressables</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

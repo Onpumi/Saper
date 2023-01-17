@@ -18,9 +18,6 @@ public class CellView : MonoBehaviour, ICellView
 
     public MineView MineView => _prefabMineView;
     public BoomView BoomView => _prefabBoomView;
-    
-    
-
     private IDownAction _downAction;
     public CellData CellData { get; private set; }
 
@@ -74,7 +71,6 @@ public class CellView : MonoBehaviour, ICellView
           var widthSprite = WidthSpriteCell * scale;
           var heightSprite = HeightSpriteCell * scale;
           var camera = Camera.main;
-          
           var currentPosition = new Vector3( positionStart.x, positionStart.y, 0f );
           var currentPositionScreen = camera.WorldToScreenPoint(currentPosition);
           currentPositionScreen.x += (float)widthSprite * (float)cell.CellData.Index1 ;

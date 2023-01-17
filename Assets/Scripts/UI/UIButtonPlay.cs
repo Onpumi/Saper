@@ -4,30 +4,31 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonPlay : MonoBehaviour, IButton, IPointerDownHandler
+public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler
 {
     [SerializeField] private Views _views;
     [SerializeField] private GameState _gameState;
     [SerializeField] private Transform _canvas;
     [SerializeField] private GameField _gameField;
     private float _scale;
-    private Text _text;
 
-    public void Start()
+    public void OnEnable()
     {
-        _scale = _gameField.Scale;        
-        transform.localScale = new Vector3(_scale,_scale) * 3f;
-        _text = transform.GetChild(0).GetComponent<Text>();
+        SetTransparent( 0.5f );
     }
     
     public void Play()
     {
-        _gameField.DestroyField();
+        _gameField.ReloadField();
+        SetTransparent(0.5f);
     }
 
-    public void SetText( string text )
+    public void SetTransparent( float alpha )
     {
-        _text.text = text;
+        var img = GetComponent<Image>();
+        var color = img.color;
+        color.a = alpha;
+        img.color = color;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -37,5 +38,10 @@ public class ButtonPlay : MonoBehaviour, IButton, IPointerDownHandler
             _gameState.StartGame();
             Play();
         }
+    }
+
+    private void OnDisable()
+    {
+        gameObject.SetActive(false);
     }
 }

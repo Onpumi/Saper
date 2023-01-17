@@ -1,5 +1,6 @@
-using UnityEngine;
 
+using UnityEngine;
+/*
 public class CellMine : ICell
 {
     
@@ -74,3 +75,5 @@ public class CellMine : ICell
     //}
 
 }
+
+*/

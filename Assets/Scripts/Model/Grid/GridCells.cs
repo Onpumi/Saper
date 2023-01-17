@@ -1,13 +1,12 @@
 
 using UnityEngine;
-using System.Collections.Generic;
 
 
 
 public class GridCells 
 {
     private readonly GameField _gameField;
-    private readonly MineView _prefabMineView;
+    private readonly IMineView _prefabMineView;
     private readonly int _countColumns;
     private readonly int _countRows;
     private ICell[,] _cells;
@@ -18,7 +17,7 @@ public class GridCells
     public ICell[,] Cells => _cells;
 
 
-    public GridCells( GameField gameField, MineView prefabMineView, float scaleBrick, float scaleHeightGrid )
+    public GridCells( GameField gameField, IMineView prefabMineView, float scaleBrick, float scaleHeightGrid )
     {
         _gameField = gameField;
         _prefabMineView = prefabMineView;
@@ -35,15 +34,10 @@ public class GridCells
         CreateBlocks();
     }
 
-
     public void ConfirmFirstClick()
     {
         IsFirstClick = false;
     }
-    
- 
-    
-    
 
     public void FindFirstIndexesOnClick( ICell cell )
     {
@@ -66,7 +60,7 @@ public class GridCells
                 indexRandom = Random.Range(0, _cells.GetLength(0));
                 iteration++;
             }
-       _cells[indexRandom, j].CreateMine( -1, indexRandom, j);
+            _cells[indexRandom, j].CreateMine( -1, indexRandom, j);
         }
     }
 
@@ -75,8 +69,8 @@ public class GridCells
     {
         bool result = true;
             if ( 
-                 ( (i > _firstIndexes[0] + 2 || i < _firstIndexes[0] - 2 ) ||
-                   (j > _firstIndexes[1] + 2 || j < _firstIndexes[1] - 2)
+                 ( (i > _firstIndexes[0] + 1 || i < _firstIndexes[0] - 1 ) ||
+                   (j > _firstIndexes[1] + 1 || j < _firstIndexes[1] - 1)
                  )
               )
             {
