@@ -86,7 +86,7 @@ public class Cell : ICell
    
         return true;
     }
-
+/*
     public void Open()
     {
         var viewFlag = _cellView.transform.GetComponentInChildren<FlagView>() ??
@@ -101,12 +101,14 @@ public class Cell : ICell
                         throw new ArgumentNullException(nameof(_cellView));
         viewBrick.transform.gameObject.SetActive(false);
     }
-
-    public void SetFlag()
+*/
+  
+    public bool SetFlag()
     {
-        if (IsOpen == true) return;
+        if (IsOpen == true) return true;
         IsFlagged = _cellView.InitFlag();
         AndroidAPI.Vibration(50);
+        return IsFlagged;
     }
 
     

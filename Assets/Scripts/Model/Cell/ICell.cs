@@ -7,7 +7,7 @@ public interface ICell
     public CellData CellData { get; }
     public bool TryOpen();
    // public void Open();
-    public void SetFlag();
+    public bool SetFlag();
     public void IncrementValue();
     public void CreateMine( int valueCell, int i, int j);
     //public Transform GetViewTransform();

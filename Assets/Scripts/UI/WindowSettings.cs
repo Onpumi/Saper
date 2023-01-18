@@ -1,7 +1,8 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
-public class WindowSettings : MonoBehaviour
+public class WindowSettings : MonoBehaviour, IUI
 {
 
     [SerializeField] private GameState _gameState; 
@@ -22,6 +23,25 @@ public class WindowSettings : MonoBehaviour
     private void OnDisable()
     {
         gameObject.SetActive(false);
+    }
+    
+    public void Lose()
+    {
+        
+    }
+
+    public void OpenMenuSettings()
+    {
+        
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetAxis("Cancel") > 0)
+        {
+           _gameState.StartGame(); 
+        }
     }
     
 }

@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class UIPanelView : MonoBehaviour
+public class UIPanelView : MonoBehaviour, IUI
 {
-    private void Awake()
+    public void Lose()
     {
+        
     }
-    
+
+    public void OpenMenuSettings()
+    {
+     gameObject.SetActive(false);   
+    }
 }

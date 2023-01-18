@@ -1,8 +1,11 @@
 using UnityEngine;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
-public class UIDatas : MonoBehaviour,IUI
+public class UIDatas : MonoBehaviour
 {
-    [SerializeField] UIButtonPlay _buttonPlay;
+    [SerializeField] private List<IUI> _uis;  
+    [SerializeField] private UIButtonPlay _buttonPlay;
     [SerializeField] private GameState _gameState;
     [SerializeField] private Transform _transformCanvas;
     [SerializeField] private GameField _gameField;

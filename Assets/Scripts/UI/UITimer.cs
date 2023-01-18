@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UITimer : MonoBehaviour
+public class UITimer : MonoBehaviour, IUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Lose()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OpenMenuSettings()
     {
-        
+        gameObject.SetActive(false);   
     }
 }

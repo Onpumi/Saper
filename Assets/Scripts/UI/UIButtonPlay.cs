@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler
+public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
 {
     [SerializeField] private Views _views;
     [SerializeField] private GameState _gameState;
@@ -23,7 +23,19 @@ public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler
         SetTransparent(0.5f);
     }
 
-    public void SetTransparent( float alpha )
+
+    public void Lose()
+    {
+        SetTransparent(1f);
+    }
+    
+    public void OpenMenuSettings()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+        public void SetTransparent( float alpha )
     {
         var img = GetComponent<Image>();
         var color = img.color;

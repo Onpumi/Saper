@@ -10,6 +10,7 @@ public class CellView : MonoBehaviour, ICellView
     [SerializeField] private BrickView _prefabBrickView;
     [SerializeField] private FlagView _prefabFlagView;
     [SerializeField] private BoomView _prefabBoomView;
+
     public  float WidthSpriteCell { get; private set; }
     public  float HeightSpriteCell { get; private set; }
     private Sprite _sprite;

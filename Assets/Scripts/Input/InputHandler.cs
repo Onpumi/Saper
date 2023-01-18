@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private float _delayClickTime;
-    
+
+    private IDownAction _downAction;
     private float _startClickTime;
     private bool _isClick = false;
     private RaycastResult _raycastResult;
@@ -40,6 +41,8 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
    private void ReadInputClick( PointerEventData eventData )
    {
+
+       
        if (_gameState.Game.IsRun == false) return;
         if ((Time.time - _startClickTime) <= _delayClickTime )
         {
@@ -48,13 +51,28 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
             if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
        
             _gridCells = gridView.Grid; 
+
+            //if (_gameState.GameField.ButtonMode.Mode == ButtonMode.Mine)
+            {
+                _downAction = new DigDownAction(gridView);
+            }
+
+            if ( _gameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
+            {
+                _downAction = new FlagDownAction(gridView.Grid);
+            }
+           
+            
             
             if (_gridCells.IsFirstClick)  viewCell.InitAction(_gridCells, new FirstDigDownAction(gridView));
-            if (viewCell.InitAction(_gridCells, new DigDownAction(gridView)) == false)
+
+            
+           // if (viewCell.InitAction(_gridCells, new DigDownAction(gridView)) == false)
+           if (viewCell.InitAction(_gridCells, _downAction) == false)
             {
                 //Debug.Log("boomm");
                 _gameState.StopGame();
-                _gameState.UI.UIButtonPlay.SetTransparent(1f);
+               _gameState.UI.ForEach(ui => ui.Lose());
             }
         }
     }
@@ -70,7 +88,14 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
                 
                 _gridCells = gridView.Grid;
                 
-              viewCell.InitAction(_gridCells, new FlagDownAction());
+             // viewCell.InitAction(_gridCells, new FlagDownAction());
+             _downAction = new FlagDownAction(gridView.Grid);
+             if ( _gameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
+             {
+                 _downAction = new DigDownAction(gridView);
+             }
+
+                viewCell.InitAction(_gridCells, _downAction);
              _isClick = false;
         }
 

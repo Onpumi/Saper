@@ -9,7 +9,6 @@ public class GameSettings : IGame
     public GameSettings( GameField gameField )
     {
         GameField = gameField;
-        Debug.Log(gameField.transform.name);
         gameField.transform.gameObject.SetActive(false);
     }
 }

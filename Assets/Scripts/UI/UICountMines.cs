@@ -1,18 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class UICountMines : MonoBehaviour
+public class UICountMines : MonoBehaviour, IUI
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameField _gameField;
+    [SerializeField] private TMP_Text _tmpText;
+
+    private void Start()
+    {
+        
+        //Display();
+        _tmpText.text = "0";
+
+    }
+
+    public void Lose()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Display( int countMines )
     {
-        
+        _tmpText.text =  Convert.ToString( countMines );
+    }
+    
+
+    public void OpenMenuSettings()
+    {
+        gameObject.SetActive(false);
     }
 }

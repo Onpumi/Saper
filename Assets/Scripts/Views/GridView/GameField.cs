@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class GameField : SerializedMonoBehaviour, IGameField
 {
-    [SerializeField] private GameState _gameState;
+    [SerializeField] private ControllerButtonMode _buttonMode;
     [SerializeField] private Views _views;
-    [SerializeField] private IUI _uis;
+    [SerializeField] private UICountMines _uiCountMines;
     private CellView _prefabCellView;
     private BrickView _prefabBrickView;
     private MineView _prefabMineView;
@@ -22,9 +22,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     private FactoryCell _factoryCell;
     public Vector2 SizePerUnit { get; private set; }
     public GridCells Grid => _grid;
-    //public IUI UI => _uis;
-    //public Views Views => _views;
-    //public GameState GameState => _gameState;
+    public ControllerButtonMode ButtonMode => _buttonMode;
     public IGame Game { get; private set;  }
 
     public float Scale => _scaleBrick;
@@ -80,6 +78,13 @@ public class GameField : SerializedMonoBehaviour, IGameField
         _grid = new GridCells(this, _views.MineView, _scaleBrick, _scaleHeightGrid);
 
     }
+
+
+    public void DisplayCountMines( int countMines )
+    {
+        _uiCountMines.Display( countMines );
+    }
+    
     
     public void DisplayCells( ICell[,] cells, int countColumns, int countRows, float scale )
     {
