@@ -14,13 +14,6 @@ public class DigDownAction : IDownAction
     public bool Select( ICell cell )
     {
         var grid = _gridCellsView.Grid;
-//        if (cell.TryOpen() == false)
-  //      {
-         //   foreach (var cellOther in grid.Cells)
-//            {
-  //              cellOther.Open();       
-    //        }
-//        }
 
         return cell.TryOpen();
 

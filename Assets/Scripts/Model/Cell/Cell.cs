@@ -86,23 +86,8 @@ public class Cell : ICell
    
         return true;
     }
-/*
-    public void Open()
-    {
-        var viewFlag = _cellView.transform.GetComponentInChildren<FlagView>() ??
-                       throw new ArgumentNullException(nameof(_cellView));
-        
-        if( viewFlag != null )
-            viewFlag.transform.gameObject.SetActive(false);
 
-        if (IsOpen == true) return;
-        IsOpen = true;
-        var viewBrick = _cellView.transform.GetComponentInChildren<BrickView>() ??
-                        throw new ArgumentNullException(nameof(_cellView));
-        viewBrick.transform.gameObject.SetActive(false);
-    }
-*/
-  
+    
     public bool SetFlag()
     {
         if (IsOpen == true) return true;
@@ -150,19 +135,10 @@ public class Cell : ICell
         _cellView.SetTextNumbers( Value  );
     }
 
-    public void DisableCell()
+    public InputHandler GetInputHandler()
     {
-        _cellView.transform.gameObject.SetActive(false);
+        return _cellView.transform.GetComponent<InputHandler>();
+         
     }
-
-
-
-    public void TrySetMineAfterFirstClick(int index1, int index2)
-    {
-        
-        
-    }
-    
-    
     
 }

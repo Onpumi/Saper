@@ -16,7 +16,7 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private Transform _rootTransform;
     private GameField _gridField;
     private GameState _gameState;
-
+    public event Action<InputHandler> OnClickCell;
 
     private void Awake()
     {
@@ -35,73 +35,19 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        ReadInputClick(eventData);
-        _isClick = false;
+       if( _isClick == true )
+        OnClickCell?.Invoke(this);
+       _isClick = false;
     }
 
-   private void ReadInputClick( PointerEventData eventData )
-   {
-
-       
-       if (_gameState.Game.IsRun == false) return;
-        if ((Time.time - _startClickTime) <= _delayClickTime )
-        {
-            var resultGameObject = _raycastResult.gameObject;
-            if( resultGameObject.transform.parent.TryGetComponent(out CellView viewCell) == false ) return;
-            if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
-       
-            _gridCells = gridView.Grid; 
-
-            //if (_gameState.GameField.ButtonMode.Mode == ButtonMode.Mine)
-            {
-                _downAction = new DigDownAction(gridView);
-            }
-
-            if ( _gameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
-            {
-                _downAction = new FlagDownAction(gridView.Grid);
-            }
-           
-            
-            
-            if (_gridCells.IsFirstClick)  viewCell.InitAction(_gridCells, new FirstDigDownAction(gridView));
-
-            
-           // if (viewCell.InitAction(_gridCells, new DigDownAction(gridView)) == false)
-           if (viewCell.InitAction(_gridCells, _downAction) == false)
-            {
-                //Debug.Log("boomm");
-                _gameState.StopGame();
-               _gameState.UI.ForEach(ui => ui.Lose());
-            }
-        }
-    }
+    public bool IsTimeShort() => ((Time.time - _startClickTime) <= _delayClickTime);
 
     private void Update()
     {
-        if( Input.GetMouseButton(0) == true && _isClick == true && (Time.time - _startClickTime) > _delayClickTime  && _gameState.Game.IsRun == true)
+        if (Input.GetMouseButton(0) == true && _isClick == true && (IsTimeShort() == false) && _gameState.Game.IsRun == true)
         {
-                var objectCell = _raycastResult.gameObject;
-                if( objectCell.transform.parent.TryGetComponent( out CellView viewCell ) == false ) return;
-                if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
-
-                
-                _gridCells = gridView.Grid;
-                
-             // viewCell.InitAction(_gridCells, new FlagDownAction());
-             _downAction = new FlagDownAction(gridView.Grid);
-             if ( _gameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
-             {
-                 _downAction = new DigDownAction(gridView);
-             }
-
-                viewCell.InitAction(_gridCells, _downAction);
-             _isClick = false;
-        }
-
-        if (Input.GetAxis("Cancel") > 0)
-        {
-            Application.Quit();
+            OnClickCell?.Invoke(this);
+            _isClick = false;
         }
     }
 }

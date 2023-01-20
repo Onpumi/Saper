@@ -1,5 +1,6 @@
-
+using System;
 using UnityEngine;
+
 
 
 
@@ -13,6 +14,7 @@ public class GridCells
     private readonly int _countMines;
     private readonly int[] _firstIndexes;
     private readonly float _scaleBrick;
+    private IDownAction _downAction;
     public int CountFlags { get; private set; }
     public bool IsFirstClick { get; private set; }
     public ICell[,] Cells => _cells;
@@ -54,14 +56,14 @@ public class GridCells
     {
         for (int j = 0; j < _cells.GetLength(1); j++)
         {
-            var indexRandom = Random.Range(0, _cells.GetLength(0));
+            var indexRandom = UnityEngine.Random.Range(0, _cells.GetLength(0));
             var parent = _cells[indexRandom, j].TransformView;
             var cell = _cells[indexRandom, j];
             var maxIteration = 100000;
             var iteration = 0;
             while (DeniedSetMines(indexRandom, j) && iteration < maxIteration)
             {
-                indexRandom = Random.Range(0, _cells.GetLength(0));
+                indexRandom = UnityEngine.Random.Range(0, _cells.GetLength(0));
                 iteration++;
             }
             _cells[indexRandom, j].CreateMine( -1, indexRandom, j);
@@ -94,7 +96,25 @@ public class GridCells
 
     private void CreateBlocks()
     {
-            _gameField.DisplayCells( _cells, _countColumns,_countRows,_scaleBrick);        
+            var camera = _gameField.CameraField ?? throw new NullReferenceException("Camera is null");;
+            var resolutionCanvas = _gameField.ScreenAdjusment.ResolutionCanvas;
+            var heightSprite = _gameField.SpriteData.Height * _scaleBrick;
+            var widthSprite = _gameField.SpriteData.Width * _scaleBrick;
+            var tabLeftForSprite = (resolutionCanvas.x - (float)_countColumns * widthSprite) / 2f;
+            var tabTopForSprite = resolutionCanvas.y * 0.01f;
+            var positionStart = camera.ScreenToWorldPoint(new Vector3(tabLeftForSprite + widthSprite/2f, 
+                tabTopForSprite + heightSprite/2f) );
+        
+            for( var i = 0 ; i < _countColumns ; i++ )
+            for (var j = 0; j < _countRows; j++)
+            {
+                var cellData = new CellData(i, j, _scaleBrick);
+                var factoryViewCell = new FactoryCellView( _gameField.PrefabCellView, _gameField.PrefabBrickView, cellData, _gameField.transform );
+                var factoryCell = new FactoryCell(factoryViewCell, cellData );
+                _cells[i, j] = factoryCell.Create();
+                _cells[i, j].GetInputHandler().OnClickCell += ReadInputClick;
+                _cells[i,j].Display( positionStart, _scaleBrick);
+            }
     }
     
     public void InitGrid()
@@ -116,6 +136,51 @@ public class GridCells
                    }
                 }
              }
+        }
+    }
+    
+    
+    
+    private void ReadInputClick( InputHandler inputHandler )
+    {
+
+        if (_gameField.GameState.Game.IsRun == false) return;
+        if ( inputHandler.IsTimeShort() )
+        {
+            if( inputHandler.transform.TryGetComponent(out CellView viewCell) == false ) return;
+            if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
+
+            _downAction = new DigDownAction(gridView);
+
+            if ( _gameField.ButtonMode.Mode == ButtonMode.Flag )
+            {
+                _downAction = new FlagDownAction(this);
+            }
+  
+            if (IsFirstClick)  viewCell.InitAction( this, new FirstDigDownAction(gridView));
+            
+            if (viewCell.InitAction( this, _downAction) == false)
+            {
+                _gameField.GameState.StopGame();
+                _gameField.GameState.UI.ForEach(ui => ui.Lose());
+            }
+        }
+        else 
+        {
+            if( _gameField.GameState.Game.IsRun == true)
+            {
+                if( inputHandler.transform.TryGetComponent( out CellView viewCell ) == false ) return;
+                if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
+                
+                _downAction = new FlagDownAction(this);
+                if ( _gameField.GameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
+                {
+                    _downAction = new DigDownAction(gridView);
+                }
+
+                viewCell.InitAction(this, _downAction);
+                
+            }
         }
     }
 

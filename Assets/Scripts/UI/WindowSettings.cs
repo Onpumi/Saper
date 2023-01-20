@@ -14,6 +14,7 @@ public class WindowSettings : MonoBehaviour, IUI
 
     private void OnEnable()
     {
+
         if (_gameState.Game is GameSettings)
         {
             gameObject.SetActive(true);
