@@ -66,7 +66,6 @@
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
      <Compile Include="Assets\Scripts\UI\WindowsWinner.cs" />
      <Compile Include="Assets\Scripts\UI\UIButtonPlay.cs" />
-     <Compile Include="Assets\Scripts\Model\Spawns\SpawnerObject.cs" />
      <Compile Include="Assets\Scripts\Extensions\IntExtensions.cs" />
      <Compile Include="Assets\Scripts\UI\UIPanelView.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IFlagView.cs" />
@@ -101,7 +100,6 @@
      <Compile Include="Assets\AndroidAPI\C# For example\main.cs" />
      <Compile Include="Assets\Scripts\UI\WindowSettings.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCellView.cs" />
-     <Compile Include="Assets\Scripts\Model\Spawns\ISpawner.cs" />
      <Compile Include="Assets\Scripts\UI\IButton.cs" />
      <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
      <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
@@ -115,6 +113,7 @@
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\Model\Grid\InputDownHandler.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

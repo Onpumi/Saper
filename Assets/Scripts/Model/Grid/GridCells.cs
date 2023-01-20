@@ -4,13 +4,13 @@ using UnityEngine;
 
 
 
-public class GridCells 
+public partial class GridCells 
 {
     private readonly GameField _gameField;
-    private readonly IMineView _prefabMineView;
+    //private readonly IMineView _prefabMineView;
     private readonly int _countColumns;
     private readonly int _countRows;
-    private ICell[,] _cells;
+    private readonly ICell[,] _cells;
     private readonly int _countMines;
     private readonly int[] _firstIndexes;
     private readonly float _scaleBrick;
@@ -25,7 +25,7 @@ public class GridCells
     public GridCells( GameField gameField, IMineView prefabMineView, float scaleBrick, float scaleHeightGrid )
     {
         _gameField = gameField;
-        _prefabMineView = prefabMineView;
+    //    _prefabMineView = prefabMineView;
         _scaleBrick = scaleBrick;
         IsFirstClick = true;
         var widthPerUnit = gameField.GetSizePerUnit(_scaleBrick, _scaleBrick / scaleHeightGrid);
@@ -57,8 +57,6 @@ public class GridCells
         for (int j = 0; j < _cells.GetLength(1); j++)
         {
             var indexRandom = UnityEngine.Random.Range(0, _cells.GetLength(0));
-            var parent = _cells[indexRandom, j].TransformView;
-            var cell = _cells[indexRandom, j];
             var maxIteration = 100000;
             var iteration = 0;
             while (DeniedSetMines(indexRandom, j) && iteration < maxIteration)
@@ -138,48 +136,112 @@ public class GridCells
              }
         }
     }
-    
-    
-    
-    private void ReadInputClick( InputHandler inputHandler )
-    {
 
+    private void ReadInputClick(InputHandler inputHandler)
+    {
         if (_gameField.GameState.Game.IsRun == false) return;
-        if ( inputHandler.IsTimeShort() )
+        if (inputHandler.IsTimeShort())
         {
-            if( inputHandler.transform.TryGetComponent(out CellView viewCell) == false ) return;
+            if (inputHandler.transform.TryGetComponent(out CellView viewCell) == false) return;
             if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
 
-            _downAction = new DigDownAction(gridView);
+            _downAction = new DigDownAction(this);
 
-            if ( _gameField.ButtonMode.Mode == ButtonMode.Flag )
+            if (_gameField.ButtonMode.Mode == ButtonMode.Flag)
             {
                 _downAction = new FlagDownAction(this);
             }
-  
-            if (IsFirstClick)  viewCell.InitAction( this, new FirstDigDownAction(gridView));
-            
-            if (viewCell.InitAction( this, _downAction) == false)
+
+            if (IsFirstClick) viewCell.InitAction(this, new FirstDigDownAction(gridView));
+
+            if (viewCell.InitAction(this, _downAction) == false)
             {
                 _gameField.GameState.StopGame();
                 _gameField.GameState.UI.ForEach(ui => ui.Lose());
             }
         }
-        else 
+        else
         {
-            if( _gameField.GameState.Game.IsRun == true)
+            if (_gameField.GameState.Game.IsRun == true)
             {
-                if( inputHandler.transform.TryGetComponent( out CellView viewCell ) == false ) return;
+                if (inputHandler.transform.TryGetComponent(out CellView viewCell) == false) return;
                 if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
-                
+
                 _downAction = new FlagDownAction(this);
-                if ( _gameField.GameState.GameField.ButtonMode.Mode == ButtonMode.Flag )
+                if (_gameField.GameState.GameField.ButtonMode.Mode == ButtonMode.Flag)
                 {
-                    _downAction = new DigDownAction(gridView);
+                    _downAction = new DigDownAction(this);
                 }
 
                 viewCell.InitAction(this, _downAction);
-                
+            }
+        }
+    }
+
+    public bool TryOpen( ICell cell )
+    {
+        if (cell.IsOpen == true || cell.IsFlagged ) return true;
+
+        cell.Open();
+
+        BrickView brickView = null;
+        MineView mineView = null;
+        foreach (Transform child in cell.CellView.transform)
+        {
+            if( child.TryGetComponent(out BrickView view1))
+              brickView = child.GetComponent<BrickView>();
+            if( child.TryGetComponent(out MineView view2))
+                mineView = child.GetComponent<MineView>(); 
+        }
+        
+        
+        brickView.transform.gameObject.SetActive(false);
+        var parentCanvas = cell.CellView.transform.parent;
+        
+        if( cell.Value == 0 )
+        {
+            var index1 = cell.CellData.Index1;
+            var index2 = cell.CellData.Index2;
+            FindNeighbourEmptyCellsAndOpen(_cells, index1, index2);
+        }
+        else if (cell.Value == -1)
+        {
+            mineView.ActivateMine(cell.CellView.transform);
+            return false;
+        }
+
+        return true;
+    }
+    
+    
+    private void FindNeighbourEmptyCellsAndOpen( ICell [,] cells, int index1, int index2 )
+    {
+        for( int n = -1; n < 2 ; n++ )
+        for( int m = -1; m < 2; m++ )
+        {
+            if ( index1 + n >= 0 && index2 + m >= 0 &&
+                 index1 + n <= cells.GetLength(0)-1 &&
+                 index2 + m <= cells.GetLength(1)-1 &&
+                 cells[index1 + n, index2 + m].Value == 0 )
+            {
+                TryOpen(cells[index1 + n, index2 + m]);
+                FindNeighbourWithoutMineCellsAndOpen(cells, index1 + n, index2 + m);
+            }
+        }
+    }
+
+    private void FindNeighbourWithoutMineCellsAndOpen( ICell [,] cells, int index1, int index2 )
+    {
+        for( int n = -1; n < 2 ; n++ )
+        for( int m = -1; m < 2; m++ )
+        {
+            if ( index1 + n >= 0 && index2 + m >= 0 &&
+                 index1 + n <= cells.GetLength(0)-1 &&
+                 index2 + m <= cells.GetLength(1)-1 &&
+                 cells[index1 + n, index2 + m].Value > 0)
+            {
+                if (cells[index1 + n, index2 + m].Value > 0)
+                    TryOpen(cells[index1 + n, index2 + m]);
             }
         }
     }

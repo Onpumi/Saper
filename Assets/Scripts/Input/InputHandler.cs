@@ -25,7 +25,6 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         _gridField = _gameState.GameField;
     }
 
-
     public void OnPointerDown(PointerEventData eventData)
     {
         _raycastResult = eventData.pointerCurrentRaycast;

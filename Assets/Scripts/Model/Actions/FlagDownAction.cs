@@ -10,12 +10,12 @@ public class FlagDownAction : IDownAction
         _gridCells = gridCells;
     }
 
-    public bool Select( ICell cell )
+      public bool Select( GridCells gridCells, ICell cell )
     {
-        //if (_gridCells.CountFlags == 0) return false;
         var flag = cell.SetFlag();
         if (flag)
         {
+            if (_gridCells.CountFlags == 0) return false;
             _gridCells.SetCountFlags(-1);
             _gridCells.GameField.DisplayCountMines(_gridCells.CountFlags);
         }

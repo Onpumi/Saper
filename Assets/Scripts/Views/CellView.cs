@@ -32,7 +32,7 @@ public class CellView : MonoBehaviour, ICellView
     public bool InitAction( GridCells grid, IDownAction downAction )
     {
         _downAction = downAction ?? throw new ArgumentNullException("Selection need is not be null");
-        return _downAction.Select(grid.Cells[CellData.Index1,CellData.Index2]);
+        return _downAction.Select(grid, grid.Cells[CellData.Index1,CellData.Index2]);
     }
     
      public void SetTextNumbers( int value )
@@ -67,6 +67,7 @@ public class CellView : MonoBehaviour, ICellView
           return _flagView.Value;
       }
 
+      
         public void Display( ICell cell, Vector3 positionStart, float scale)
       {
           var widthSprite = WidthSpriteCell * scale;
