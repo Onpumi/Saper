@@ -3,26 +3,19 @@ using UnityEngine;
 
 public class FirstDigDownAction : IDownAction
 {
-    private readonly IGameField _gridCellsView;
+    private readonly FieldCells _fieldCells;
 
-    public FirstDigDownAction( IGameField gridCellsView )
+    public FirstDigDownAction( FieldCells fieldCells )
     {
-        _gridCellsView = gridCellsView ?? throw new ArgumentNullException("Grid Cells can't be null");
+        _fieldCells = fieldCells ?? throw new ArgumentNullException("Grid Cells can't be null");
     }
 
-    //public bool Select( ICell cell )
-    public bool Select( GridCells gridCells, ICell cell )
+    public bool Select( ICell cell )
     {
-        /*
-        _gridCellsView.Grid.FindFirstIndexesOnClick( cell );
-        _gridCellsView.Grid.ConfirmFirstClick();
-        _gridCellsView.Grid.GenerateMines();
-        _gridCellsView.Grid.InitGrid();
-        */
-        gridCells.FindFirstIndexesOnClick( cell );
-        gridCells.ConfirmFirstClick();
-        gridCells.GenerateMines();
-        gridCells.InitGrid();
+        _fieldCells.FindFirstIndexesOnClick(cell);
+        _fieldCells.ConfirmFirstClick();
+        _fieldCells.GenerateMines();
+        _fieldCells.InitGrid();
         return true;
     }
 }

@@ -1,4 +1,4 @@
 
-public interface IBrickView
+public interface IBrickView : IView
 {
 }

@@ -21,6 +21,7 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
     {
         Mode = ButtonMode.Mine;
         Display();
+        gameObject.SetActive(false);
     }
 
     public void OnPointerDown( PointerEventData eventData )
@@ -63,7 +64,6 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
         rectTransform1.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, image1.sprite.rect.width);
         rectTransform1.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0, image1.sprite.rect.width);
         
-        
         Image image2 = transform2.GetComponent<Image>();
         RectTransform rectTransform2 = transform2.GetComponent<RectTransform>();
         rectTransform2.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0,   image2.sprite.rect.width / 2f);
@@ -72,11 +72,12 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
     }
     
     
-    public void Lose()
-    {
-        
-    }
+    public void Lose() { }
 
+    public void EnableForDisplay()
+    {
+        gameObject.SetActive(true);
+    }
     public void OpenMenuSettings()
     {
        gameObject.SetActive(false);   

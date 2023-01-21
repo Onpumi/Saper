@@ -3,22 +3,20 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CellView : MonoBehaviour, ICellView
+public class CellView : MonoBehaviour, ICellView, IView
 {
     [SerializeField] private MineView _prefabMineView;
     [SerializeField] private Sprite[] _spriteNumbers;
-    [SerializeField] private BrickView _prefabBrickView;
     [SerializeField] private FlagView _prefabFlagView;
     [SerializeField] private BoomView _prefabBoomView;
-
     public  float WidthSpriteCell { get; private set; }
     public  float HeightSpriteCell { get; private set; }
     private Sprite _sprite;
-    private BrickView _brickView;
     private FlagView _flagView;
 
     public MineView MineView => _prefabMineView;
     public BoomView BoomView => _prefabBoomView;
+    public FlagView FlagView => _flagView;
     private IDownAction _downAction;
     public CellData CellData { get; private set; }
 
@@ -29,10 +27,10 @@ public class CellView : MonoBehaviour, ICellView
         HeightSpriteCell = _sprite.rect.height; 
     }
 
-    public bool InitAction( GridCells grid, IDownAction downAction )
+    public bool InitAction( FieldCells field, IDownAction downAction )
     {
         _downAction = downAction ?? throw new ArgumentNullException("Selection need is not be null");
-        return _downAction.Select(grid, grid.Cells[CellData.Index1,CellData.Index2]);
+        return _downAction.Select(field.Cells[CellData.Index1,CellData.Index2]);
     }
     
      public void SetTextNumbers( int value )
@@ -52,7 +50,7 @@ public class CellView : MonoBehaviour, ICellView
       }
 
 
-      public bool InitFlag()
+      public bool InitFlag( bool value )
       {
           if (_flagView is null)
           {
@@ -61,7 +59,8 @@ public class CellView : MonoBehaviour, ICellView
           }
           else
           {
-              _flagView.transform.gameObject.SetActive(!_flagView.Value);
+              //_flagView.transform.gameObject.SetActive(!_flagView.Value);
+              _flagView.transform.gameObject.SetActive(value);
           }
           _flagView.transform.localScale = Vector3.one / 3f;
           return _flagView.Value;
@@ -83,5 +82,12 @@ public class CellView : MonoBehaviour, ICellView
           transform.localScale = new Vector3(scale, scale, 0);
       }
 
-      
+        public float GetWidth() => GetComponent<Image>().sprite.rect.width;
+        public float GetHeight() => GetComponent<Image>().sprite.rect.height;
+
+        public Transform GetTransform() => transform;
+
+        public CellData GetCellData() => CellData;
+        
+        public InputHandler GetInput() => transform.GetComponent<InputHandler>();
 }

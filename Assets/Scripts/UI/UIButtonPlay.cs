@@ -34,13 +34,17 @@ public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
         gameObject.SetActive(false);
     }
 
-
-        public void SetTransparent( float alpha )
+    public void SetTransparent( float alpha )
     {
         var img = GetComponent<Image>();
         var color = img.color;
         color.a = alpha;
         img.color = color;
+    }
+
+    public void EnableForDisplay()
+    {
+      gameObject.SetActive(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)

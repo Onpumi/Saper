@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIPlayModeButton : MonoBehaviour
+public class UIPlayModeButton : MonoBehaviour, IUI
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        gameObject.SetActive(false);
+    }
+    
+    public void Lose(){}
+
+    public void OpenMenuSettings()
+    {
+        gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EnableForDisplay()
     {
         
     }

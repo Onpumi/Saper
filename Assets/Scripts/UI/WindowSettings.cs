@@ -26,17 +26,15 @@ public class WindowSettings : MonoBehaviour, IUI
         gameObject.SetActive(false);
     }
     
-    public void Lose()
+    public void Lose() { }
+
+    public void OpenMenuSettings() { }
+
+    public void EnableForDisplay()
     {
-        
+        gameObject.SetActive(true);
     }
-
-    public void OpenMenuSettings()
-    {
-        
-    }
-
-
+    
     private void Update()
     {
         if (Input.GetAxis("Cancel") > 0)

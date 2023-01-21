@@ -15,15 +15,15 @@ public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
         _gameState.OpenSettings(_gameState.GameField);
     }
     
-    public void Lose()
+    public void Lose() { }
+
+    public void EnableForDisplay()
     {
-        
+        gameObject.SetActive(true);
     }
 
     public void OpenMenuSettings()
     {
         gameObject.SetActive(false);
-        
-        //_gameState.UI.ForEach(ui->ui.Ope);
     }
 }

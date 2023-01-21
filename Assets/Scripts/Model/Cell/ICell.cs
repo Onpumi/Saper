@@ -6,12 +6,15 @@ public interface ICell
     public bool IsFlagged { get;  }
     public void Open();
     public CellData CellData { get; }
-    public CellView CellView { get;  }
-    public bool SetFlag();
+    public ICellView CellView { get;  }
+    public bool SetFlag( int countFlags );
     public void IncrementValue();
     public void CreateMine( int valueCell, int i, int j);
     public void Display( Vector3 positionStart, float scale);
     public InputHandler GetInputHandler();
+
+
+
 
 
 }

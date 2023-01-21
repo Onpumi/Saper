@@ -1,30 +1,39 @@
-using System;
+
 using UnityEngine;
 
 public class FlagDownAction : IDownAction
 {
-    private GridCells _gridCells;
+    private FieldCells _fieldCells;
+    private ContainerMines _containerMines;
 
-    public FlagDownAction(GridCells gridCells)
+    public FlagDownAction(FieldCells fieldCells, ContainerMines containerMines )
     {
-        _gridCells = gridCells;
+        _fieldCells = fieldCells;
+        _containerMines = containerMines;
     }
 
-      public bool Select( GridCells gridCells, ICell cell )
+      public bool Select( ICell cell )
     {
-        var flag = cell.SetFlag();
-        if (flag)
+        if (_containerMines == null || _containerMines.CountMines == 0) return false;
+        
+        Debug.Log(_containerMines.CountFlags);
+        
+        var isFlag = cell.SetFlag(_containerMines.CountFlags);
+
+        //if (_containerMines.CountFlags <= 0) return false;
+        
+        if (isFlag)
         {
-            if (_gridCells.CountFlags == 0) return false;
-            _gridCells.SetCountFlags(-1);
-            _gridCells.GameField.DisplayCountMines(_gridCells.CountFlags);
+            _containerMines.SetCountFlags(-1);
+            _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
         }
         else
         {
-            _gridCells.SetCountFlags(1);
-            _gridCells.GameField.DisplayCountMines(_gridCells.CountFlags);
+            _containerMines.SetCountFlags(1);
+            _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
         }
-
+        
+        
         return true;
     }
 

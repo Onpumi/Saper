@@ -29,4 +29,6 @@ public class MineView : MonoBehaviour, IMineView
         transform.localScale = Vector3.one * 0.7f;
     }
 
+    public Transform GetTransform() => transform;
+
 }

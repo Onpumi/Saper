@@ -5,9 +5,11 @@ using UnityEngine;
 public class UISettingsButton : MonoBehaviour, IUI
 {
    
-    public void Lose()
+    public void Lose() { }
+
+    public void EnableForDisplay()
     {
-        
+        gameObject.SetActive(true);
     }
 
     public void OpenMenuSettings()

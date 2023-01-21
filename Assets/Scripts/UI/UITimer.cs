@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UITimer : MonoBehaviour, IUI
 {
-    public void Lose()
+    public void Lose() { }
+
+    public void EnableForDisplay()
     {
-        
+        gameObject.SetActive(true);
     }
 
     public void OpenMenuSettings()

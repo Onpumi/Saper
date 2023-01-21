@@ -10,17 +10,18 @@ public class UICountMines : MonoBehaviour, IUI
     [SerializeField] private GameField _gameField;
     [SerializeField] private TMP_Text _tmpText;
 
+    
     private void Start()
     {
-        
-        //Display();
+        gameObject.SetActive(false);
         _tmpText.text = "0";
-
     }
 
-    public void Lose()
+    public void Lose() { }
+
+    public void EnableForDisplay()
     {
-        
+        gameObject.SetActive(true);
     }
 
     public void Display( int countMines )

@@ -18,7 +18,7 @@ public  class Views : MonoBehaviour, IViews, ICompositeRoot
 
     public void Init()
     {
-       _gameField.Init( _cellView, _brickView, _mineView );
+     //  _gameField.Init( _cellView, _brickView, _mineView );
        
     }
 }

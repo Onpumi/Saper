@@ -11,4 +11,9 @@ public class UIPanelView : MonoBehaviour, IUI
     {
      gameObject.SetActive(false);   
     }
+
+    public void EnableForDisplay()
+    {
+        gameObject.SetActive(true);
+    }
 }

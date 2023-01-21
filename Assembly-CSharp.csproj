@@ -54,14 +54,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Views\Interfaces\ICellView.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\IDownAction.cs" />
-     <Compile Include="Assets\Scripts\Model\Grid\GridCells.cs" />
-     <Compile Include="Assets\Scripts\Data\IUI.cs" />
+     <Compile Include="Assets\Scripts\Model\Field\FieldCells.cs" />
+     <Compile Include="Assets\Scripts\UI\IUI.cs" />
      <Compile Include="Assets\Scripts\Views\MineView.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
      <Compile Include="Assets\Scripts\Root\GameState.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryMine.cs" />
      <Compile Include="Assets\Scripts\Views\FlagView.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBrickView.cs" />
+     <Compile Include="Assets\Scripts\Model\Flag\Flag.cs" />
      <Compile Include="Assets\Scripts\Root\EntyPoint.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
      <Compile Include="Assets\Scripts\UI\WindowsWinner.cs" />
@@ -81,6 +82,7 @@
      <Compile Include="Assets\Scripts\Factoriues\FactoryMine.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\Cell.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryMineView.cs" />
+     <Compile Include="Assets\Scripts\Model\Field\SpawnerField.cs" />
      <Compile Include="Assets\Scripts\Root\Game\IGame.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IGameField.cs" />
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
@@ -94,7 +96,6 @@
      <Compile Include="Assets\Scripts\Data\Views.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryView.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\FlagDownAction.cs" />
-     <Compile Include="Assets\Scripts\Factoriues\FactoryViewGrid.cs" />
      <Compile Include="Assets\Scripts\Data\IViews.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\CellData.cs" />
      <Compile Include="Assets\AndroidAPI\C# For example\main.cs" />
@@ -104,6 +105,7 @@
      <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
      <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
      <Compile Include="Assets\Scripts\Model\Mine\CellMine.cs" />
+     <Compile Include="Assets\Scripts\Model\Field\ContainerMines.cs" />
      <Compile Include="Assets\Scripts\UI\ControllerButtonMode.cs" />
      <Compile Include="Assets\Scripts\UI\UICountMines.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryCell.cs" />
@@ -113,7 +115,6 @@
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
-     <Compile Include="Assets\Scripts\Model\Grid\InputDownHandler.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
