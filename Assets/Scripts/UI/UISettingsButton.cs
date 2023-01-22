@@ -16,4 +16,9 @@ public class UISettingsButton : MonoBehaviour, IUI
     {
        gameObject.SetActive(false);   
     }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

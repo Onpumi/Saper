@@ -82,6 +82,11 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
     {
        gameObject.SetActive(false);   
     }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }
 
 

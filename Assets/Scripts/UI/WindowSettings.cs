@@ -35,6 +35,11 @@ public class WindowSettings : MonoBehaviour, IUI
         gameObject.SetActive(true);
     }
     
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    
     private void Update()
     {
         if (Input.GetAxis("Cancel") > 0)

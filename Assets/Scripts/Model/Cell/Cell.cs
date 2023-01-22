@@ -1,7 +1,4 @@
-//using System;
-//using Sirenix.OdinInspector.Editor.Drawers;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Cell : ICell
 {
@@ -14,7 +11,6 @@ public class Cell : ICell
     public CellData CellData { get; private set; }
     public bool MineSetAllow { get; private set; }
     public ICellView CellView => _cellView;
-    //public Transform TransformView => _cellView.transform;
 
     public Cell( ICellView cellView, int indexI, int indexJ )
     {
@@ -56,7 +52,7 @@ public class Cell : ICell
         Flag.SetFlag( containerMines );
         IsFlagged = Flag.Value;
         AndroidAPI.Vibration(50);
-        return IsFlagged;
+        return IsFlagged && IsInitMine;
     }
 
  

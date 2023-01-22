@@ -26,4 +26,9 @@ public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
     {
         gameObject.SetActive(false);
     }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

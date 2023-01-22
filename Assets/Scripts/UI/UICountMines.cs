@@ -29,6 +29,10 @@ public class UICountMines : MonoBehaviour, IUI
         _tmpText.text =  Convert.ToString( countMines );
     }
     
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 
     public void OpenMenuSettings()
     {

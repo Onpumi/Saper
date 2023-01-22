@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameField : SerializedMonoBehaviour, IGameField
 {
     [SerializeField] private ControllerButtonMode _buttonMode;
+    [SerializeField] private WindowsWinner _windowsWinner;
     [SerializeField] private Views _views;
     [SerializeField] private UICountMines _uiCountMines;
     [SerializeField] private GameState _gameState;
@@ -79,8 +81,12 @@ public class GameField : SerializedMonoBehaviour, IGameField
         }
         
         _field = new FieldCells(this,  _scaleBrick, _scaleHeightGrid);
-
+        _windowsWinner.Hide();
+        _notActiveListBeforeStartUI.ForEach(ui => ui.Hide());
     }
+
+    public void ActivateWindowsWin() => _windowsWinner.Display();
+    
 
     public void DisplayCountMines( int countMines )
     {

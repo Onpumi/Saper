@@ -20,4 +20,9 @@ public class UIPlayModeButton : MonoBehaviour, IUI
     {
         
     }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }

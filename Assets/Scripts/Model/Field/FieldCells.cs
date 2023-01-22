@@ -10,15 +10,15 @@ public class FieldCells
     private readonly int _countColumns;
     private readonly int _countRows;
     private readonly ICell[,] _cells;
-    private readonly int _countMines;
     private readonly int[] _firstIndexes;
     private SpawnerField _spawnerField;
+    public int CountOpen { get; private set; }
+    private int _countFlagTrue;
 
-    private ContainerMines _containerMines;
-    //public int CountFlags { get; private set; }
+    private readonly ContainerMines _containerMines;
+    public int CountCells { get; private set; }
     public bool IsFirstClick { get; private set; }
     public ICell[,] Cells => _cells;
-    public int CountMines { get; private set; }
     public GameField GameField => _gameField;
 
 
@@ -33,6 +33,7 @@ public class FieldCells
         var percentMine = 10;
        // _countMines = _countColumns * _countRows * percentMine / 100;
         _cells = new ICell[_countColumns, _countRows];
+        CountCells = _cells.Length;
         _firstIndexes = new int[2] { -1, -1 };
         _containerMines = new ContainerMines( this._gameField, _cells, _firstIndexes );
        _spawnerField = new SpawnerField(this, _containerMines, _cells, scaleBrick, _countColumns, _countRows);
@@ -82,15 +83,24 @@ public class FieldCells
         }
     }
 
+    public void IncrementFlagCount()
+    {
+        _countFlagTrue++;
+    }
+
+    public bool isWin() => (_countFlagTrue + CountOpen) >= CountCells;
+    
     public bool TryOpen( ICell cell )
     {
         if (cell.IsOpen == true || cell.IsFlagged ) return true;
-        //if (cell.IsOpen == true || cell.CellView.GetFlag() ) return true;
 
         cell.Open();
 
+        CountOpen++;
+        
         BrickView brickView = null;
         MineView mineView = null;
+        
         
         foreach (Transform child in cell.CellView.GetTransform())
         {

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class SpawnerField
 {
-    private FieldCells _fieldCells;
-    private ContainerMines _containerMines;
+    private readonly FieldCells _fieldCells;
+    private readonly ContainerMines _containerMines;
     private GameField _gameField;
-    private float _scale;
-    private int _countColumns;
-    private int _countRows;
-    private ICell[,] _cells;
+    private readonly float _scale;
+    private readonly int _countColumns;
+    private readonly int _countRows;
+    private readonly ICell[,] _cells;
     private IDownAction _downAction;
 
     public SpawnerField( FieldCells fieldCells, ContainerMines containerMines, ICell[,] cells, float scale, int countColumns, int countRows )
@@ -63,11 +63,17 @@ public class SpawnerField
 
             if (_fieldCells.IsFirstClick) cellView.InitAction(_fieldCells, new FirstDigDownAction( _fieldCells ));
 
-            if (cellView.InitAction(_fieldCells, _downAction) == false && _downAction is DigDownAction)
+            var action = cellView.InitAction(_fieldCells, _downAction); 
+            
+            if (action == false && _downAction is DigDownAction)
             {
                 _gameField.GameState.StopGame();
                 _gameField.GameState.UI.ForEach(ui => ui.Lose());
                 _fieldCells.Reset();
+            }
+            else if (action == true && _downAction is FlagDownAction)
+            {
+                   
             }
             
         }

@@ -14,6 +14,12 @@ public class DigDownAction : IDownAction
 
     public bool Select( ICell cell )
     {
-        return _fieldCells.TryOpen( cell );
+        var result = _fieldCells.TryOpen( cell );
+        if (_fieldCells.isWin())
+        {
+            _fieldCells.GameField.GameState.StopGame();
+            _fieldCells.GameField.ActivateWindowsWin();
+        }
+        return result;
     }
 }

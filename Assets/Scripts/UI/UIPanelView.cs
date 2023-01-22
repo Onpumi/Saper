@@ -16,4 +16,10 @@ public class UIPanelView : MonoBehaviour, IUI
     {
         gameObject.SetActive(true);
     }
+    
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    
 }

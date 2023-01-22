@@ -56,6 +56,11 @@ public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
         }
     }
 
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+
     private void OnDisable()
     {
         gameObject.SetActive(false);

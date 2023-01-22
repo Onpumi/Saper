@@ -1,10 +1,9 @@
 
-using UnityEngine;
 
 public class FlagDownAction : IDownAction
 {
-    private FieldCells _fieldCells;
-    private ContainerMines _containerMines;
+    private readonly FieldCells _fieldCells;
+    private readonly ContainerMines _containerMines;
 
     public FlagDownAction(FieldCells fieldCells, ContainerMines containerMines )
     {
@@ -14,15 +13,16 @@ public class FlagDownAction : IDownAction
 
       public bool Select( ICell cell )
     {
-        
-        
         if (_containerMines == null || _containerMines.CountMines == 0) return false;
-        
-        
-        bool isFlag = false;
-        isFlag= cell.SetFlag(_containerMines);
+        var result = cell.SetFlag(_containerMines);
+        if( result ) _fieldCells.IncrementFlagCount();
         _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
-        return true;
+        if (_fieldCells.isWin())
+        {
+            _fieldCells.GameField.GameState.StopGame();
+            _fieldCells.GameField.ActivateWindowsWin();
+        }
+        return result;
     }
 
 }
