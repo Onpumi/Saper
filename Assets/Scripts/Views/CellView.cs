@@ -57,13 +57,16 @@ public class CellView : MonoBehaviour, ICellView, IView
               _flagView = Instantiate(_prefabFlagView, transform);
                
           }
-          else
-          {
-              //_flagView.transform.gameObject.SetActive(!_flagView.Value);
-              _flagView.transform.gameObject.SetActive(value);
-          }
+          _flagView.transform.gameObject.SetActive(value);
           _flagView.transform.localScale = Vector3.one / 3f;
           return _flagView.Value;
+      }
+
+
+      public bool GetFlag()
+      {
+          var result = _flagView.transform.gameObject.activeSelf;
+          return result;
       }
 
       

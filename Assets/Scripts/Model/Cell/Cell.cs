@@ -1,11 +1,12 @@
-using System;
+//using System;
+//using Sirenix.OdinInspector.Editor.Drawers;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Cell : ICell
 {
     private readonly ICellView _cellView;
-    private Flag _flag;
+    public Flag Flag { get; private set; }
     public int Value { get; private set; }
     public bool IsOpen { get; private set; }
     public bool IsFlagged { get; private set;  }
@@ -24,7 +25,7 @@ public class Cell : ICell
        IsFlagged = false;
        CellData = cellView.GetCellData();
        MineSetAllow = true;
-       _flag = new Flag( _cellView, _cellView.FlagView );
+       Flag = new Flag( _cellView, _cellView.FlagView );
     }
 
     public void Display( Vector3 position, float scale)
@@ -49,12 +50,11 @@ public class Cell : ICell
         IsOpen = true;
     }
  
-    public bool SetFlag( int countFlags )
+    public bool SetFlag( ContainerMines containerMines )
     {
         if (IsOpen == true) return true;
-        //IsFlagged = _cellView.InitFlag();
-
-        IsFlagged = _flag.SetFlag( countFlags );
+        Flag.SetFlag( containerMines );
+        IsFlagged = Flag.Value;
         AndroidAPI.Vibration(50);
         return IsFlagged;
     }

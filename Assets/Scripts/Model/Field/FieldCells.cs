@@ -36,7 +36,7 @@ public class FieldCells
         _firstIndexes = new int[2] { -1, -1 };
         _containerMines = new ContainerMines( this._gameField, _cells, _firstIndexes );
        _spawnerField = new SpawnerField(this, _containerMines, _cells, scaleBrick, _countColumns, _countRows);
-       _spawnerField.CreateBlocks();
+        _spawnerField.CreateBlocks();
       //  CountFlags = _countMines;
     }
 
@@ -45,6 +45,8 @@ public class FieldCells
         IsFirstClick = false;
         _gameField.NotActiveListBeforeStartUI.ForEach( ui => ui.EnableForDisplay());
     }
+
+    public void Reset() => IsFirstClick = true;
 
     public void FindFirstIndexesOnClick( ICell cell )
     {
@@ -55,7 +57,6 @@ public class FieldCells
 
     public void GenerateMines()
     {
-       // _containerMines = new ContainerMines( this._gameField, _cells, _firstIndexes );
         _containerMines.GenerateMines();
     }
    
@@ -84,6 +85,7 @@ public class FieldCells
     public bool TryOpen( ICell cell )
     {
         if (cell.IsOpen == true || cell.IsFlagged ) return true;
+        //if (cell.IsOpen == true || cell.CellView.GetFlag() ) return true;
 
         cell.Open();
 

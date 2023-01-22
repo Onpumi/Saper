@@ -58,7 +58,7 @@ public class ContainerMines
     
     public void  SetCountFlags( int value )
     {
-        
+        //Debug.Log(CountFlags);
         if ( CountFlags+value >= 0  )
         {   
             CountFlags+=value;

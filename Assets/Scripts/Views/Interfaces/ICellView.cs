@@ -11,5 +11,6 @@ public interface ICellView : IView
     public InputHandler GetInput( );
     public void SetTextNumbers(int value);
     public bool InitFlag( bool value );
+    public bool GetFlag();
 
 }

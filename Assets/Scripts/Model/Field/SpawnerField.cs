@@ -51,8 +51,8 @@ public class SpawnerField
         if (_gameField.GameState.Game.IsRun == false) return;
         if (inputHandler.IsTimeShort())
         {
-            if (inputHandler.transform.TryGetComponent(out CellView viewCell) == false) return;
-            if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
+            if (inputHandler.transform.TryGetComponent(out CellView cellView) == false) return;
+            if (cellView.transform.parent.TryGetComponent(out GameField gridView) == false) return;
 
            _downAction = new DigDownAction(_fieldCells);
 
@@ -61,16 +61,19 @@ public class SpawnerField
                 _downAction = new FlagDownAction(_fieldCells, _containerMines);
             }
 
-            if (_fieldCells.IsFirstClick) viewCell.InitAction(_fieldCells, new FirstDigDownAction( _fieldCells ));
+            if (_fieldCells.IsFirstClick) cellView.InitAction(_fieldCells, new FirstDigDownAction( _fieldCells ));
 
-            if (viewCell.InitAction(_fieldCells, _downAction) == false)
+            if (cellView.InitAction(_fieldCells, _downAction) == false && _downAction is DigDownAction)
             {
                 _gameField.GameState.StopGame();
                 _gameField.GameState.UI.ForEach(ui => ui.Lose());
+                _fieldCells.Reset();
             }
+            
         }
         else
         {
+            
             if (_gameField.GameState.Game.IsRun == true)
             {
                 if (inputHandler.transform.TryGetComponent(out CellView viewCell) == false) return;
@@ -82,9 +85,17 @@ public class SpawnerField
                     _downAction = new DigDownAction(_fieldCells);
                 }
 
-                viewCell.InitAction(_fieldCells,_downAction);
+                if (viewCell.InitAction(_fieldCells, _downAction) == false && _downAction is DigDownAction)
+                {
+                    _gameField.GameState.StopGame();
+                    _gameField.GameState.UI.ForEach(ui => ui.Lose());
+                    _fieldCells.Reset();
+                }
+
+                
             }
         }
+
     }
 
     

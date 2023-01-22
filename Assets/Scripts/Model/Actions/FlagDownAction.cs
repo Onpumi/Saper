@@ -14,26 +14,14 @@ public class FlagDownAction : IDownAction
 
       public bool Select( ICell cell )
     {
+        
+        
         if (_containerMines == null || _containerMines.CountMines == 0) return false;
         
-        Debug.Log(_containerMines.CountFlags);
         
-        var isFlag = cell.SetFlag(_containerMines.CountFlags);
-
-        //if (_containerMines.CountFlags <= 0) return false;
-        
-        if (isFlag)
-        {
-            _containerMines.SetCountFlags(-1);
-            _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
-        }
-        else
-        {
-            _containerMines.SetCountFlags(1);
-            _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
-        }
-        
-        
+        bool isFlag = false;
+        isFlag= cell.SetFlag(_containerMines);
+        _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
         return true;
     }
 
