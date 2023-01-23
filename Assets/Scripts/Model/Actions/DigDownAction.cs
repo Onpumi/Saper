@@ -15,7 +15,7 @@ public class DigDownAction : IDownAction
     public bool Select( ICell cell )
     {
         var result = _fieldCells.TryOpen( cell );
-        if (_fieldCells.isWin())
+        if (_fieldCells.isWin() && cell.IsInitMine == false )
         {
             _fieldCells.GameField.GameState.StopGame();
             _fieldCells.GameField.ActivateWindowsWin();

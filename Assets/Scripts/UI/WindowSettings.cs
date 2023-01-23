@@ -1,8 +1,8 @@
 
 using UnityEngine;
-using UnityEngine.UI;
 
-public class WindowSettings : MonoBehaviour, IUI
+//public class WindowSettings : MonoBehaviour, IUI
+public class WindowSettings : UIBase
 {
 
     [SerializeField] private GameState _gameState; 
@@ -26,19 +26,19 @@ public class WindowSettings : MonoBehaviour, IUI
         gameObject.SetActive(false);
     }
     
-    public void Lose() { }
+    //public void Lose() { }
 
-    public void OpenMenuSettings() { }
+    public override void OpenMenuSettings() { }
 
-    public void EnableForDisplay()
-    {
-        gameObject.SetActive(true);
-    }
+    //public void EnableForDisplay()
+    //{
+//        gameObject.SetActive(true);
+//    }
     
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+//    public void Hide()
+//    {
+//        gameObject.SetActive(false);
+//    }
     
     private void Update()
     {

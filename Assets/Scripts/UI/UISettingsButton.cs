@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UISettingsButton : MonoBehaviour, IUI
+//public class UISettingsButton : MonoBehaviour, IUI
+public class UISettingsButton : UIBase
 {
-   
+   /*
     public void Lose() { }
 
     public void EnableForDisplay()
@@ -21,4 +22,5 @@ public class UISettingsButton : MonoBehaviour, IUI
     {
         gameObject.SetActive(false);
     }
+    */
 }

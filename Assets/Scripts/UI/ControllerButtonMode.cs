@@ -1,20 +1,13 @@
 
-using Sirenix.Utilities;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.EventSystems;
 
-
-public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
+//public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
+public class ControllerButtonMode : UIBase, IPointerDownHandler
 {
     [SerializeField] private Transform _uiFlag;
     [SerializeField] private Transform _uiMine;
-    [SerializeField] private float _scaleParent = 0.7f;
-    [SerializeField] private float _scaleChild = 0.3f;
-    
-
     public ButtonMode Mode { get; private set; }
     
     private void Awake()
@@ -33,12 +26,11 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
     {
         if ( Mode == ButtonMode.Flag )
         {
-            SetRectUI(_uiFlag, _uiMine);
-            
+            ExchangeScaleUI(_uiFlag, _uiMine);
         }
         else if ( Mode == ButtonMode.Mine )
         {
-            SetRectUI(_uiMine, _uiFlag);
+            ExchangeScaleUI(_uiMine, _uiFlag);
         }
     }
 
@@ -52,43 +44,34 @@ public class ControllerButtonMode : MonoBehaviour, IPointerDownHandler, IUI
     private void ReplacingIndexesUI( Transform transform1, Transform transform2)
     {
         var bufferIndex = transform2.GetSiblingIndex();
-            transform2.SetSiblingIndex(transform1.GetSiblingIndex());
-            transform1.SetSiblingIndex(bufferIndex);
+        transform2.SetSiblingIndex(transform1.GetSiblingIndex());
+        transform1.SetSiblingIndex(bufferIndex);
     }
 
-    private void SetRectUI( Transform transform1, Transform transform2 )
+    private void ExchangeScaleUI( Transform transform1, Transform transform2 )
     {
-
-        Image image1 = transform1.GetComponent<Image>();
-        RectTransform rectTransform1 = transform1.GetComponent<RectTransform>();
-        rectTransform1.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, 0, image1.sprite.rect.width);
-        rectTransform1.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, 0, image1.sprite.rect.width);
-        
-        Image image2 = transform2.GetComponent<Image>();
-        RectTransform rectTransform2 = transform2.GetComponent<RectTransform>();
-        rectTransform2.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Right, 0,   image2.sprite.rect.width / 2f);
-        rectTransform2.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Top, 0, image2.sprite.rect.width / 2f);
-
+        SetScaleUI( transform1, RectTransform.Edge.Left, RectTransform.Edge.Bottom, 1f );
+        SetScaleUI( transform2, RectTransform.Edge.Right, RectTransform.Edge.Top, 0.5f );
     }
+
+    private void SetScaleUI( Transform transformUI, RectTransform.Edge edge1, RectTransform.Edge edge2, float scale)
+    {
+        Image image = transformUI.GetComponent<Image>();
+        RectTransform rectTransform = transformUI.GetComponent<RectTransform>();
+        rectTransform.SetInsetAndSizeFromParentEdge(edge1, 0,   image.sprite.rect.width * scale);
+        rectTransform.SetInsetAndSizeFromParentEdge(edge2, 0, image.sprite.rect.width * scale);
+    }
+
     
-    
-    public void Lose() { }
+    //public void Lose() { }
 
-    public void EnableForDisplay()
-    {
-        gameObject.SetActive(true);
-    }
-    public void OpenMenuSettings()
-    {
-       gameObject.SetActive(false);   
-    }
+    //public void EnableForDisplay() => gameObject.SetActive(true);
     
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+    //public void OpenMenuSettings() => gameObject.SetActive(false);   
+    
+    //public void Hide() => gameObject.SetActive(false);
+    
 }
-
 
 public enum ButtonMode
 {

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UICountMines : MonoBehaviour, IUI
+//public class UICountMines : MonoBehaviour, IUI
+public class UICountMines : UIBase
 {
 
     [SerializeField] private GameField _gameField;
@@ -17,25 +18,25 @@ public class UICountMines : MonoBehaviour, IUI
         _tmpText.text = "0";
     }
 
-    public void Lose() { }
+//    public void Lose() { }
 
-    public void EnableForDisplay()
-    {
-        gameObject.SetActive(true);
-    }
+  //  public void EnableForDisplay()
+//    {
+//        gameObject.SetActive(true);
+//    }
 
     public void Display( int countMines )
     {
         _tmpText.text =  Convert.ToString( countMines );
     }
     
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+  //  public void Hide()
+//    {
+//        gameObject.SetActive(false);
+//    }
 
-    public void OpenMenuSettings()
-    {
-        gameObject.SetActive(false);
-    }
+  //  public void OpenMenuSettings()
+//    {
+//        gameObject.SetActive(false);
+//    }
 }

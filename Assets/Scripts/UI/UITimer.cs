@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class UITimer : MonoBehaviour, IUI
+//public class UITimer : MonoBehaviour, IUI
+public class UITimer : UIBase
 {
+    /*
     public void Lose() { }
 
     public void EnableForDisplay()
@@ -20,4 +19,7 @@ public class UITimer : MonoBehaviour, IUI
     {
         gameObject.SetActive(false);
     }
+    */
 }
+
+

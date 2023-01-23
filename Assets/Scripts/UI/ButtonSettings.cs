@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
+//public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
+public class ButtonSettings : UIBase, IPointerDownHandler
 {
     [SerializeField]  private GameState _gameState;
     [SerializeField] private WindowSettings _windowSettings;
@@ -15,6 +16,7 @@ public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
         _gameState.OpenSettings(_gameState.GameField);
     }
     
+    /*
     public void Lose() { }
 
     public void EnableForDisplay()
@@ -31,4 +33,5 @@ public class ButtonSettings : MonoBehaviour, IPointerDownHandler, IUI
     {
         gameObject.SetActive(false);
     }
+    */
 }

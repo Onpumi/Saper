@@ -1,7 +1,9 @@
 using UnityEngine;
 
-public class UIPanelView : MonoBehaviour, IUI
+//public class UIPanelView : MonoBehaviour, IUI
+public class UIPanelView : UIBase
 {
+    /*
     public void Lose()
     {
         
@@ -21,5 +23,5 @@ public class UIPanelView : MonoBehaviour, IUI
     {
         gameObject.SetActive(false);
     }
-    
+    */
 }
