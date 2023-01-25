@@ -16,6 +16,8 @@ public class GameField : SerializedMonoBehaviour, IGameField
     [SerializeField] private List<IUI> _notActiveListBeforeStartUI; 
     public ICellView PrefabCellView { get; private set; }
     public IBrickView PrefabBrickView { get; private set; }
+    public IMineView PrefabMineView { get; private set; }
+    public IFlagView PrefabFlagView { get; private set; }
     private float _scaleBrick = 1f;
     private FieldCells _field;
     public ScreenAdjusment ScreenAdjusment { get; private set; }
@@ -31,10 +33,12 @@ public class GameField : SerializedMonoBehaviour, IGameField
     public IGame Game { get; private set; }
 
 
-    public void Init(ICellView cellView, IBrickView brickView)
+    public void Init(ICellView cellView, IFlagView flagView, IMineView mineView, IBrickView brickView)
     {
         PrefabCellView = cellView;
         PrefabBrickView = brickView;
+        PrefabMineView = mineView;
+        PrefabFlagView = flagView;
         ScreenAdjusment = new ScreenAdjusment(transform);
         var width = PrefabCellView.GetWidth();
         var height = PrefabCellView.GetHeight();
@@ -45,14 +49,15 @@ public class GameField : SerializedMonoBehaviour, IGameField
 
     private void Start()
     {
-        Init( _views.CellView, _views.BrickView );
+        Init( _views.CellView, _views.FlagView, _views.MineView, _views.BrickView );
         Game = new GameRunning();
         _field = new FieldCells(this, _scaleBrick, _scaleHeightGrid);
     }
 
        private void CalculateScale()
     { 
-        _needCountBricks = 150f;
+         _needCountBricks = 140f;
+        //_needCountBricks = 30f;
         var screenArea = ScreenAdjusment.ResolutionCanvas.x * ScreenAdjusment.ResolutionCanvas.y;
         var spriteArea = SpriteData.Width * SpriteData.Height;
         var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));

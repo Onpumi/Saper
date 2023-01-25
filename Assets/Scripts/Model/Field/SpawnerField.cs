@@ -38,7 +38,7 @@ public class SpawnerField
         for (var j = 0; j < _countRows; j++)
         {
             var cellData = new CellData(i, j, _scale);
-            var factoryViewCell = new FactoryCellView( _gameField.PrefabCellView, _gameField.PrefabBrickView, cellData, _gameField.transform );
+            var factoryViewCell = new FactoryCellView( _gameField.PrefabCellView, _gameField.PrefabFlagView, _gameField.PrefabMineView,_gameField.PrefabBrickView, cellData, _gameField.transform );
             var factoryCell = new FactoryCell(factoryViewCell, cellData );
             _cells[i, j] = factoryCell.Create();
             _cells[i, j].GetInputHandler().OnClickCell += ReadInputClick;
@@ -67,9 +67,9 @@ public class SpawnerField
             
             if (action == false && _downAction is DigDownAction)
             {
-                _gameField.GameState.StopGame();
-                _gameField.GameState.UI.ForEach(ui => ui.Lose());
-                _fieldCells.Reset();
+              //  _gameField.GameState.StopGame();
+              //  _gameField.GameState.UI.ForEach(ui => ui.Lose());
+             //   _fieldCells.Reset();
             }
             else if (action == true && _downAction is FlagDownAction)
             {
@@ -93,9 +93,9 @@ public class SpawnerField
 
                 if (viewCell.InitAction(_fieldCells, _downAction) == false && _downAction is DigDownAction)
                 {
-                    _gameField.GameState.StopGame();
-                    _gameField.GameState.UI.ForEach(ui => ui.Lose());
-                    _fieldCells.Reset();
+                  //  _gameField.GameState.StopGame();
+                  //  _gameField.GameState.UI.ForEach(ui => ui.Lose());
+                  //  _fieldCells.Reset();
                 }
 
                 

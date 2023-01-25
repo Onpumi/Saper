@@ -1,10 +1,22 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlagView : MonoBehaviour, IFlagView
 {
+    [SerializeField] private Sprite _spriteError;
+    private Image _image;
     public bool Value { get; private set; }
+
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+        _image = GetComponent<Image>();
+    }
+
     private void OnEnable()
     {
+        
         Value = true;
     }
 
@@ -12,4 +24,24 @@ public class FlagView : MonoBehaviour, IFlagView
     {
         Value = false;
     }
+
+    public float GetWidth() => _image.sprite.rect.width;
+    //{
+      //  return GetComponent<Image>().sprite.rect.width;
+    //}
+
+    public float GetHeight() => _image.sprite.rect.height;
+//    {
+        
+       // return GetComponent<Image>().sprite.rect.height;
+  //  }
+
+    public void SetFlagError()
+    {
+        _image.sprite = _spriteError;
+        transform.localScale = Vector3.one;
+    }
+    
+    
+    public Transform GetTransform() => transform;
 }

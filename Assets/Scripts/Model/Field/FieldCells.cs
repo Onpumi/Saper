@@ -98,22 +98,16 @@ public class FieldCells
 
         CountOpen++;
         
-        BrickView brickView = null;
         MineView mineView = null;
-        
-        
+
         foreach (Transform child in cell.CellView.GetTransform())
         {
-            if( child.TryGetComponent(out BrickView view1))
-              brickView = child.GetComponent<BrickView>()
-                          ?? throw new ArgumentException("brickView need to be is not null");;
             if( child.TryGetComponent(out MineView view2))
                 mineView = child.GetComponent<MineView>() 
                            ?? throw new ArgumentException("mineView need to be is not null"); 
         }
         
         
-        brickView.transform.gameObject.SetActive(false);
         var parentCanvas = cell.CellView.GetTransform().parent;
         
         if( cell.Value == 0 )
@@ -163,16 +157,26 @@ public class FieldCells
         }
     }
 
-    /*
-    public void  SetCountFlags( int value )
+
+    public void OpenAll()
     {
-        if (CountFlags-value > 0)
+        foreach (var cell in _cells)
         {
-            CountFlags+=value;
+            cell.Open();
+            if(cell.IsInitMine) cell.CellView.MineView.transform.gameObject.SetActive(true);
+            
+            cell.CellView.FlagView.transform.SetParent(cell.CellView.GetTransform());
+            if (cell.IsInitMine == false && cell.CellView.FlagView.Value)
+            {
+                cell.CellView.FlagView.SetFlagError();
+            }
+            else
+            {
+                cell.CellView.FlagView.transform.gameObject.SetActive(false);    
+            }
         }
     }
     
-    */
     
     public ICell[,] GetCells() => _cells;
 

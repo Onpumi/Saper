@@ -99,7 +99,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e3757812b70abe84ba13d77414584ac8, type: 3}
   - {fileID: 21300000, guid: 9a8e8d43989f4b3418ae75b9bd7e31d4, type: 3}
   - {fileID: 21300000, guid: 8bb99f560309c6a448ffc06930296c9b, type: 3}
-  _prefabBrickView: {fileID: 6303002758217621924, guid: 70dc0ee44e98dcc4abf0c624cf930a31, type: 3}
   _prefabFlagView: {fileID: 1989260111861421937, guid: f870637b3cec30c41887d4d91679cd00, type: 3}
   _prefabBoomView: {fileID: 1045116040469999158, guid: a5d689fd408b70048939b9de9d7f97ae, type: 3}
 --- !u!114 &2937658377073500080
@@ -114,4 +113,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469108da8dc0b2849969ea41626f17cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _delayClickTime: 0.5
+  _delayClickTime: 0.3

@@ -20,6 +20,7 @@ public class FlagDownAction : IDownAction
         if (_fieldCells.isWin())
         {
             _fieldCells.GameField.GameState.StopGame();
+            _fieldCells.OpenAll();
             _fieldCells.GameField.ActivateWindowsWin();
         }
         return result;

@@ -13,10 +13,11 @@ public class CellView : MonoBehaviour, ICellView, IView
     public  float HeightSpriteCell { get; private set; }
     private Sprite _sprite;
     private FlagView _flagView;
-
-    public MineView MineView => _prefabMineView;
+    
+    public BrickView BrickView { get; private set; }
+    public MineView MineView { get; private set; }
     public BoomView BoomView => _prefabBoomView;
-    public FlagView FlagView => _flagView;
+    public FlagView FlagView { get; private set; }
     private IDownAction _downAction;
     public CellData CellData { get; private set; }
 
@@ -42,24 +43,26 @@ public class CellView : MonoBehaviour, ICellView, IView
           }
       }
 
-      public void InitCellData(CellData cellData)
+      public void Init( MineView mineView, FlagView flagView, BrickView brickView, CellData cellData)
       {
           cellData.Index1.TryThrowIfLessThanZero();
           cellData.Index2.TryThrowIfLessThanZero();
           CellData = cellData;
+          BrickView = brickView;
+          MineView = mineView;
+          FlagView = flagView;
       }
 
 
       public bool InitFlag( bool value )
       {
-          if (_flagView is null)
+          if (FlagView is null)
           {
-              _flagView = Instantiate(_prefabFlagView, transform);
-               
+              FlagView = Instantiate(_prefabFlagView, transform);
           }
-          _flagView.transform.gameObject.SetActive(value);
-          _flagView.transform.localScale = Vector3.one / 3f;
-          return _flagView.Value;
+          FlagView.transform.gameObject.SetActive(value);
+          FlagView.transform.localScale = Vector3.one / 3f;
+          return FlagView.Value;
       }
 
 
@@ -67,6 +70,11 @@ public class CellView : MonoBehaviour, ICellView, IView
       {
           var result = _flagView.transform.gameObject.activeSelf;
           return result;
+      }
+
+      public void SetFlagError()
+      {
+          FlagView.SetFlagError();
       }
 
       

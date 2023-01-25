@@ -35,8 +35,6 @@ public class Cell : ICell
         if (Value == -1)
         {
             IsInitMine = true;
-            FactoryMineView factoryMineView = new FactoryMineView(_cellView.MineView, _cellView.GetTransform());
-            var mineView = factoryMineView.Create();
         }
         else IsInitMine = false;
     }
@@ -44,6 +42,7 @@ public class Cell : ICell
     public void Open()
     {
         IsOpen = true;
+        CellView.BrickView.transform.gameObject.SetActive(false);
     }
  
     public bool SetFlag( ContainerMines containerMines )

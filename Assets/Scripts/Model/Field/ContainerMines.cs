@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ContainerMines
 {
+    private int MaxCountMines = 40;
     private GameField _gameField;
     private ICell[,] _cells;
     private int[] _firstIndexes;
@@ -19,18 +21,40 @@ public class ContainerMines
     
     public void GenerateMines()
     {
-        for (int j = 0; j < _cells.GetLength(1); j++)
+
+        
+        List<int>[] arrayIndexes = new List<int>[_cells.GetLength(1)];
+        
+        for (int j = 0; MaxCountMines > 0; j++)
         {
+            if (j >= _cells.GetLength(1) - 1) j = 0;
+            if( j < 0 || j > _cells.GetLength(1)-1) throw new IndexOutOfRangeException(j.ToString());
+            if( arrayIndexes[j] == null ) arrayIndexes[j] = new List<int>();
             var indexRandom = UnityEngine.Random.Range(0, _cells.GetLength(0));
-            var maxIteration = 100000;
+            var maxIteration = 300000;
             var iteration = 0;
-            while (DeniedSetMines(indexRandom, j) && iteration < maxIteration)
+            while (DeniedSetMines(indexRandom, j) && iteration < maxIteration )
             {
                 indexRandom = UnityEngine.Random.Range(0, _cells.GetLength(0));
                 iteration++;
             }
+
+            if (arrayIndexes[j].Count > 0)
+            {
+                var result = true;
+                foreach (var index in arrayIndexes[j])
+                {
+                    if (indexRandom == index) result = false;
+                }
+                if( result == false )
+                    continue;
+            }
+            arrayIndexes[j].Add(indexRandom);
+            
             _cells[indexRandom, j].CreateMine( -1, indexRandom, j);
             CountMines++;
+            MaxCountMines--;
+            if (j >= _cells.GetLength(1) - 1) j = 0;
         }
 
         CountFlags = CountMines;

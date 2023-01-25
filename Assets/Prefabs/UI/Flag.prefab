@@ -88,3 +88,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec26f9f39c1c86c4aba8509da254eafc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteError: {fileID: 21300000, guid: f8f328eb8ea71cd4f8bec789e4074c2a, type: 3}

@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+
+//[RequireComponent(typeof(GridLayoutGroup))]
 
 public class WindowsWinner : MonoBehaviour
 {
 
-    private UIButtonPlay _buttonPlay;
+    [SerializeField] private UIButtonPlay _buttonPlay;
+    
     
     private void Awake()
     {
-        _buttonPlay = GetComponentInChildren<UIButtonPlay>();
-        Hide();
+         Hide();
+
     }
 
 
@@ -17,13 +21,17 @@ public class WindowsWinner : MonoBehaviour
     {
         gameObject.SetActive(true);
         transform.SetAsLastSibling();
-        _buttonPlay.gameObject.SetActive(true);
+        var buttonPlay = transform.Find("ButtonPlay") ?? throw new ArgumentException("ButtonPlay is not be null");
+        buttonPlay.gameObject.SetActive(true);
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
-        _buttonPlay.gameObject.SetActive(false);
+        foreach (Transform child in transform.parent)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
         
     
