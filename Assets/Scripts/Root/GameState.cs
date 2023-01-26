@@ -30,7 +30,6 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
 
     public void OpenSettings(GameField gameField)
     {
-        Game = new GameSettings(gameField);
         _ui.ForEach(ui=>ui.OpenMenuSettings());
     }
     

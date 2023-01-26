@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ContainerMines
 {
-    private int MaxCountMines = 40;
+    private int MaxCountMines = 20;
     private GameField _gameField;
     private ICell[,] _cells;
     private int[] _firstIndexes;

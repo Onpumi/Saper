@@ -8,7 +8,7 @@ public abstract class UIBase : MonoBehaviour, IUI
 
     public virtual void OpenMenuSettings()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     public virtual void EnableForDisplay()
