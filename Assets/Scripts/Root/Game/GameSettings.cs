@@ -6,9 +6,15 @@ public class GameSettings : IGame
     public bool IsRun => _isRun;
     public GameField GameField { get; private set;  }
 
-    public GameSettings( GameField gameField )
+
+    public GameSettings(Timer timer)
     {
-        GameField = gameField;
-        gameField.transform.gameObject.SetActive(false);
+        timer.ToFreezeTime(true);
     }
+    
+    //public GameSettings( GameField gameField )
+  //  {
+    //    GameField = gameField;
+//        gameField.transform.gameObject.SetActive(false);
+    //}
 }

@@ -1,7 +1,7 @@
 
 public class DigDownAction : IDownAction
 {
-    private readonly IGameField _gridCellsView;
+  //  private readonly IGameField _gridCellsView;
     private readonly FieldCells _fieldCells;
 
     public DigDownAction( FieldCells fieldCells )

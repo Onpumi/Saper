@@ -117,6 +117,7 @@
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\Model\Timer\Timer.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

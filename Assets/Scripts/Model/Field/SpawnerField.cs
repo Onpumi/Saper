@@ -48,7 +48,9 @@ public class SpawnerField
     
     private void ReadInputClick( InputHandler inputHandler)
     {
-        if (_gameField.GameState.Game.IsRun == false) return;
+        
+        if( (_gameField.GameState.Game is GameRunning) == false) _gameField.GameState.StartGame();
+        
         if (inputHandler.IsTimeShort())
         {
             if (inputHandler.transform.TryGetComponent(out CellView cellView) == false) return;
@@ -64,18 +66,7 @@ public class SpawnerField
             if (_fieldCells.IsFirstClick) cellView.InitAction(_fieldCells, new FirstDigDownAction( _fieldCells ));
 
             var action = cellView.InitAction(_fieldCells, _downAction); 
-            
-            if (action == false && _downAction is DigDownAction)
-            {
-              //  _gameField.GameState.StopGame();
-              //  _gameField.GameState.UI.ForEach(ui => ui.Lose());
-             //   _fieldCells.Reset();
-            }
-            else if (action == true && _downAction is FlagDownAction)
-            {
-                   
-            }
-            
+          
         }
         else
         {

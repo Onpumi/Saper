@@ -4,6 +4,7 @@ using UnityEngine;
 public class FirstDigDownAction : IDownAction
 {
     private readonly FieldCells _fieldCells;
+    private Timer _timer;
 
     public FirstDigDownAction( FieldCells fieldCells )
     {

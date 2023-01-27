@@ -5,7 +5,7 @@ using TMPro;
 public class UICountMines : UIBase
 {
 
-    [SerializeField] private GameField _gameField;
+//    [SerializeField] private GameField _gameField;
     [SerializeField] private TMP_Text _tmpText;
 
     

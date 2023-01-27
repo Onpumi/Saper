@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class GameField : SerializedMonoBehaviour, IGameField
 {
+    [SerializeField] private UIDatas _uiDatas;
     [SerializeField] private ControllerButtonMode _buttonMode;
     [SerializeField] private WindowsWinner _windowsWinner;
     [SerializeField] private Views _views;
@@ -13,7 +14,8 @@ public class GameField : SerializedMonoBehaviour, IGameField
     [SerializeField] private GameState _gameState;
     [SerializeField] private float _needCountBricks = 150f;
     [SerializeField] private float _scaleHeightGrid = 0.5f;
-    [SerializeField] private List<IUI> _notActiveListBeforeStartUI; 
+    [SerializeField] private List<IUI> _notActiveListBeforeStartUI;
+    public UIDatas UIDatas => _uiDatas;
     public ICellView PrefabCellView { get; private set; }
     public IBrickView PrefabBrickView { get; private set; }
     public IMineView PrefabMineView { get; private set; }
@@ -50,7 +52,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     private void Start()
     {
         Init( _views.CellView, _views.FlagView, _views.MineView, _views.BrickView );
-        Game = new GameRunning();
+      //  Game = new GameRunning();
         _field = new FieldCells(this, _scaleBrick, _scaleHeightGrid);
     }
 
@@ -74,6 +76,8 @@ public class GameField : SerializedMonoBehaviour, IGameField
 
     public void ReloadField(  )
     {
+        GameState.StopGame();
+        GameState.ResetTimeView();
         foreach (Transform cell in transform)
         {
             if (cell.TryGetComponent(out CellView cellview))
@@ -88,6 +92,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
         _field = new FieldCells(this,  _scaleBrick, _scaleHeightGrid);
         _windowsWinner.Hide();
         _notActiveListBeforeStartUI.ForEach(ui => ui.Hide());
+        
     }
 
     public void ActivateWindowsWin() => _windowsWinner.Display();

@@ -63,13 +63,6 @@ public class ControllerButtonMode : UIBase, IPointerDownHandler
     }
 
     
-    //public void Lose() { }
-
-    //public void EnableForDisplay() => gameObject.SetActive(true);
-    
-    //public void OpenMenuSettings() => gameObject.SetActive(false);   
-    
-    //public void Hide() => gameObject.SetActive(false);
     
 }
 

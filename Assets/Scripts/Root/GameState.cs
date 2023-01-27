@@ -7,30 +7,50 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     [SerializeField] private Views _views;
     [SerializeField] private GameField _gameField;
     [SerializeField] private List<IUI> _ui;
+    [SerializeField] private UIDatas _uiDatas;
+    private Timer _timer;
     public GameField GameField => _gameField;
     public List<IUI> UI => _ui;
     public IGame Game { get; private set; }
     
+    
 
     public void Init()
     {
-         StartGame();
+        _timer = new Timer(_uiDatas.UITimer);
+       //  StartGame();
+       //StopGame();
     }
 
     public void StopGame()
     {
-        Game = new GameStoping();
+        Game = new GameStoping( _timer );
     }
+
+    public void ResetTimeView() => _uiDatas.UITimer.ResetValue();
 
     public void StartGame()
     {
         _gameField.transform.gameObject.SetActive(true);
-        Game = new GameRunning();
+        Game = new GameRunning( _timer );
     }
 
     public void OpenSettings(GameField gameField)
     {
+        Game = new GameSettings( _timer );
+        
         _ui.ForEach(ui=>ui.OpenMenuSettings());
     }
-    
+
+    public int GetTimeResult() => _timer.ResultTme;
+
+    private void Update()
+    {
+        if (Input.GetAxis("Cancel") > 0 && Game is GameRunning)
+        {
+            Application.Quit();
+        }
+    }
+
+
 }

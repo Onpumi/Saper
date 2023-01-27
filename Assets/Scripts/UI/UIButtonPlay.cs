@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
+//public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
+public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
 {
     [SerializeField] private Views _views;
     [SerializeField] private GameState _gameState;
@@ -31,7 +32,7 @@ public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
     
     public void OpenMenuSettings()
     {
-        gameObject.SetActive(false);
+       // gameObject.SetActive(false);
     }
 
     public void SetTransparent( float alpha )

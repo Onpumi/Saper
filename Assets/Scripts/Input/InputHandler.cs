@@ -32,6 +32,9 @@ public class InputHandler : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
          OnClickCell?.Invoke(this);
          _isClick = false;
       }
+      
+      
+      
     }
     
 }

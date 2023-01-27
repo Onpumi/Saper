@@ -16,11 +16,13 @@ public class WindowSettings : UIBase
     {
         if (Input.GetAxis("Cancel") > 0)
         {
+            _gameState.StartGame();
            gameObject.SetActive(false);
         }
 
         if (Input.GetKey(KeyCode.Space)  )
         {
+            _gameState.StartGame();
             gameObject.SetActive(false);
         }
     }
