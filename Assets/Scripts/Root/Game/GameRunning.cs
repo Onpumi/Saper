@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class GameRunning : IGame
 {
     private bool _isRun = true;
@@ -6,10 +8,13 @@ public class GameRunning : IGame
     public GameField GameField { get; private set;  }
 
     public GameRunning(Timer timer)
-    { 
-        
-        //timer.ToFreezeTime(false);
-        
+    {
+        //Debug.Log("Пытаемся запустить таймер" + timer.FreezeTime);
+        if (timer.FreezeTime == true)
+        {
+            timer.ToFreezeTime(false);
+            return;
+        }
         timer.StartTimer( this );
     }
 }

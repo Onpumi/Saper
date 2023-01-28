@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -18,8 +19,6 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void Init()
     {
         _timer = new Timer(_uiDatas.UITimer);
-       //  StartGame();
-       //StopGame();
     }
 
     public void StopGame()
@@ -32,24 +31,34 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void StartGame()
     {
         _gameField.transform.gameObject.SetActive(true);
-        Game = new GameRunning( _timer );
+         Game = new GameRunning( _timer );
     }
 
     public void OpenSettings(GameField gameField)
     {
         Game = new GameSettings( _timer );
-        
         _ui.ForEach(ui=>ui.OpenMenuSettings());
     }
 
     public int GetTimeResult() => _timer.ResultTme;
 
+    private void OnApplicationQuit()
+    {
+        Application.Quit();
+    }
+
     private void Update()
     {
-        if (Input.GetAxis("Cancel") > 0 && Game is GameRunning)
+        /*
+        if (Input.GetAxis("Cancel") > 0 || Input.GetKey(KeyCode.Space))
         {
-            Application.Quit();
+            if( Game is GameRunning) Application.Quit();
+            else if (Game is GameSettings)
+            {
+                Game = new GameRunning( _timer );
+            }
         }
+        */
     }
 
 

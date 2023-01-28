@@ -1,10 +1,8 @@
-using System;
-using System.Net.Mime;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-//public class UIButtonPlay : MonoBehaviour, IButton, IPointerDownHandler, IUI
 public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
 {
     [SerializeField] private Views _views;
@@ -15,7 +13,7 @@ public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
 
     public void OnEnable()
     {
-        SetTransparent( 0.5f );
+        SetTransparent( 1f );
     }
     
     public void Play()
@@ -25,15 +23,11 @@ public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
     }
 
 
-    public void Lose()
+    public override void Lose()
     {
         SetTransparent(1f);
     }
     
-    public void OpenMenuSettings()
-    {
-       // gameObject.SetActive(false);
-    }
 
     public void SetTransparent( float alpha )
     {
@@ -43,14 +37,16 @@ public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
         img.color = color;
     }
 
-    public void EnableForDisplay()
+    public override void EnableForDisplay()
     {
-      gameObject.SetActive(true);
+        SetTransparent(1f);
+      //gameObject.SetActive(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (_gameState.Game.IsRun == false)
+        //if (_gameState.Game.IsRun == false)
+        if(_gameState.Game == null || (_gameState.Game is GameRunning) == false)
         {
             _gameState.StartGame();
             Play();

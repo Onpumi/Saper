@@ -12,9 +12,4 @@ public class GameSettings : IGame
         timer.ToFreezeTime(true);
     }
     
-    //public GameSettings( GameField gameField )
-  //  {
-    //    GameField = gameField;
-//        gameField.transform.gameObject.SetActive(false);
-    //}
 }

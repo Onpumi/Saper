@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class WindowsWinner : MonoBehaviour
@@ -8,16 +7,13 @@ public class WindowsWinner : MonoBehaviour
 
     [SerializeField] private UIButtonPlay _buttonPlay;
     [SerializeField] private GameState _gameState;
-
+    [SerializeField] private TMP_Text _text; 
     private int _timeResult;
-    private TextMeshPro _text;
     
     
     private void Awake()
     {
          Hide();
-         _text = GetComponent<TextMeshPro>();
-
     }
 
 
@@ -27,7 +23,7 @@ public class WindowsWinner : MonoBehaviour
         transform.SetAsLastSibling();
         var buttonPlay = transform.Find("ButtonPlay") ?? throw new ArgumentException("ButtonPlay is not be null");
         buttonPlay.gameObject.SetActive(true);
-        _text.text = _text.text + _gameState.GetTimeResult().ToString();
+        _text.text = _text.text + _gameState.GetTimeResult().ToString() + " сек.";
     }
 
     public void Hide()

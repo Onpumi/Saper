@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public  class Views : MonoBehaviour, IViews, ICompositeRoot
+public  class Views : MonoBehaviour, IViews
 {
     [SerializeField] private MineView _mineView;
     [SerializeField] private CellView _cellView;
@@ -16,9 +16,4 @@ public  class Views : MonoBehaviour, IViews, ICompositeRoot
     public IBoomView BoomView => _boomView;
     public IGameField GameField => _gameField;
 
-    public void Init()
-    {
-     //  _gameField.Init( _cellView, _brickView, _mineView );
-       
-    }
 }

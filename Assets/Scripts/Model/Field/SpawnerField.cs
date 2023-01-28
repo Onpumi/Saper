@@ -65,32 +65,25 @@ public class SpawnerField
 
             if (_fieldCells.IsFirstClick) cellView.InitAction(_fieldCells, new FirstDigDownAction( _fieldCells ));
 
-            var action = cellView.InitAction(_fieldCells, _downAction); 
+            cellView.InitAction(_fieldCells, _downAction); 
           
         }
         else
         {
             
-            if (_gameField.GameState.Game.IsRun == true)
-            {
-                if (inputHandler.transform.TryGetComponent(out CellView viewCell) == false) return;
-                if (viewCell.transform.parent.TryGetComponent(out GameField gridView) == false) return;
-
+              if (_gameField.GameState.Game is GameRunning)
+              {
+                if (inputHandler.transform.TryGetComponent(out CellView cellView) == false) return;
                 _downAction = new FlagDownAction(_fieldCells, _containerMines);
                 if (_gameField.GameState.GameField.ButtonMode.Mode == ButtonMode.Flag)
                 {
                     _downAction = new DigDownAction(_fieldCells);
                 }
 
-                if (viewCell.InitAction(_fieldCells, _downAction) == false && _downAction is DigDownAction)
-                {
-                  //  _gameField.GameState.StopGame();
-                  //  _gameField.GameState.UI.ForEach(ui => ui.Lose());
-                  //  _fieldCells.Reset();
-                }
+                cellView.InitAction(_fieldCells, _downAction);
 
-                
-            }
+
+              }
         }
 
     }

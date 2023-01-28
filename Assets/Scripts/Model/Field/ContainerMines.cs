@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ContainerMines
 {
-    private int MaxCountMines = 20;
+    private int MaxCountMines = 2;
     private GameField _gameField;
     private ICell[,] _cells;
     private int[] _firstIndexes;
@@ -22,7 +20,6 @@ public class ContainerMines
     public void GenerateMines()
     {
 
-        
         List<int>[] arrayIndexes = new List<int>[_cells.GetLength(1)];
         
         for (int j = 0; MaxCountMines > 0; j++)
@@ -82,7 +79,6 @@ public class ContainerMines
     
     public void  SetCountFlags( int value )
     {
-        //Debug.Log(CountFlags);
         if ( CountFlags+value >= 0  )
         {   
             CountFlags+=value;

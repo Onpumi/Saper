@@ -52,14 +52,13 @@ public class GameField : SerializedMonoBehaviour, IGameField
     private void Start()
     {
         Init( _views.CellView, _views.FlagView, _views.MineView, _views.BrickView );
-      //  Game = new GameRunning();
         _field = new FieldCells(this, _scaleBrick, _scaleHeightGrid);
     }
 
        private void CalculateScale()
     { 
-         _needCountBricks = 140f;
-        //_needCountBricks = 30f;
+        // _needCountBricks = 140f;
+        _needCountBricks = 30f;
         var screenArea = ScreenAdjusment.ResolutionCanvas.x * ScreenAdjusment.ResolutionCanvas.y;
         var spriteArea = SpriteData.Width * SpriteData.Height;
         var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));

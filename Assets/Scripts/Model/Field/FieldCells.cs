@@ -109,7 +109,7 @@ public class FieldCells
         }
         
         
-        var parentCanvas = cell.CellView.GetTransform().parent;
+       // var parentCanvas = cell.CellView.GetTransform().parent;
         
         if( cell.Value == 0 )
         {
