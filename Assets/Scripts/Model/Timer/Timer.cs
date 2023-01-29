@@ -35,11 +35,15 @@ public class Timer
                 countTime += StepTime;
                 if (countTime % TimeLengthSecond == 0)
                 {
-                    if(FreezeTime == false)
+                    if (FreezeTime == false)
+                    {
                         _timeSecondValue++;
+                        _uiTimer.Display(_timeSecondValue);
+                    }
+
                     countTime = 0;
                 }
-                _uiTimer.Display(_timeSecondValue);
+                //_uiTimer.Display(_timeSecondValue);
             }
             
         }

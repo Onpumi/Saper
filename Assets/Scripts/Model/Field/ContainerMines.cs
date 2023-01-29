@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ContainerMines
 {
-    private int MaxCountMines = 2;
+    private int MaxCountMines = 20;
     private GameField _gameField;
     private ICell[,] _cells;
     private int[] _firstIndexes;

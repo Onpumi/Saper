@@ -10,7 +10,7 @@ public class ButtonSettings : UIBase, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _gameState.OpenSettings(_gameState.GameField);
+        _gameState.OpenSettings();
     }
    
 }

@@ -175,6 +175,8 @@ public class FieldCells
             {
                 cell.CellView.FlagView.transform.gameObject.SetActive(false);    
             }
+
+            cell.CellView.GetInput().enabled = false;
         }
     }
     

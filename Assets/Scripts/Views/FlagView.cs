@@ -26,15 +26,8 @@ public class FlagView : MonoBehaviour, IFlagView
     }
 
     public float GetWidth() => _image.sprite.rect.width;
-    //{
-      //  return GetComponent<Image>().sprite.rect.width;
-    //}
 
     public float GetHeight() => _image.sprite.rect.height;
-//    {
-        
-       // return GetComponent<Image>().sprite.rect.height;
-  //  }
 
     public void SetFlagError()
     {

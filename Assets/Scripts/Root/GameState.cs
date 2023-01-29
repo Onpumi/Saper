@@ -34,18 +34,18 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
          Game = new GameRunning( _timer );
     }
 
-    public void OpenSettings(GameField gameField)
+    public void OpenSettings()
     {
-        Game = new GameSettings( _timer );
+        if (Game is GameRunning)
+        {
+            Game = new GameSettings(_gameField, _timer);
+        }
+
         _ui.ForEach(ui=>ui.OpenMenuSettings());
     }
 
     public int GetTimeResult() => _timer.ResultTme;
 
-    private void OnApplicationQuit()
-    {
-        Application.Quit();
-    }
 
     private void Update()
     {
