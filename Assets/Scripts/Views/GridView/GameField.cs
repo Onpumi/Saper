@@ -89,7 +89,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
         }
         
         _field = new FieldCells(this,  _scaleBrick, _scaleHeightGrid);
-        _windowsWinner.Hide();
+        _windowsWinner.Hide(); 
         _notActiveListBeforeStartUI.ForEach(ui => ui.Hide());
         
     }

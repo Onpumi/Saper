@@ -4,11 +4,17 @@ using UnityEngine;
 public class WindowSettings : UIBase
 {
 
-    [SerializeField] private GameState _gameState; 
-    
+    [SerializeField] private GameState _gameState;
+
+
+    private void Awake()
+    {
+        //gameObject.SetActive(false);
+        SetActiveChild(false);
+    }
     public override void OpenMenuSettings()
     {
-        gameObject.SetActive(true);
+        SetActiveChild(true);
         transform.SetAsLastSibling();
     }
 
@@ -27,6 +33,15 @@ public class WindowSettings : UIBase
              _gameState.StartGame();
             gameObject.SetActive(false);
         }
+    }
+
+    private void SetActiveChild( bool value )
+    {
+            gameObject.SetActive(value);
+            foreach (Transform child in transform)
+            {
+                 child.gameObject.SetActive(value);
+            }
     }
     
 }

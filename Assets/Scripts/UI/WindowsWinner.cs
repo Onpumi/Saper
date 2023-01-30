@@ -31,7 +31,7 @@ public class WindowsWinner : MonoBehaviour
         gameObject.SetActive(false);
         foreach (Transform child in transform.parent)
         {
-            child.gameObject.SetActive(false);
+            // child.gameObject.SetActive(false);
         }
     }
         
