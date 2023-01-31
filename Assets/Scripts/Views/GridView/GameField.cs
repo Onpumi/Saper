@@ -14,6 +14,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     [SerializeField] private GameState _gameState;
     [SerializeField] private float _needCountBricks = 150f;
     [SerializeField] private float _scaleHeightGrid = 0.5f;
+    [SerializeField] private Sounds _sounds;
     [SerializeField] private List<IUI> _notActiveListBeforeStartUI;
     public UIDatas UIDatas => _uiDatas;
     public ICellView PrefabCellView { get; private set; }
@@ -27,6 +28,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     public List<IUI> NotActiveListBeforeStartUI => _notActiveListBeforeStartUI;
     public ControllerButtonMode ButtonMode => _buttonMode;
     public GameState GameState => _gameState;
+    public Sounds Sounds => _sounds;
 
     public Camera CameraField
     {

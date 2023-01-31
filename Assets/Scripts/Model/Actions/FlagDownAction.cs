@@ -17,6 +17,8 @@ public class FlagDownAction : IDownAction
         var result = cell.SetFlag(_containerMines);
         if( result ) _fieldCells.IncrementFlagCount();
         _fieldCells.GameField.DisplayCountMines(_containerMines.CountFlags);
+        _fieldCells.GameField.Sounds.PlayAudio(SoundsPlaying.FLAG);
+        
         if (_fieldCells.isWin())
         {
             _fieldCells.GameField.GameState.StopGame();
