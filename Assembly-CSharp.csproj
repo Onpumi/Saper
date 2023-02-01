@@ -109,6 +109,7 @@
      <Compile Include="Assets\Scripts\UI\UIBase.cs" />
      <Compile Include="Assets\Scripts\Model\Mine\CellMine.cs" />
      <Compile Include="Assets\Scripts\Model\Field\ContainerMines.cs" />
+     <Compile Include="Assets\Scripts\Sounds\Sounds.cs" />
      <Compile Include="Assets\Scripts\UI\ControllerButtonMode.cs" />
      <Compile Include="Assets\Scripts\UI\UICountMines.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryCell.cs" />
@@ -118,7 +119,11 @@
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
-     <Compile Include="Assets\Scripts\Sounds\Sounds.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheck.cs" />
+     <Compile Include="Assets\Setting\ISettings.cs" />
+     <Compile Include="Assets\Setting\SettingSounds.cs" />
+     <Compile Include="Assets\Setting\ISaveObject.cs" />
+     <Compile Include="Assets\Scripts\Sounds\SoundClip.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

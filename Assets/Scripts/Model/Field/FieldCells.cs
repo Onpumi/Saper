@@ -96,7 +96,7 @@ public class FieldCells
         if (cell.IsOpen == true || cell.IsFlagged ) return true;
 
         cell.Open();
-        _gameField.Sounds.PlayAudio(SoundsPlaying.CLICK);
+        _gameField.Sounds.PlayAudio(SoundType.Click);
 
         CountOpen++;
         
@@ -116,12 +116,13 @@ public class FieldCells
             var index1 = cell.CellData.Index1;
             var index2 = cell.CellData.Index2;
             FindNeighbourEmptyCellsAndOpen(_cells, index1, index2);
-            _gameField.Sounds.PlayAudio(SoundsPlaying.EMPTY);
+            _gameField.Sounds.PlayAudio(SoundType.Empty);
+            //_gameField.Sounds.PlayAudio(SoundType.Click);
         }
         else if (cell.Value == -1)
         {
             mineView.ActivateMine(cell.CellView.GetTransform());
-            _gameField.Sounds.PlayAudio(SoundsPlaying.EXPLODE);
+            _gameField.Sounds.PlayAudio(SoundType.Explode);
             return false;
         }
 
