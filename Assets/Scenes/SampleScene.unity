@@ -363,6 +363,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 644207225120a09438ab4ed7ebfec4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _tmpText: {fileID: 1976283631}
 --- !u!114 &152135120
 MonoBehaviour:
@@ -473,6 +482,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74805ee09abb0e44c87cadb52888c068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _views: {fileID: 679129201}
   _gameState: {fileID: 2038550280}
   _canvas: {fileID: 2053542849}
@@ -528,7 +546,7 @@ GameObject:
   - component: {fileID: 213908127}
   - component: {fileID: 213908129}
   m_Layer: 0
-  m_Name: CheckMark
+  m_Name: SoundPressButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,18 +624,18 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 269132601}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
     - Name: _saveObject
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
+  _gameState: {fileID: 2038550280}
   _sounds: {fileID: 269132601}
-  _soundType: 1
+  _typeSave: 1
   _spriteCheckOn: {fileID: 21300000, guid: c0f9d94f692428c49a0169998e6c0344, type: 3}
   _spriteCheckOff: {fileID: 21300000, guid: f13c35fd2e7ad66498c397155d5f8ee6, type: 3}
 --- !u!1 &269132600
@@ -665,11 +683,11 @@ MonoBehaviour:
     SerializationNodes:
     - Name: _clips
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[SoundType, Assembly-CSharp],[UnityEngine.AudioClip,
+      Data: 0|System.Collections.Generic.Dictionary`2[[TypeSave, Assembly-CSharp],[UnityEngine.AudioClip,
         UnityEngine.AudioModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[SoundType, Assembly-CSharp]],
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[TypeSave, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
@@ -737,6 +755,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  _gameState: {fileID: 2038550280}
   _audioSource: {fileID: 0}
 --- !u!82 &269132602
 AudioSource:
@@ -844,11 +863,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.325855, y: 1.5875437, z: 182.90459}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1299098796}
-  - {fileID: 2108913478}
-  - {fileID: 1653697695}
-  - {fileID: 861725094}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1036,6 +1051,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb7760e3c272b742b5fc696d1094561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _tmpText: {fileID: 488461181}
 --- !u!1 &405623738
 GameObject:
@@ -1778,7 +1802,7 @@ GameObject:
   - component: {fileID: 613815910}
   - component: {fileID: 613815909}
   m_Layer: 0
-  m_Name: CheckMark
+  m_Name: SoundFlagButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1808,8 +1832,9 @@ MonoBehaviour:
     - Name: _saveObject
       Entry: 6
       Data: 
+  _gameState: {fileID: 2038550280}
   _sounds: {fileID: 269132601}
-  _soundType: 2
+  _typeSave: 2
   _spriteCheckOn: {fileID: 21300000, guid: c0f9d94f692428c49a0169998e6c0344, type: 3}
   _spriteCheckOff: {fileID: 21300000, guid: f13c35fd2e7ad66498c397155d5f8ee6, type: 3}
 --- !u!114 &613815910
@@ -2434,50 +2459,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823149251}
   m_CullTransparentMesh: 1
---- !u!1 &861725093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 861725094}
-  - component: {fileID: 861725095}
-  m_Layer: 0
-  m_Name: ClipFlag
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &861725094
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861725093}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 269132603}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &861725095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861725093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb46f8f570876534cb3f8222593a42f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 6144f90dc626df34eb3b491642c64c7d, type: 3}
 --- !u!1 &907228662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,6 +2844,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74805ee09abb0e44c87cadb52888c068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _views: {fileID: 679129201}
   _gameState: {fileID: 2038550280}
   _canvas: {fileID: 2053542849}
@@ -3000,6 +2990,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b666814ed8a51db4d844b1d870f32303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!1 &1219173037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,50 +3116,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!1 &1299098795
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1299098796}
-  - component: {fileID: 1299098797}
-  m_Layer: 0
-  m_Name: ClipMine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1299098796
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299098795}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 269132603}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1299098797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299098795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb46f8f570876534cb3f8222593a42f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 70ff1c238f424f04ea1e2c1273b4aab5, type: 3}
 --- !u!1 &1312234197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3670,6 +3625,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ffd1c7e15c882f449b6e0df13f6d28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _uiFlag: {fileID: 1498182926}
   _uiMine: {fileID: 1832165738}
 --- !u!1 &1398700024
@@ -3724,6 +3688,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282b60f2a8a241b43b4cb7557367d968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 213908129}
+    - {fileID: 2023471470}
+    - {fileID: 613815909}
+    - {fileID: 1571487851}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _resolveSounds
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[TypeSave, Assembly-CSharp],[UIInputCheck,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[TypeSave, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   _gameState: {fileID: 2038550280}
 --- !u!114 &1398700027
 MonoBehaviour:
@@ -3985,7 +4036,7 @@ GameObject:
   - component: {fileID: 1571487852}
   - component: {fileID: 1571487851}
   m_Layer: 0
-  m_Name: CheckMark
+  m_Name: SoundEmptyCellsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4015,8 +4066,9 @@ MonoBehaviour:
     - Name: _saveObject
       Entry: 6
       Data: 
+  _gameState: {fileID: 2038550280}
   _sounds: {fileID: 269132601}
-  _soundType: 3
+  _typeSave: 3
   _spriteCheckOn: {fileID: 21300000, guid: c0f9d94f692428c49a0169998e6c0344, type: 3}
   _spriteCheckOff: {fileID: 21300000, guid: f13c35fd2e7ad66498c397155d5f8ee6, type: 3}
 --- !u!114 &1571487852
@@ -4401,50 +4453,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635877419}
   m_CullTransparentMesh: 1
---- !u!1 &1653697694
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653697695}
-  - component: {fileID: 1653697696}
-  m_Layer: 0
-  m_Name: ClipClickEmpty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1653697695
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653697694}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 269132603}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653697696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653697694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb46f8f570876534cb3f8222593a42f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 212675886dbea95439e8b3625604a6d9, type: 3}
 --- !u!1 &1704575721
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,8 +4541,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff65a896f474635459c55c6f3d26e9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _gameState: {fileID: 2038550280}
-  _windowSettings: {fileID: 1398700026}
+  _windowSettings: {fileID: 0}
 --- !u!1 &1729197464
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,6 +4854,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b666814ed8a51db4d844b1d870f32303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!1 &1804494126
 GameObject:
   m_ObjectHideFlags: 0
@@ -5049,6 +5075,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b666814ed8a51db4d844b1d870f32303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!1 &1826329986
 GameObject:
   m_ObjectHideFlags: 0
@@ -5651,7 +5686,7 @@ GameObject:
   - component: {fileID: 2023471471}
   - component: {fileID: 2023471470}
   m_Layer: 0
-  m_Name: CheckMark
+  m_Name: SoundExplosionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5681,8 +5716,9 @@ MonoBehaviour:
     - Name: _saveObject
       Entry: 6
       Data: 
+  _gameState: {fileID: 2038550280}
   _sounds: {fileID: 269132601}
-  _soundType: 0
+  _typeSave: 0
   _spriteCheckOn: {fileID: 21300000, guid: c0f9d94f692428c49a0169998e6c0344, type: 3}
   _spriteCheckOff: {fileID: 21300000, guid: f13c35fd2e7ad66498c397155d5f8ee6, type: 3}
 --- !u!114 &2023471471
@@ -5791,12 +5827,12 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1164760438}
     - {fileID: 366950825}
+    - {fileID: 1164760438}
     - {fileID: 1704575725}
     - {fileID: 1397672229}
+    - {fileID: 152135118}
     - {fileID: 1398700026}
-    - {fileID: 1779566971}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -6268,7 +6304,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 366950825}
+    - {fileID: 152135118}
     - {fileID: 1397672229}
     SerializedBytesString: 
     Prefab: {fileID: 0}
@@ -6379,47 +6415,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075614110}
   m_CullTransparentMesh: 1
---- !u!1 &2108913477
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2108913478}
-  - component: {fileID: 2108913479}
-  m_Layer: 0
-  m_Name: ClipClickCell
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2108913478
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108913477}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 269132603}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2108913479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108913477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb46f8f570876534cb3f8222593a42f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: ce2be724c0c91374ca746317e9634640, type: 3}

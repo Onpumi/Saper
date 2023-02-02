@@ -1,6 +1,7 @@
 
 using UnityEngine;
-public abstract class UIBase : MonoBehaviour, IUI
+using Sirenix.OdinInspector;
+public abstract class UIBase : SerializedMonoBehaviour, IUI
 {
     public virtual void Lose()
     {

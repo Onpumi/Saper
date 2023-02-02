@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Model\Field\FieldCells.cs" />
      <Compile Include="Assets\Scripts\UI\IUI.cs" />
      <Compile Include="Assets\Scripts\Views\MineView.cs" />
+     <Compile Include="Assets\Scripts\Sounds\SoundClip.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
      <Compile Include="Assets\Scripts\Root\GameState.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryMine.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
      <Compile Include="Assets\Scripts\UI\WindowsWinner.cs" />
      <Compile Include="Assets\Scripts\UI\UIButtonPlay.cs" />
+     <Compile Include="Assets\Scripts\Setting\SettingSounds.cs" />
      <Compile Include="Assets\Scripts\Model\Timer\Timer.cs" />
      <Compile Include="Assets\Scripts\Extensions\IntExtensions.cs" />
      <Compile Include="Assets\Scripts\UI\UIPanelView.cs" />
@@ -90,6 +92,7 @@
      <Compile Include="Assets\Scripts\Input\InputHandler.cs" />
      <Compile Include="Assets\Scripts\Graphics\SpriteData.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\ICell.cs" />
+     <Compile Include="Assets\Scripts\Setting\ISaveObject.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactory.cs" />
      <Compile Include="Assets\Scripts\Graphics\ScreenProperties.cs" />
      <Compile Include="Assets\Scripts\UI\UIPlayModeButton.cs" />
@@ -110,6 +113,7 @@
      <Compile Include="Assets\Scripts\Model\Mine\CellMine.cs" />
      <Compile Include="Assets\Scripts\Model\Field\ContainerMines.cs" />
      <Compile Include="Assets\Scripts\Sounds\Sounds.cs" />
+     <Compile Include="Assets\Scripts\Setting\ISettings.cs" />
      <Compile Include="Assets\Scripts\UI\ControllerButtonMode.cs" />
      <Compile Include="Assets\Scripts\UI\UICountMines.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryCell.cs" />
@@ -118,12 +122,10 @@
      <Compile Include="Assets\Scripts\Views\BrickView.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
-     <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
      <Compile Include="Assets\Scripts\UI\UIInputCheck.cs" />
-     <Compile Include="Assets\Setting\ISettings.cs" />
-     <Compile Include="Assets\Setting\SettingSounds.cs" />
-     <Compile Include="Assets\Setting\ISaveObject.cs" />
-     <Compile Include="Assets\Scripts\Sounds\SoundClip.cs" />
+     <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
+     <Compile Include="Assets\Scripts\Setting\PlayerPrefStorage.cs" />
+     <Compile Include="Assets\Scripts\Sounds\AudioData.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

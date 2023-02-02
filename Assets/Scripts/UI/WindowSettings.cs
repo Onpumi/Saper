@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WindowSettings : UIBase
@@ -6,10 +7,12 @@ public class WindowSettings : UIBase
 
     [SerializeField] private GameState _gameState;
 
+    [SerializeField]
+    private Dictionary<TypeSave, UIInputCheck> _resolveSounds;
+
 
     private void Awake()
     {
-        //gameObject.SetActive(false);
         SetActiveChild(false);
     }
     public override void OpenMenuSettings()
