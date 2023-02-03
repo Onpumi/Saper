@@ -11,7 +11,7 @@ public class Sounds : SerializedMonoBehaviour
     [SerializeField] private GameState _gameState;
     [SerializeField] private AudioSource _audioSource;
 
-    [SerializeField] private Dictionary<TypeSave, AudioClip> _clips;
+    [SerializeField] private Dictionary<TypesAudio, AudioClip> _clips;
 
 
     private void Awake()
@@ -23,20 +23,13 @@ public class Sounds : SerializedMonoBehaviour
     {
     }
 
-    public void PlayAudio( TypeSave typeSave)
+    public void PlayAudio( TypesAudio typesAudio)
     {
-        _audioSource.clip = _clips[typeSave];
-            if( _gameState.AudioData.GetValue(typeSave))
+        _audioSource.clip = _clips[typesAudio];
+            if( _gameState.AudioData.GetValue(typesAudio))
             _audioSource.Play();
     }
 
     
 }
 
-public enum TypeSave
-{
-    Explode,
-    Click,
-    Flag,
-    Empty
-}

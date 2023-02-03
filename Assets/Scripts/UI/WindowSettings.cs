@@ -8,7 +8,7 @@ public class WindowSettings : UIBase
     [SerializeField] private GameState _gameState;
 
     [SerializeField]
-    private Dictionary<TypeSave, UIInputCheck> _resolveSounds;
+    private Dictionary<TypesAudio, UIInputCheckAudio> _resolveSounds;
 
 
     private void Awake()

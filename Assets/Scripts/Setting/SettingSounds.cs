@@ -5,7 +5,7 @@ using UnityEngine;
 public class SettingSounds<T>:ISettings
 {
     private Sounds _sounds;
-    private TypeSave _typeSave;
+    private TypesAudio _typesAudio;
     
     public bool Exists(string key)
     {
@@ -13,10 +13,10 @@ public class SettingSounds<T>:ISettings
     }
 
 
-    public SettingSounds(Sounds sounds, TypeSave typeSave)
+    public SettingSounds(Sounds sounds, TypesAudio typesAudio)
     {
         _sounds = sounds;
-        _typeSave = typeSave;
+        _typesAudio = typesAudio;
     }
 
     public void Save<T>(string key, T saveObject)

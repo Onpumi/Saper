@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 public class AudioData
@@ -42,15 +39,15 @@ public class AudioData
         _audioSetups.CreateNewSetups();
     }
 
-    public void SetupValue( TypeSave typeSave, bool value )
+    public void SetupValue( TypesAudio typesAudio, bool value )
     {
-        _audioSetups.SetupValue(typeSave,value);
+        _audioSetups.SetupValue(typesAudio,value);
         Save();
     }
 
-    public bool GetValue(TypeSave typeSave)
+    public bool GetValue(TypesAudio typesAudio)
     {
-        return _audioSetups.GetValue(typeSave);
+        return _audioSetups.GetValue(typesAudio);
     }
 
 
@@ -79,25 +76,25 @@ public class AudioSetups
         EmptyOn = true;
     }
 
-    public void SetupValue( TypeSave typeSave, bool value )
+    public void SetupValue( TypesAudio typesAudio, bool value )
     {
-        switch (typeSave)
+        switch (typesAudio)
         {
-            case TypeSave.Click : ClickCellOn = value; break;
-            case TypeSave.Empty : EmptyOn = value; break;
-            case TypeSave.Explode : ExplodeOn = value; break;
-            case TypeSave.Flag : FlagOn = value; break;
+            case TypesAudio.SoundClick : ClickCellOn = value; break;
+            case TypesAudio.SoundEmpty : EmptyOn = value; break;
+            case TypesAudio.SoundExplode : ExplodeOn = value; break;
+            case TypesAudio.SoundFlag : FlagOn = value; break;
         }
     }
 
-    public bool GetValue(TypeSave typeSave)
+    public bool GetValue(TypesAudio typesAudio)
     {
-        switch (typeSave)
+        switch (typesAudio)
         {
-            case TypeSave.Click : return ClickCellOn; 
-            case TypeSave.Empty : return EmptyOn; 
-            case TypeSave.Explode : return ExplodeOn; 
-            case TypeSave.Flag : return FlagOn; 
+            case TypesAudio.SoundClick : return ClickCellOn; 
+            case TypesAudio.SoundEmpty : return EmptyOn; 
+            case TypesAudio.SoundExplode : return ExplodeOn; 
+            case TypesAudio.SoundFlag : return FlagOn; 
         }
         return true;
     }

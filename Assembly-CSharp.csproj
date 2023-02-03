@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\ICellView.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\IDownAction.cs" />
      <Compile Include="Assets\Scripts\Model\Field\FieldCells.cs" />
+     <Compile Include="Assets\Scripts\Setting\PlayerPrefStorage.cs" />
      <Compile Include="Assets\Scripts\UI\IUI.cs" />
      <Compile Include="Assets\Scripts\Views\MineView.cs" />
      <Compile Include="Assets\Scripts\Sounds\SoundClip.cs" />
@@ -67,6 +68,7 @@
      <Compile Include="Assets\Scripts\Root\EntyPoint.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
      <Compile Include="Assets\Scripts\UI\WindowsWinner.cs" />
+     <Compile Include="Assets\Scripts\Sounds\AudioData.cs" />
      <Compile Include="Assets\Scripts\UI\UIButtonPlay.cs" />
      <Compile Include="Assets\Scripts\Setting\SettingSounds.cs" />
      <Compile Include="Assets\Scripts\Model\Timer\Timer.cs" />
@@ -122,10 +124,11 @@
      <Compile Include="Assets\Scripts\Views\BrickView.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
-     <Compile Include="Assets\Scripts\UI\UIInputCheck.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheckAudio.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
-     <Compile Include="Assets\Scripts\Setting\PlayerPrefStorage.cs" />
-     <Compile Include="Assets\Scripts\Sounds\AudioData.cs" />
+     <Compile Include="Assets\Scripts\Data\TypesAudio.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheck.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheckSound.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
