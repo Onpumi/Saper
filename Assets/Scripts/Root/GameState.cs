@@ -20,7 +20,7 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void Init()
     {
         _timer = new Timer(_uiDatas.UITimer);
-        AudioData = new AudioData();
+        AudioData = new AudioData("AudioKey");
         AudioData.Load();
     }
 
