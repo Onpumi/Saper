@@ -3,20 +3,19 @@ using UnityEngine.EventSystems;
 
 public class UIInputCheckScreen : UIInputCheck
 {
-    //[SerializeField] private TypesScreenSetup _typesAudio;
+    [SerializeField] private TypesScreen _typesScreen;
     
-    //private ScreenData _audioData;
-
     private void Start()
     {
-       //IsCheckOn = GameState.AudioData.GetValue(_typesAudio);
-        //Display();
+       IsCheckOn = GameState.DataSetting.ScreenData.GetValue(_typesScreen);
+       Display();
     }
     
     public override void OnPointerUp(PointerEventData eventData )
     {
         base.OnPointerUp(eventData);
-        //GameState.AudioData.SetupValue(_typesAudio,IsCheckOn);
+        GameState.DataSetting.ScreenData.SetupValue(_typesScreen,IsCheckOn);
+        GameState.DataSetting.SetScreen(_typesScreen, IsCheckOn);
     }
 
 

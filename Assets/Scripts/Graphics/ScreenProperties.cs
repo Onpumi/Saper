@@ -18,7 +18,7 @@ public class ScreenAdjusment
         Screen.autorotateToLandscapeLeft = false;
         Screen.autorotateToLandscapeRight = false;
         Screen.autorotateToPortraitUpsideDown = false;
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        //Screen.sleepTimeout = SleepTimeout.NeverSleep;
         _canvasScaler = _canvasParent.GetComponent<CanvasScaler>();
         _canvasScaler.referenceResolution = new Vector2(Screen.width,Screen.height);
         ResolutionCanvas = _canvasScaler.referenceResolution;

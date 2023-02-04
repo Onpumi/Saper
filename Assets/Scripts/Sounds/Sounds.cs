@@ -19,14 +19,10 @@ public class Sounds : SerializedMonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    private void OnEnable()
-    {
-    }
-
     public void PlayAudio( TypesAudio typesAudio)
     {
         _audioSource.clip = _clips[typesAudio];
-            if( _gameState.AudioData.GetValue(typesAudio))
+            if( _gameState.DataSetting.AudioData.GetValue(typesAudio))
             _audioSource.Play();
     }
 

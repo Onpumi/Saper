@@ -1,6 +1,6 @@
-using UnityEngine;
+using System;using UnityEngine;
 
-public abstract class SavingData<T> where T : new()
+public abstract class SavingData<T,T1> where T : new() where T1 : System.Enum
 {
     protected virtual string Key { get; set; }
     protected T _dataSetups;
@@ -10,6 +10,7 @@ public abstract class SavingData<T> where T : new()
     {
         _dataSetups = new T();
         _settings = new PlayerPrefSettings();
+
     }
     
     public T Load()
@@ -18,6 +19,7 @@ public abstract class SavingData<T> where T : new()
         if (_settings.Exists(Key))
         {
             _dataSetups = _settings.Load(Key, _dataSetups);
+            
         }
         else
         {
@@ -31,6 +33,12 @@ public abstract class SavingData<T> where T : new()
     {
         _settings.Save(Key,_dataSetups);
     }
+    
+    
+    //public bool GetValue( T1 typeData)
+    //{
+//        return _dataSetups.GetValue(typeData);
+//    }
     
  
 

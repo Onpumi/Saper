@@ -60,7 +60,6 @@ public class GameField : SerializedMonoBehaviour, IGameField
        private void CalculateScale()
     { 
          _needCountBricks = 140f;
-        //_needCountBricks = 30f;
         var screenArea = ScreenAdjusment.ResolutionCanvas.x * ScreenAdjusment.ResolutionCanvas.y;
         var spriteArea = SpriteData.Width * SpriteData.Height;
         var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));

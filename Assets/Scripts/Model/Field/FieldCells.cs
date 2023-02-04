@@ -16,6 +16,7 @@ public class FieldCells
     private int _countFlagTrue;
 
     private readonly ContainerMines _containerMines;
+    private int _percentMine = 15;
     public int CountCells { get; private set; }
     public bool IsFirstClick { get; private set; }
     public ICell[,] Cells => _cells;
@@ -30,7 +31,7 @@ public class FieldCells
         _countColumns = Mathf.RoundToInt( widthPerUnit.x );
         if (_countColumns > widthPerUnit.x) _countColumns--;
         _countRows = Mathf.RoundToInt(widthPerUnit.y);
-        var percentMine = 10;
+        
        // _countMines = _countColumns * _countRows * percentMine / 100;
         _cells = new ICell[_countColumns, _countRows];
         CountCells = _cells.Length;
@@ -59,7 +60,8 @@ public class FieldCells
 
     public void GenerateMines()
     {
-        _containerMines.GenerateMines();
+        var countCells = _countColumns * _countRows;
+        _containerMines.GenerateMines( _percentMine, countCells );
     }
    
     public void InitGrid()
@@ -117,7 +119,6 @@ public class FieldCells
             var index2 = cell.CellData.Index2;
             FindNeighbourEmptyCellsAndOpen(_cells, index1, index2);
             _gameField.Sounds.PlayAudio(TypesAudio.SoundEmpty);
-            //_gameField.Sounds.PlayAudio(SoundType.Click);
         }
         else if (cell.Value == -1)
         {

@@ -1,8 +1,8 @@
+using TMPro;
 using UnityEngine;
 
-public class AudioData : SavingData<AudioSetups>
+public class AudioData : SavingData<AudioSetups,TypesAudio>
 {
-    
     public AudioData( string key )
     {
         base.Key = key;
@@ -20,8 +20,9 @@ public class AudioData : SavingData<AudioSetups>
     }
 }
 
+
 [System.Serializable]
-public class AudioSetups
+public class AudioSetups 
 {
     public bool ClickCellOn;
     public bool ExplodeOn;

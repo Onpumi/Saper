@@ -10,7 +10,7 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     [SerializeField] private List<IUI> _ui;
     [SerializeField] private UIDatas _uiDatas;
     private Timer _timer;
-    public AudioData AudioData { get; private set; }   
+    public DataSetting DataSetting { get; private set;  }
     public GameField GameField => _gameField;
     public List<IUI> UI => _ui;
     public IGame Game { get; private set; }
@@ -20,9 +20,12 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void Init()
     {
         _timer = new Timer(_uiDatas.UITimer);
-        AudioData = new AudioData("AudioKey");
-        AudioData.Load();
+        DataSetting = new DataSetting();
     }
+
+
+
+    
 
     public void StopGame()
     {

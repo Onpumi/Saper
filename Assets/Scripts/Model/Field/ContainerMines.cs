@@ -17,8 +17,10 @@ public class ContainerMines
         _firstIndexes = firstIndexes;
     }
     
-    public void GenerateMines()
+    public void GenerateMines( int percentMine, int countCells )
     {
+        
+        MaxCountMines = countCells * percentMine / 100;    
 
         List<int>[] arrayIndexes = new List<int>[_cells.GetLength(1)];
         
