@@ -7,15 +7,15 @@ public class UIInputCheckScreen : UIInputCheck
     
     private void Start()
     {
-       IsCheckOn = GameState.DataSetting.ScreenData.GetValue(_typesScreen);
+       IsCheckOn = GameField.DataSetting.ScreenData.GetValue(_typesScreen);
        Display();
     }
     
     public override void OnPointerUp(PointerEventData eventData )
     {
         base.OnPointerUp(eventData);
-        GameState.DataSetting.ScreenData.SetupValue(_typesScreen,IsCheckOn);
-        GameState.DataSetting.SetScreen(_typesScreen, IsCheckOn);
+        GameField.DataSetting.ScreenData.SetupValue(_typesScreen,IsCheckOn);
+        GameField.DataSetting.SetScreen(_typesScreen, IsCheckOn);
     }
 
 

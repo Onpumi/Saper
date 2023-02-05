@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ContainerMines
 {
-    private int MaxCountMines = 20;
+    private int MaxCountMines;
+    private int _percentMine;
     private GameField _gameField;
     private ICell[,] _cells;
     private int[] _firstIndexes;
@@ -19,7 +21,8 @@ public class ContainerMines
     
     public void GenerateMines( int percentMine, int countCells )
     {
-        
+        percentMine = _gameField.PercentMine;
+        //Debug.Log(percentMine);
         MaxCountMines = countCells * percentMine / 100;    
 
         List<int>[] arrayIndexes = new List<int>[_cells.GetLength(1)];

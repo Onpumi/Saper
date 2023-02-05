@@ -5,12 +5,14 @@ using Sirenix.OdinInspector;
 
 public abstract class UIInputCheck : SerializedMonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private GameState _gameState;
+    //[SerializeField] private GameState _gameState;
+    [SerializeField] private GameField _gameField;
     [SerializeField] private Sprite _spriteCheckOn;
     [SerializeField] private Sprite _spriteCheckOff;
     private Image _image;
     protected bool IsCheckOn { get; set; }
-    protected GameState GameState => _gameState;
+    //protected GameState GameState => _gameState;
+    protected GameField GameField => _gameField;
 
     private void Awake()
     { 

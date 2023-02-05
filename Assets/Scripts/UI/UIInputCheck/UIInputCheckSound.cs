@@ -8,14 +8,14 @@ public class UIInputCheckSound : UIInputCheck
 
     private void Start()
     {
-        IsCheckOn = GameState.DataSetting.AudioData.GetValue(_typesAudio);
+        IsCheckOn = GameField.DataSetting.AudioData.GetValue(_typesAudio);
         Display();
     }
     
     public override void OnPointerUp(PointerEventData eventData )
     {
         base.OnPointerUp(eventData);
-        GameState.DataSetting.AudioData.SetupValue(_typesAudio,IsCheckOn);
+        GameField.DataSetting.AudioData.SetupValue(_typesAudio,IsCheckOn);
         
     }
 

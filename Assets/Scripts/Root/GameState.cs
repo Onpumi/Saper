@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,8 +9,7 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     [SerializeField] private List<IUI> _ui;
     [SerializeField] private UIDatas _uiDatas;
     private Timer _timer;
-    public DataSetting DataSetting { get; private set;  }
-    public GameField GameField => _gameField;
+    //public DataSetting DataSetting { get; private set;  }
     public List<IUI> UI => _ui;
     public IGame Game { get; private set; }
     
@@ -20,12 +18,8 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void Init()
     {
         _timer = new Timer(_uiDatas.UITimer);
-        DataSetting = new DataSetting();
+      //  DataSetting = new DataSetting();
     }
-
-
-
-    
 
     public void StopGame()
     {
@@ -52,20 +46,6 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
 
     public int GetTimeResult() => _timer.ResultTme;
 
-
-    private void Update()
-    {
-        /*
-        if (Input.GetAxis("Cancel") > 0 || Input.GetKey(KeyCode.Space))
-        {
-            if( Game is GameRunning) Application.Quit();
-            else if (Game is GameSettings)
-            {
-                Game = new GameRunning( _timer );
-            }
-        }
-        */
-    }
 
 
 }

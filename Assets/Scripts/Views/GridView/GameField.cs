@@ -1,8 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameField : SerializedMonoBehaviour, IGameField
 {
@@ -12,16 +11,19 @@ public class GameField : SerializedMonoBehaviour, IGameField
     [SerializeField] private Views _views;
     [SerializeField] private UICountMines _uiCountMines;
     [SerializeField] private GameState _gameState;
-    [SerializeField] private float _needCountBricks = 150f;
+    [SerializeField] private float _needCountBricks = 10f;
     [SerializeField] private float _scaleHeightGrid = 0.5f;
     [SerializeField] private Sounds _sounds;
     [SerializeField] private List<IUI> _notActiveListBeforeStartUI;
+    public int PercentMine { get; private set; }
+    public float NeedCountBricks => _needCountBricks;
+    public DataSetting DataSetting { get; private set;  }
     public UIDatas UIDatas => _uiDatas;
     public ICellView PrefabCellView { get; private set; }
     public IBrickView PrefabBrickView { get; private set; }
     public IMineView PrefabMineView { get; private set; }
     public IFlagView PrefabFlagView { get; private set; }
-    private float _scaleBrick = 1f;
+    public float ScaleBrick { get; private set; }
     private FieldCells _field;
     public ScreenAdjusment ScreenAdjusment { get; private set; }
     public SpriteData SpriteData { get; private set; }
@@ -36,6 +38,8 @@ public class GameField : SerializedMonoBehaviour, IGameField
     }
     public IGame Game { get; private set; }
 
+    
+    
 
     public void Init(ICellView cellView, IFlagView flagView, IMineView mineView, IBrickView brickView)
     {
@@ -46,24 +50,42 @@ public class GameField : SerializedMonoBehaviour, IGameField
         ScreenAdjusment = new ScreenAdjusment(transform);
         var width = PrefabCellView.GetWidth();
         var height = PrefabCellView.GetHeight();
-
         SpriteData = new SpriteData(width, height);
-        CalculateScale();
+        DataSetting = new DataSetting( this );
+        ScaleBrick = DataSetting.GameData.GetOptionValue(TypesOption.SizeCells);
+        SetPercentMine((TypesGame)DataSetting.GameData.GetDifficultValue());
+    }
+
+    public void SetPercentMine(TypesGame typesGame)
+    {
+        switch (typesGame)
+        {
+            case TypesGame.DifficultGame : PercentMine = 20;
+                break;
+            case TypesGame.MediumGame : PercentMine = 15;
+                break;
+            case TypesGame.EasyGame : PercentMine = 10;
+                break;
+                default:
+                    throw new ArgumentException("TypesGame is wrong value!");
+                    break;
+        }
     }
 
     private void Start()
     {
         Init( _views.CellView, _views.FlagView, _views.MineView, _views.BrickView );
-        _field = new FieldCells(this, _scaleBrick, _scaleHeightGrid);
+        _field = new FieldCells(this, ScaleBrick, _scaleHeightGrid);
     }
 
-       private void CalculateScale()
-    { 
-         _needCountBricks = 140f;
-        var screenArea = ScreenAdjusment.ResolutionCanvas.x * ScreenAdjusment.ResolutionCanvas.y;
-        var spriteArea = SpriteData.Width * SpriteData.Height;
-        var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));
-        _scaleBrick *= deltaScale;
+    public float CalculateScale()
+    {
+       var scaleBrick = 1f;
+       var screenArea = ScreenAdjusment.ResolutionCanvas.x * ScreenAdjusment.ResolutionCanvas.y;
+       var spriteArea = SpriteData.Width * SpriteData.Height;
+       var deltaScale = Mathf.Sqrt(screenArea / (_needCountBricks * spriteArea));
+       scaleBrick *= deltaScale;
+       return scaleBrick;
     }
     
     public Vector2 GetSizePerUnit( float scaleX, float scaleY )
@@ -89,7 +111,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
             }
         }
         
-        _field = new FieldCells(this,  _scaleBrick, _scaleHeightGrid);
+        _field = new FieldCells(this,  ScaleBrick, _scaleHeightGrid);
         _windowsWinner.Hide(); 
         _notActiveListBeforeStartUI.ForEach(ui => ui.Hide());
         

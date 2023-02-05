@@ -25,6 +25,7 @@ public class FieldCells
 
     public FieldCells( GameField gameField, float scaleBrick, float scaleHeightGrid )
     {
+        //scaleBrick = 1.7f;
         _gameField = gameField;
         IsFirstClick = true;
         var widthPerUnit = gameField.GetSizePerUnit(scaleBrick, scaleBrick / scaleHeightGrid);
@@ -41,6 +42,8 @@ public class FieldCells
         _spawnerField.CreateBlocks();
       //  CountFlags = _countMines;
     }
+
+    
 
     public void ConfirmFirstClick()
     {
