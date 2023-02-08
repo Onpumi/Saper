@@ -141,6 +141,9 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Data\GameSetups.cs" />
+     <Compile Include="Assets\Scripts\UI\WindowsSizeCells.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheck\UIInputCheckGame.cs" />
+     <Compile Include="Assets\Scripts\UI\UISliderSizeCells.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

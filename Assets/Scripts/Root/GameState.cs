@@ -9,7 +9,6 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     [SerializeField] private List<IUI> _ui;
     [SerializeField] private UIDatas _uiDatas;
     private Timer _timer;
-    //public DataSetting DataSetting { get; private set;  }
     public List<IUI> UI => _ui;
     public IGame Game { get; private set; }
     
@@ -18,7 +17,6 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
     public void Init()
     {
         _timer = new Timer(_uiDatas.UITimer);
-      //  DataSetting = new DataSetting();
     }
 
     public void StopGame()
@@ -43,6 +41,12 @@ public class GameState : SerializedMonoBehaviour, ICompositeRoot
 
         _ui.ForEach(ui=>ui.OpenMenuSettings());
     }
+
+    public void OpenMenuSizeCells()
+    {
+        _ui.ForEach(ui=>ui.OpenMenuSizeCells());
+    }
+    
 
     public int GetTimeResult() => _timer.ResultTme;
 

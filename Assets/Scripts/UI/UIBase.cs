@@ -6,7 +6,14 @@ public abstract class UIBase : SerializedMonoBehaviour, IUI
 
     public virtual void OpenMenuSettings() { }
 
-    public virtual void EnableForDisplay() => gameObject.SetActive(true);
+    public virtual void OpenMenuSizeCells()
+    {
+    }
+
+
+    public virtual void EnableForDisplay() => Open();
 
     public virtual void Hide() => gameObject.SetActive(false);
+
+    protected void Open() => gameObject.SetActive(true);
 }

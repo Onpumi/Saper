@@ -24,6 +24,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     public IMineView PrefabMineView { get; private set; }
     public IFlagView PrefabFlagView { get; private set; }
     public float ScaleBrick { get; private set; }
+    public float ScaleHeightGrid => _scaleHeightGrid;
     private FieldCells _field;
     public ScreenAdjusment ScreenAdjusment { get; private set; }
     public SpriteData SpriteData { get; private set; }

@@ -75,7 +75,6 @@ public class SpawnerField
               {
                 if (inputHandler.transform.TryGetComponent(out CellView cellView) == false) return;
                 _downAction = new FlagDownAction(_fieldCells, _containerMines);
-           //     if (_gameField.GameState.GameField.ButtonMode.Mode == ButtonMode.Flag)
                 if (_fieldCells.GameField.ButtonMode.Mode == ButtonMode.Flag)
                 {
                     _downAction = new DigDownAction(_fieldCells);

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -31,9 +29,6 @@ public class UIInputCheckComplexity: MonoBehaviour, IPointerDownHandler, IPointe
         
         _buttons[_gameField.DataSetting.GameData.GetDifficultValue()].SetActive(true); 
     }
-    
-    
-    
 
     private void SetupButtons()
     {
@@ -69,7 +64,6 @@ public class UIInputCheckComplexity: MonoBehaviour, IPointerDownHandler, IPointe
     
     public void OnPointerDown(PointerEventData eventData )
     {
-      
     }
 
     public void OnPointerUp(PointerEventData eventData)

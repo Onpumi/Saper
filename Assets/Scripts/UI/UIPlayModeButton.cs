@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UIPlayModeButton : MonoBehaviour, IUI
+public class UIPlayModeButton : UIBase
 {
     private void Awake()
     {

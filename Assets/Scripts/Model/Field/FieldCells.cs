@@ -25,22 +25,18 @@ public class FieldCells
 
     public FieldCells( GameField gameField, float scaleBrick, float scaleHeightGrid )
     {
-        //scaleBrick = 1.7f;
         _gameField = gameField;
         IsFirstClick = true;
         var widthPerUnit = gameField.GetSizePerUnit(scaleBrick, scaleBrick / scaleHeightGrid);
         _countColumns = Mathf.RoundToInt( widthPerUnit.x );
         if (_countColumns > widthPerUnit.x) _countColumns--;
         _countRows = Mathf.RoundToInt(widthPerUnit.y);
-        
-       // _countMines = _countColumns * _countRows * percentMine / 100;
         _cells = new ICell[_countColumns, _countRows];
         CountCells = _cells.Length;
         _firstIndexes = new int[2] { -1, -1 };
         _containerMines = new ContainerMines( this._gameField, _cells, _firstIndexes );
        _spawnerField = new SpawnerField(this, _containerMines, _cells, scaleBrick, _countColumns, _countRows);
         _spawnerField.CreateBlocks();
-      //  CountFlags = _countMines;
     }
 
     
