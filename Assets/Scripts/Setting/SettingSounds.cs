@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class SettingSounds<T>:ISettings
 {
     private Sounds _sounds;
@@ -31,3 +31,4 @@ public class SettingSounds<T>:ISettings
     }
     
 }
+*/

@@ -17,6 +17,7 @@ public class WindowSettings : UIBase
         transform.SetAsLastSibling();
     }
 
+  
     private void Update()
     {
         if (Input.GetAxis("Cancel") > 0)

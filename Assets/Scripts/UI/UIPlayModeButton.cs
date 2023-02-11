@@ -7,20 +7,17 @@ public class UIPlayModeButton : UIBase
         gameObject.SetActive(false);
     }
     
-    public void Lose(){}
+    
 
-    public void OpenMenuSettings()
+    public override void OpenMenuSettings()
     {
         gameObject.SetActive(false);
     }
 
-    public void EnableForDisplay()
-    {
-        
-    }
-    
+    /*    
     public void Hide()
     {
         gameObject.SetActive(false);
     }
+    */
 }

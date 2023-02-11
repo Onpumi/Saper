@@ -5,7 +5,7 @@ using TMPro;
 public class WindowsWinner : MonoBehaviour
 {
 
-    [SerializeField] private UIButtonPlay _buttonPlay;
+    //[SerializeField] private UIButtonPlay _buttonPlay;
     [SerializeField] private GameState _gameState;
     [SerializeField] private TMP_Text _text; 
     private int _timeResult;

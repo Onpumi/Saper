@@ -1,16 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UISliderSizeCells : UIBase
 {
 
-    private void Start() => Hide();
+    [SerializeField] private UIScalingBlocks _uiScalingBlocks;
+    private Slider _slider;
+    
+    private void Awake()
+    {
+        _slider = GetComponent<Slider>();
+        _slider.onValueChanged.AddListener(delegate { ChangeScaleBrick(); });
+    }
+    
+    
 
-    public override void OpenMenuSettings() => Hide();
+    public override void OpenMenuSizeCells()
+    {
+        _slider.value = _uiScalingBlocks.ScaleBricks;
+        Open();
+    }
 
-    public override void OpenMenuSizeCells() => Open();
-
-
+    private void ChangeScaleBrick()
+    {
+        _uiScalingBlocks.SetScale(_slider.value);
+        _uiScalingBlocks.Display();
+    }
 
 }

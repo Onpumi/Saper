@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IView.cs" />
      <Compile Include="Assets\Scripts\Root\GameState.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryMine.cs" />
+     <Compile Include="Assets\Scripts\UI\UIInputCheck\UIInputCheckGame.cs" />
      <Compile Include="Assets\Scripts\Views\FlagView.cs" />
      <Compile Include="Assets\Scripts\UI\UIScrollRect.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBrickView.cs" />
@@ -113,6 +114,8 @@
      <Compile Include="Assets\Scripts\Model\Actions\FlagDownAction.cs" />
      <Compile Include="Assets\Scripts\Data\AudioSetups.cs" />
      <Compile Include="Assets\Scripts\Data\IViews.cs" />
+     <Compile Include="Assets\Scripts\UI\UIScalingBlocks.cs" />
+     <Compile Include="Assets\Scripts\UI\UISliderSizeCells.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\CellData.cs" />
      <Compile Include="Assets\Scripts\UI\UIBackButton.cs" />
      <Compile Include="Assets\Scripts\Data\TypesGame.cs" />
@@ -141,9 +144,8 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Data\GameSetups.cs" />
-     <Compile Include="Assets\Scripts\UI\WindowsSizeCells.cs" />
-     <Compile Include="Assets\Scripts\UI\UIInputCheck\UIInputCheckGame.cs" />
-     <Compile Include="Assets\Scripts\UI\UISliderSizeCells.cs" />
+     <Compile Include="Assets\Scripts\UI\WindowScaleBricks.cs" />
+     <Compile Include="Assets\Scripts\UI\SavingButton.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

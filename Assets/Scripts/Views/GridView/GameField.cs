@@ -39,8 +39,6 @@ public class GameField : SerializedMonoBehaviour, IGameField
     }
     public IGame Game { get; private set; }
 
-    
-    
 
     public void Init(ICellView cellView, IFlagView flagView, IMineView mineView, IBrickView brickView)
     {
@@ -69,7 +67,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
                 break;
                 default:
                     throw new ArgumentException("TypesGame is wrong value!");
-                    break;
+                    
         }
     }
 
@@ -101,6 +99,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     {
         GameState.StopGame();
         GameState.ResetTimeView();
+        ScaleBrick = DataSetting.GameData.GetOptionValue(TypesOption.SizeCells);
         foreach (Transform cell in transform)
         {
             if (cell.TryGetComponent(out CellView cellview))

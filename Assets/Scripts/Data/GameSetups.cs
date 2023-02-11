@@ -56,7 +56,7 @@ public class GameSetups
             case TypesOption.SizeCells : return _scaleBricks;
             case TypesOption.GenerationMinesAfterFirstStep : return _generationMinesAfterFirstStepOn ? (1f) : (0f);
             default :
-                throw new ArgumentException("GetOptionValue is wrong!"); return 0f;
+                throw new ArgumentException("GetOptionValue is wrong!"); 
         }
     }
     
