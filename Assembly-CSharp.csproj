@@ -89,6 +89,7 @@
      <Compile Include="Assets\Scripts\Root\Game\GameStoping.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryGrid.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBoomView.cs" />
+     <Compile Include="Assets\Scripts\UI\WindowScaleBricks.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameRunning.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryMine.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\Cell.cs" />
@@ -123,6 +124,7 @@
      <Compile Include="Assets\Scripts\UI\WindowSettings.cs" />
      <Compile Include="Assets\Scripts\Data\TypesAudio.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCellView.cs" />
+     <Compile Include="Assets\Scripts\UI\SavingButton.cs" />
      <Compile Include="Assets\Scripts\UI\IButton.cs" />
      <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
      <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
@@ -144,8 +146,6 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Data\GameSetups.cs" />
-     <Compile Include="Assets\Scripts\UI\WindowScaleBricks.cs" />
-     <Compile Include="Assets\Scripts\UI\SavingButton.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
