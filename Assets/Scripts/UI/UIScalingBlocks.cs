@@ -13,7 +13,6 @@ public class UIScalingBlocks : UIBase
     private float _widthBrick;
     private float _heightBrick;
     private GridLayoutGroup _gridLayout;
-   // private void Start() => Open(false);
 
     public override void OpenMenuSizeCells() => Open(true);
 

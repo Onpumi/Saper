@@ -1,3 +1,5 @@
+using SaveData;
+
 public class ScreenData : SavingData<ScreenSetups>
 {
     public ScreenData( string key )
@@ -7,13 +9,13 @@ public class ScreenData : SavingData<ScreenSetups>
     
     public void SetupValue( TypesScreen typeScreen, bool value )
     {
-        _dataSetups.SetupValue(typeScreen, value);
+        DataSetups.SetupValue(typeScreen, value);
         Save();
     }
 
     public bool GetValue(TypesScreen typeScreen)
     {
-        return _dataSetups.GetValue(typeScreen);
+        return DataSetups.GetValue(typeScreen);
     }
 }
 

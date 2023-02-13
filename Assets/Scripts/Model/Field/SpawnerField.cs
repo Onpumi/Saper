@@ -25,7 +25,8 @@ public class SpawnerField
     public void CreateBlocks( )
     {
         _gameField = _fieldCells.GameField;
-        var camera = _gameField.CameraField ?? throw new NullReferenceException("Camera is null");;
+        var camera = _gameField.CameraField;
+        if (camera is null) throw new ArgumentException("Current camera is null");
         var resolutionCanvas = _gameField.ScreenAdjusment.ResolutionCanvas;
         var heightSprite = _gameField.SpriteData.Height * _scale;
         var widthSprite = _gameField.SpriteData.Width * _scale;
@@ -38,7 +39,7 @@ public class SpawnerField
         for (var j = 0; j < _countRows; j++)
         {
             var cellData = new CellData(i, j, _scale);
-            var factoryViewCell = new FactoryCellView( _gameField.PrefabCellView, _gameField.PrefabFlagView, _gameField.PrefabMineView,_gameField.PrefabBrickView, cellData, _gameField.transform );
+            var factoryViewCell = new FactoryCellView( _gameField.Views, cellData, _gameField.transform );
             var factoryCell = new FactoryCell(factoryViewCell, cellData );
             _cells[i, j] = factoryCell.Create();
             _cells[i, j].GetInputHandler().OnClickCell += ReadInputClick;
@@ -58,7 +59,7 @@ public class SpawnerField
 
            _downAction = new DigDownAction(_fieldCells);
 
-            if (_gameField.ButtonMode.Mode == ButtonMode.Flag)
+            if (_gameField.UIData.ControllerButtonMode.Mode == ButtonMode.Flag)
             {
                 _downAction = new FlagDownAction(_fieldCells, _containerMines);
             }
@@ -75,7 +76,7 @@ public class SpawnerField
               {
                 if (inputHandler.transform.TryGetComponent(out CellView cellView) == false) return;
                 _downAction = new FlagDownAction(_fieldCells, _containerMines);
-                if (_fieldCells.GameField.ButtonMode.Mode == ButtonMode.Flag)
+                if (_gameField.UIData.ControllerButtonMode.Mode == ButtonMode.Flag)
                 {
                     _downAction = new DigDownAction(_fieldCells);
                 }

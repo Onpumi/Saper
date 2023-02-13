@@ -5,11 +5,8 @@ using UnityEngine;
 
 public class GameField : SerializedMonoBehaviour, IGameField
 {
-    [SerializeField] private UIDatas _uiDatas;
-    [SerializeField] private ControllerButtonMode _buttonMode;
-    [SerializeField] private WindowsWinner _windowsWinner;
+    [SerializeField] private UIData _uiData;
     [SerializeField] private Views _views;
-    [SerializeField] private UICountMines _uiCountMines;
     [SerializeField] private GameState _gameState;
     [SerializeField] private float _needCountBricks = 10f;
     [SerializeField] private float _scaleHeightGrid = 0.5f;
@@ -18,37 +15,24 @@ public class GameField : SerializedMonoBehaviour, IGameField
     public int PercentMine { get; private set; }
     public float NeedCountBricks => _needCountBricks;
     public DataSetting DataSetting { get; private set;  }
-    public UIDatas UIDatas => _uiDatas;
-    public ICellView PrefabCellView { get; private set; }
-    public IBrickView PrefabBrickView { get; private set; }
-    public IMineView PrefabMineView { get; private set; }
-    public IFlagView PrefabFlagView { get; private set; }
+    public UIData UIData => _uiData;
+    public Views Views => _views;
     public float ScaleBrick { get; private set; }
     public float ScaleHeightGrid => _scaleHeightGrid;
     private FieldCells _field;
     public ScreenAdjusment ScreenAdjusment { get; private set; }
     public SpriteData SpriteData { get; private set; }
     public List<IUI> NotActiveListBeforeStartUI => _notActiveListBeforeStartUI;
-    public ControllerButtonMode ButtonMode => _buttonMode;
     public GameState GameState => _gameState;
     public Sounds Sounds => _sounds;
-
-    public Camera CameraField
-    {
-        get => Camera.main;
-    }
+    public Camera CameraField => Camera.main;
     public IGame Game { get; private set; }
 
-
-    public void Init(ICellView cellView, IFlagView flagView, IMineView mineView, IBrickView brickView)
+     private void Init( )
     {
-        PrefabCellView = cellView;
-        PrefabBrickView = brickView;
-        PrefabMineView = mineView;
-        PrefabFlagView = flagView;
         ScreenAdjusment = new ScreenAdjusment(transform);
-        var width = PrefabCellView.GetWidth();
-        var height = PrefabCellView.GetHeight();
+        var width = _views.CellView.GetWidth();
+        var height = _views.CellView.GetHeight();
         SpriteData = new SpriteData(width, height);
         DataSetting = new DataSetting( this );
         ScaleBrick = DataSetting.GameData.GetOptionValue(TypesOption.SizeCells);
@@ -73,7 +57,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
 
     private void Start()
     {
-        Init( _views.CellView, _views.FlagView, _views.MineView, _views.BrickView );
+        Init();
         _field = new FieldCells(this, ScaleBrick, _scaleHeightGrid);
     }
 
@@ -95,6 +79,15 @@ public class GameField : SerializedMonoBehaviour, IGameField
                                            resolutionCanvas.y / (refPixelsPerUnit * scaleY));
     }
 
+    public void SaveScaleValueBricks( TypesOption typeOption, UIScalingBlocks uiScalingBlocks )
+    {
+         if(typeOption == TypesOption.SizeCells)
+         {
+            DataSetting.GameData.SetupOptionValue(TypesOption.SizeCells, uiScalingBlocks.ScaleBricks);
+            ScaleBrick = DataSetting.GameData.GetOptionValue(TypesOption.SizeCells);
+         }
+    }
+
     public void ReloadField(  )
     {
         GameState.StopGame();
@@ -112,17 +105,16 @@ public class GameField : SerializedMonoBehaviour, IGameField
         }
         
         _field = new FieldCells(this,  ScaleBrick, _scaleHeightGrid);
-        _windowsWinner.Hide(); 
+        _uiData.WindowWinner.Hide();
         _notActiveListBeforeStartUI.ForEach(ui => ui.Hide());
-        
     }
 
-    public void ActivateWindowsWin() => _windowsWinner.Display();
+    public void ActivateWindowsWin() => _uiData.WindowWinner.Display();
     
 
     public void DisplayCountMines( int countMines )
     {
-        _uiCountMines.Display( countMines );
+        _uiData.UICountMines.Display( countMines );
     }
  
 

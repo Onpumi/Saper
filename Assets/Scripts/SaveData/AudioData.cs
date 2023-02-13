@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using SaveData;
 
 public class AudioData : SavingData<AudioSetups>
 {
@@ -10,13 +11,13 @@ public class AudioData : SavingData<AudioSetups>
     
     public void SetupValue( TypesAudio typesAudio, bool value )
     {
-        _dataSetups.SetupValue(typesAudio,value);
+        DataSetups.SetupValue(typesAudio,value);
         Save();
     }
 
     public bool GetValue(TypesAudio typesAudio)
     {
-        return _dataSetups.GetValue(typesAudio);
+        return DataSetups.GetValue(typesAudio);
     }
 }
 

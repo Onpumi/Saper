@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SavingButton : UIBase
+public class SavingScaleBricks : UIBase
 {
     [SerializeField] private WindowScaleBricks _windowScaleBricks;
     [SerializeField] private UIScalingBlocks _uiScalingBlocks;
@@ -20,7 +20,7 @@ public class SavingButton : UIBase
 
     private void OnClickButton()
     {
-        _gameField.DataSetting.GameData.SetupOptionValue(TypesOption.SizeCells, _uiScalingBlocks.ScaleBricks );
+        _gameField.SaveScaleValueBricks(TypesOption.SizeCells, _uiScalingBlocks);
         _windowScaleBricks.Hide();
     }
 }

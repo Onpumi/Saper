@@ -1,40 +1,33 @@
-using System;using UnityEngine;
 
-public abstract class SavingData<T> where T : new() 
+namespace SaveData
 {
-    protected virtual string Key { get; set; }
-    protected T _dataSetups;
-    private PlayerPrefSettings _settings;
-
-    public  SavingData( )
+    public abstract class SavingData<T> where T : new()
     {
-        _dataSetups = new T();
-        _settings = new PlayerPrefSettings();
+        protected virtual string Key { get; set; }
+        protected T DataSetups;
+        private readonly PlayerPrefSettings _settings;
 
-    }
-    
-    public T Load()
-    {
-      //  PlayerPrefs.DeleteAll();
-        if (_settings.Exists(Key))
+        protected SavingData()
         {
-            _dataSetups = _settings.Load(Key, _dataSetups);
-            
-        }
-        else
-        {
-            Save();
+            DataSetups = new T();
+            _settings = new PlayerPrefSettings();
         }
 
-        return _dataSetups;
+        public T Load()
+        {
+        
+            if (_settings.Exists(Key))
+                DataSetups = _settings.Load(Key, DataSetups);
+            else
+                Save();
+
+            return DataSetups;
+        }
+
+        protected void Save() => _settings.Save(Key, DataSetups);
+
+        public void DeleteAll() => UnityEngine.PlayerPrefs.DeleteAll();
+
     }
-    
-    public void Save()
-    {
-        _settings.Save(Key,_dataSetups);
-    }
-    
-  
- 
 
 }

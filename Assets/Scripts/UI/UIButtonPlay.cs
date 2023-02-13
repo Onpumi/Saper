@@ -40,12 +40,10 @@ public class UIButtonPlay : UIBase, IButton, IPointerDownHandler
     public override void EnableForDisplay()
     {
         SetTransparent(1f);
-      //gameObject.SetActive(true);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if (_gameState.Game.IsRun == false)
         if(_gameState.Game == null || (_gameState.Game is GameRunning) == false)
         {
             _gameState.StartGame();

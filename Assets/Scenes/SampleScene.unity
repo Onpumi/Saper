@@ -9406,6 +9406,9 @@ MonoBehaviour:
   _transformCanvas: {fileID: 2053542849}
   _gameField: {fileID: 2053542850}
   _uiTimer: {fileID: 152135118}
+  _buttonMode: {fileID: 1397672229}
+  _windowWinner: {fileID: 979322185}
+  _countMines: {fileID: 366950825}
 --- !u!114 &2038550280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9463,9 +9466,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _views: {fileID: 679129201}
   _gameField: {fileID: 2053542850}
-  _uiDatas: {fileID: 2038550279}
 --- !u!1 &2039946612
 GameObject:
   m_ObjectHideFlags: 0
@@ -9828,11 +9829,8 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _uiDatas: {fileID: 2038550279}
-  _buttonMode: {fileID: 1397672229}
-  _windowsWinner: {fileID: 979322185}
+  _uiData: {fileID: 2038550279}
   _views: {fileID: 679129201}
-  _uiCountMines: {fileID: 366950825}
   _gameState: {fileID: 2038550280}
   _needCountBricks: 140
   _scaleHeightGrid: 0.8

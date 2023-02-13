@@ -69,7 +69,7 @@
      <Compile Include="Assets\Scripts\Model\Flag\Flag.cs" />
      <Compile Include="Assets\Scripts\Root\EntyPoint.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCell.cs" />
-     <Compile Include="Assets\Scripts\UI\WindowsWinner.cs" />
+     <Compile Include="Assets\Scripts\UI\WindowWinner.cs" />
      <Compile Include="Assets\Scripts\SaveData\AudioData.cs" />
      <Compile Include="Assets\Scripts\UI\UIButtonPlay.cs" />
      <Compile Include="Assets\Scripts\Setting\SettingSounds.cs" />
@@ -85,7 +85,7 @@
      <Compile Include="Assets\Scripts\Data\DataSetting.cs" />
      <Compile Include="Assets\Scripts\UI\ButtonSettings.cs" />
      <Compile Include="Assets\Scripts\Model\Actions\DigDownAction.cs" />
-     <Compile Include="Assets\Scripts\Views\GridView\GameField.cs" />
+     <Compile Include="Assets\Scripts\Root\GameField.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameStoping.cs" />
      <Compile Include="Assets\Scripts\Factoriues\IFactoryGrid.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBoomView.cs" />
@@ -124,7 +124,7 @@
      <Compile Include="Assets\Scripts\UI\WindowSettings.cs" />
      <Compile Include="Assets\Scripts\Data\TypesAudio.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryCellView.cs" />
-     <Compile Include="Assets\Scripts\UI\SavingButton.cs" />
+     <Compile Include="Assets\Scripts\UI\SavingScaleBricks.cs" />
      <Compile Include="Assets\Scripts\UI\IButton.cs" />
      <Compile Include="Assets\AndroidAPI\Class\AndroidAPI.cs" />
      <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
@@ -139,7 +139,7 @@
      <Compile Include="Assets\Scripts\Factoriues\IFactoryCell.cs" />
      <Compile Include="Assets\Scripts\Views\BoomView.cs" />
      <Compile Include="Assets\Scripts\UI\UIInputCheck\UIInputCheckScreen.cs" />
-     <Compile Include="Assets\Scripts\Data\UIDatas.cs" />
+     <Compile Include="Assets\Scripts\Data\UIData.cs" />
      <Compile Include="Assets\Scripts\SaveData\ScreenData.cs" />
      <Compile Include="Assets\Scripts\Views\BrickView.cs" />
      <Compile Include="Assets\Scripts\Root\ICompositeRoot.cs" />

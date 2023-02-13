@@ -2,10 +2,9 @@ using System;
 using UnityEngine;
 using TMPro;
 
-public class WindowsWinner : MonoBehaviour
+public class WindowWinner : MonoBehaviour
 {
 
-    //[SerializeField] private UIButtonPlay _buttonPlay;
     [SerializeField] private GameState _gameState;
     [SerializeField] private TMP_Text _text; 
     private int _timeResult;
@@ -29,10 +28,10 @@ public class WindowsWinner : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
-        foreach (Transform child in transform.parent)
-        {
+        //foreach (Transform child in transform.parent)
+        //{
             // child.gameObject.SetActive(false);
-        }
+        //}
     }
         
     

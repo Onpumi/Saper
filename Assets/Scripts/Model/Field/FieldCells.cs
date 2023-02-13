@@ -45,7 +45,6 @@ public class FieldCells
     {
         IsFirstClick = false;
         _gameField.NotActiveListBeforeStartUI.ForEach( ui => ui.EnableForDisplay());
-        
     }
 
     public void Reset() => IsFirstClick = true;

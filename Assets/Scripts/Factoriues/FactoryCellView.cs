@@ -11,12 +11,12 @@ public class FactoryCellView  : IFactoryView<ICellView>
     private readonly Transform _parent;
     private readonly CellData _cellData;
 
-    public FactoryCellView(ICellView prefabCellView, IFlagView prefabFlagView, IMineView prefabMineView, IBrickView prefabBrickView, CellData cellData, Transform parent)
+    public FactoryCellView( Views views , CellData cellData, Transform parent)
     {
-        _prefabCellView = prefabCellView;
-        _prefabBrickView = prefabBrickView;
-        _prefabMineView = prefabMineView;
-        _prefabFlagView = prefabFlagView;
+        _prefabCellView = views.CellView;
+        _prefabBrickView = views.BrickView;
+        _prefabMineView = views.MineView;
+        _prefabFlagView = views.FlagView;
         _parent = parent;
         _cellData = cellData;
     }
