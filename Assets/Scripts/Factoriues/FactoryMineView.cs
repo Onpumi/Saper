@@ -10,16 +10,10 @@ public class FactoryMineView  : IFactoryView<MineView>
     {
         _prefabMineView = prefabMineView;
         _parent = parent;
-        
-        
     }
     public MineView Create()
     {
         MineView mine = Object.Instantiate(_prefabMineView, _parent);
-        //var img = _parent.GetComponent<UnityEngine.UI.Image>();
-        //Color color = img.color;
-        //color.a = 0.5f;
-        //img.color = color;
         mine.transform.localScale = Vector3.one;
         mine.transform.position = _parent.position;
         return mine;

@@ -87,11 +87,9 @@
      <Compile Include="Assets\Scripts\Model\Actions\DigDownAction.cs" />
      <Compile Include="Assets\Scripts\Root\GameField.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameStoping.cs" />
-     <Compile Include="Assets\Scripts\Factoriues\IFactoryGrid.cs" />
      <Compile Include="Assets\Scripts\Views\Interfaces\IBoomView.cs" />
      <Compile Include="Assets\Scripts\UI\WindowScaleBricks.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameRunning.cs" />
-     <Compile Include="Assets\Scripts\Factoriues\FactoryMine.cs" />
      <Compile Include="Assets\Scripts\Model\Cell\Cell.cs" />
      <Compile Include="Assets\Scripts\Factoriues\FactoryMineView.cs" />
      <Compile Include="Assets\Scripts\Model\Field\SpawnerField.cs" />
@@ -130,7 +128,6 @@
      <Compile Include="Assets\Scripts\UI\UISettingsButton.cs" />
      <Compile Include="Assets\Scripts\UI\UIInputCheck\UIInputCheck.cs" />
      <Compile Include="Assets\Scripts\UI\UIBase.cs" />
-     <Compile Include="Assets\Scripts\Model\Mine\CellMine.cs" />
      <Compile Include="Assets\Scripts\Model\Field\ContainerMines.cs" />
      <Compile Include="Assets\Scripts\Sounds\Sounds.cs" />
      <Compile Include="Assets\Scripts\Setting\ISettings.cs" />
@@ -146,6 +143,7 @@
      <Compile Include="Assets\Scripts\Views\Interfaces\IMineView.cs" />
      <Compile Include="Assets\Scripts\Root\Game\GameSettings.cs" />
      <Compile Include="Assets\Scripts\Data\GameSetups.cs" />
+     <Compile Include="Assets\Scripts\UI\ScalerRowMenu.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

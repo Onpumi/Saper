@@ -26,7 +26,7 @@ public class GameField : SerializedMonoBehaviour, IGameField
     public GameState GameState => _gameState;
     public Sounds Sounds => _sounds;
     public Camera CameraField => Camera.main;
-    public IGame Game { get; private set; }
+  //  public IGame Game { get; private set; }
 
      private void Init( )
     {

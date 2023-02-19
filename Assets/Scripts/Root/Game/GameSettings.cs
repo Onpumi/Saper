@@ -2,12 +2,9 @@ using UnityEngine;
 
 public class GameSettings : IGame
 {
-    public GameField GameField { get; private set;  }
-
-
-    public GameSettings(GameField gameField, Timer timer)
+    public GameSettings(GameState gameState, Timer timer)
     {
-        if (gameField.GameState.Game is GameRunning)
+        if ( gameState.Game is GameRunning )
         {
             timer.ToFreezeTime(true);
         }
