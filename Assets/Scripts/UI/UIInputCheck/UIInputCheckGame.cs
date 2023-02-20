@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIInputCheckGame : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+   public class UIInputCheckGame : UIInputCheck
 {
     [SerializeField] private GameState _gameState;
     [SerializeField] private TypesOption TypeOption;
@@ -12,9 +12,20 @@ public class UIInputCheckGame : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public override void OnPointerUp(PointerEventData eventData)
     {
-        _gameState.OpenMenuSizeCells();
+        if( TypeOption == TypesOption.SizeCells )
+          _gameState.OpenMenuSizeCells();
+        else if (TypeOption == TypesOption.Vibration)
+        {
+            base.OnPointerUp(eventData);
+           // GameField.DataSetting.ScreenData.SetupValue(_typesScreen,IsCheckOn);
+            //GameField.DataSetting.SetScreen(_typesScreen, IsCheckOn);
+        }
+        else if (TypeOption == TypesOption.GenerationMinesAfterFirstStep)
+        {
+            base.OnPointerUp(eventData);
+        }
     }
     
 }

@@ -26,6 +26,7 @@ public abstract class UIInputCheck : SerializedMonoBehaviour, IPointerDownHandle
     }
     protected void Display()
     {
-        _image.sprite = (IsCheckOn) ? (_spriteCheckOn) : (_spriteCheckOff);
+        if( _image != null )
+         _image.sprite = (IsCheckOn) ? (_spriteCheckOn) : (_spriteCheckOff);
     }
 }
